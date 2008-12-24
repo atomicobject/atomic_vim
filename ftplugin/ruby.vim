@@ -12,13 +12,13 @@
 " Atomic Stuff!!!!
 "
 "
-if !exists("g:ao_ruby_cmd")
-  let g:ao_ruby_cmd = "ruby"
-endif
-
-if has("unix")
-  noremap <Leader>r :w<CR>:!<C-R>=expand(g:ao_ruby_cmd)<CR> '%' 2>&1 \| tee ~/tmp/.rubyrun.out<CR>:sp ~/tmp/.rubyrun.out<CR><CR>
-endif
+" if !exists("g:ao_ruby_cmd")
+"   let g:ao_ruby_cmd = "ruby"
+" endif
+" 
+" if has("unix")
+"   noremap <Leader>r :w<CR>:!<C-R>=expand(g:ao_ruby_cmd)<CR> '%' 2>&1 \| tee ~/tmp/.rubyrun.out<CR>:sp ~/tmp/.rubyrun.out<CR><CR>
+" endif
 
 " Only do this when not done yet for this buffer
 if (exists("b:did_ftplugin"))

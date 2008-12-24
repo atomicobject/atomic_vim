@@ -23,6 +23,7 @@ set si
 :noremap <leader>a ^
 :noremap <leader>e A
 :noremap <leader>f :Ack 
+:noremap <leader>r :AORake<cr>
 
 set number
 set hlsearch
