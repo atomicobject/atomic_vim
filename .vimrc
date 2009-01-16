@@ -8,6 +8,8 @@ set nu
 set grepprg=ack
 set grepformat=%f:%l:%m
 
+
+set bs=2
 set softtabstop=2
 set shiftwidth=2
 set tabstop=2
@@ -17,8 +19,8 @@ set ai
 set si
 
 
-:noremap <leader>v :vsp^M^W^W<cr>
-:noremap <leader>h :split^M^W^W<cr>
+:noremap <leader>v :botright vs ^M^W^W<cr>
+:noremap <leader>h :sp ^M^W^W<cr>
 :noremap <leader>w /\(<c-r>=expand("<cword>")<cr>\)<CR>
 :noremap <leader>a ^
 :noremap <leader>e A
@@ -40,7 +42,11 @@ imap hh =>
 imap aa @
 imap its it "should
 
-autocmd FileType ruby,eruby set omnifunc=rubycomplete
+" autocmd FileType ruby,eruby set omnifunc=rubycomplete ai sw=2 sts=2 et
+if has("autocmd")
+  filetype indent on
+endif
+
 
 
 colorscheme vividchalk
@@ -50,7 +56,7 @@ filetype plugin on
 compiler ruby
 
 let g:fuzzy_ignore = "vendor*"
-let g:fuzzy_matching_limit = 70
+let g:fuzzy_matching_limit = 15
 map <leader>t :FuzzyFinderTextMate<CR>
 map <leader>b :FuzzyFinderBuffer<CR>
 
@@ -65,3 +71,7 @@ map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 map <leader>/ :TComment<Return>
 
+
+"gist
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
