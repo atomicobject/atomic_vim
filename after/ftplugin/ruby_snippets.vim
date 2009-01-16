@@ -6,15 +6,15 @@ let st = g:snip_start_tag
 let et = g:snip_end_tag
 let cd = g:snip_elem_delim
 
-exec "Snippet do do<CR>".st.et."<CR><BS>end<CR>"
-exec "Snippet class class ".st."className".et."<CR>".st.et."<CR>end<CR>".st.et
-exec "Snippet begin begin<CR>".st.et."<CR>rescue ".st."Exception".et." => ".st."e".et."<CR>".st.et."<CR>end<CR>".st.et
-exec "Snippet each_with_index0 each_with_index do |".st."element".et.", ".st."index".et."|<CR>".st."element".et.".".st.et."<CR>end<CR>".st.et
-exec "Snippet collect collect { |".st."element".et."| ".st."element".et.".".st.et." }<CR>".st.et
-exec "Snippet forin for ".st."element".et." in ".st."collection".et."<CR>".st."element".et.".".st.et."<CR>end<CR>".st.et
-exec "Snippet doo do |".st."object".et."|<CR>".st.et."<CR>end<CR>".st.et
+exec "Snippet do do<CR>".st.et."<CR><BS>end<CR><CR>"
+exec "Snippet class class ".st."className".et."<CR>".st.et."<CR>end<CR><CR>"
+exec "Snippet begin begin<CR>".st.et."<CR>rescue ".st."Exception".et." => ".st."e".et."<CR>".st.et."<CR>end<CR><CR>"
+exec "Snippet each_with_index0 each_with_index do |".st."element".et.", ".st."index".et."|<CR>".st."element".et.".".st.et."<CR>end<CR><CR>"
+exec "Snippet collect collect { |".st."element".et."| ".st."element".et.".".st.et." }<CR><CR>"
+exec "Snippet forin for ".st."element".et." in ".st."collection".et."<CR>".st."element".et.".".st.et."<CR>end<CR><CR>"
+exec "Snippet doo do |".st."object".et."|<CR>".st.et."<CR>end<CR>"
 exec "Snippet : :".st."key".et." => \"".st."value".et."\"".st.et
-exec "Snippet def def ".st.et."<CR>".st.et."<CR>end<CR>"
+exec "Snippet def def ".st.et."<CR>".st.et."<CR>end<CR><CR>"
 exec "Snippet case case ".st."object".et."<CR>when ".st."condition".et."<CR>".st.et."<CR>end<CR>".st.et
 exec "Snippet collecto collect do |".st."element".et."|<CR>".st."element".et.".".st.et."<CR>end<CR>".st.et
 exec "Snippet ea each { |".st."element".et."| ".st."element".et.".".st.et." }<CR>".st.et
@@ -37,7 +37,7 @@ exec "Snippet deb puts \"#{".st.et."}\"".st.et
 
 
 
-exec "Snippet it it \"".st."should".et.st.et"\" do<CR><TAB>".st.et."<CR><BS>end"
+exec "Snippet it it \"".st."should".et.st.et"\" do<CR>".st.et."<CR><BS>end"
 exec "Snippet bef before(".st.et.") do<CR><TAB>".st.et."<CR><BS>end"
 exec "Snippet desc describe \"".st.et."\" do<CR><TAB>".st.et."<CR><BS>end"
 
