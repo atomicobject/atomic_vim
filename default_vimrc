@@ -49,7 +49,7 @@ endif
 
 
 
-colorscheme koehler
+colorscheme vividchalk
 syntax on
 filetype on
 filetype plugin on
