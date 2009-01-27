@@ -59,6 +59,8 @@ let g:fuzzy_ignore = "vendor*"
 let g:fuzzy_matching_limit = 20
 map <leader>t :FuzzyFinderTextMate<CR>
 map <leader>b :FuzzyFinderBuffer<CR>
+map <leader>e :FuzzyFinderFile<CR>
+
 
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
