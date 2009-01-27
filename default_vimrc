@@ -37,10 +37,10 @@ set nowrap
 
 
 imap jj <Esc>
-imap uu _
-imap hh =>
-imap aa @
-imap its it "should
+"imap uu _
+"imap hh =>
+"imap aa @
+"imap its it "should
 
 " autocmd FileType ruby,eruby set omnifunc=rubycomplete ai sw=2 sts=2 et
 if has("autocmd")
