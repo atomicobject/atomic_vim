@@ -37,10 +37,10 @@ set nowrap
 
 
 imap jj <Esc>
-imap uu _
-imap hh =>
-imap aa @
-imap its it "should
+"imap uu _
+"imap hh =>
+"imap aa @
+"imap its it "should
 
 " autocmd FileType ruby,eruby set omnifunc=rubycomplete ai sw=2 sts=2 et
 if has("autocmd")
@@ -56,9 +56,11 @@ filetype plugin on
 compiler ruby
 
 let g:fuzzy_ignore = "vendor*"
-let g:fuzzy_matching_limit = 15
+let g:fuzzy_matching_limit = 20
 map <leader>t :FuzzyFinderTextMate<CR>
 map <leader>b :FuzzyFinderBuffer<CR>
+map <leader>e :FuzzyFinderFile<CR>
+
 
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 

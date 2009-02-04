@@ -14,7 +14,7 @@ let b:feature_dir = expand("%:p:h")
 let &l:path = fnamemodify(b:feature_dir, ':h').",".&l:path
 let b:undo_ftplugin = "setl path<"
 
-setlocal textwidth=72
+" setlocal textwidth=72
 setlocal expandtab
 setlocal shiftwidth=2
 setlocal tabstop=2
