@@ -21,11 +21,12 @@ set si
 
 :noremap <leader>v :botright vs ^M^W^W<cr>
 :noremap <leader>h :sp ^M^W^W<cr>
-:noremap <leader>w /\(<c-r>=expand("<cword>")<cr>\)<CR>
+:noremap <leader>w :Bclose<cr>
+:noremap <leader>q :bd<cr>
 :noremap <leader>a ^
 :noremap <leader>e A
 :noremap <leader>f :Ack 
-:noremap <leader>r :AORake<cr>
+:noremap <leader>r :AORubyRun<cr>
 
 set number
 set hlsearch
