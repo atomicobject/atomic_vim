@@ -7,8 +7,6 @@ set nocompatible
 set nu
 set grepprg=ack
 set grepformat=%f:%l:%m
-
-
 set bs=2
 set softtabstop=2
 set shiftwidth=2
@@ -17,7 +15,17 @@ set expandtab
 set sta
 set ai
 set si
+set number
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set nowrap
+set hidden
 
+cabbr W w 
+imap <F1> <ESC>
+imap <F2> <ESC>
 
 :noremap <leader>v :botright vs ^M^W^W<cr>
 :noremap <leader>h :sp ^M^W^W<cr>
@@ -28,13 +36,6 @@ set si
 :noremap <leader>f :Ack 
 :noremap <leader>r :AORubyRun<cr>
 
-set number
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-
-set nowrap
 
 
 imap jj <Esc>
