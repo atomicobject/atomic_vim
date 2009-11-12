@@ -22,6 +22,8 @@ set ignorecase
 set smartcase
 set nowrap
 set hidden
+set wildmode=longest,list,full
+set wildmenu
 
 cabbr W w 
 imap <F1> <ESC>
