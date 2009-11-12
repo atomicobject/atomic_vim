@@ -35,6 +35,7 @@ imap <F2> <ESC>
 :noremap <leader>e A
 :noremap <leader>f :Ack 
 :noremap <leader>r :AORubyRun<cr>
+:noremap <leader>c :!pbcopy<cr>u
 
 
 
@@ -57,7 +58,7 @@ filetype on
 filetype plugin on
 compiler ruby
 
-let g:fuzzy_ignore = "vendor*"
+let g:fuzzy_ignore = "vendor*,tools*"
 let g:fuzzy_matching_limit = 20
 map <leader>t :FuzzyFinderTextMate<CR>
 map <leader>b :FuzzyFinderBuffer<CR>
