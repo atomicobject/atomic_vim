@@ -32,8 +32,6 @@ imap <F2> <ESC>
 :noremap <leader>h :sp ^M^W^W<cr>
 :noremap <leader>w :Bclose<cr>
 :noremap <leader>q :bd<cr>
-:noremap <leader>a ^
-:noremap <leader>e A
 :noremap <leader>f :Ack 
 :noremap <leader>r :AORubyRun<cr>
 :noremap <leader>c :!pbcopy<cr>u
