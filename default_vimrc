@@ -2,7 +2,6 @@
 :set guioptions-=T
 let mapleader=","
 
-
 set nocompatible
 set nu
 set grepprg=ack
@@ -16,8 +15,8 @@ set sta
 set ai
 set si
 set number
-set hlsearch
 set incsearch
+set nohlsearch
 set ignorecase
 set smartcase
 set nowrap
