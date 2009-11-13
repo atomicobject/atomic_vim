@@ -70,6 +70,7 @@ call s:SetOptDefault("rails_statusline",1)
 call s:SetOptDefault("rails_syntax",1)
 call s:SetOptDefault("rails_mappings",1)
 call s:SetOptDefault("rails_abbreviations",1)
+call s:SetOptDefault("rails_ctags_arguments","--exclude=\"*.js\"")
 call s:SetOptDefault("rails_expensive",1)
 call s:SetOptDefault("rails_dbext",g:rails_expensive)
 call s:SetOptDefault("rails_default_file","README")
@@ -107,7 +108,7 @@ function! s:Detect(filename)
     return s:BufInit(strpart(fn,0,strlen(fn)-22))
   endif
   if isdirectory(fn)
-    let fn = fnamemodify(fn,":s?[\/]$??")
+    let fn = fnamemodify(fn,':s?[\/]$??')
   else
     let fn = fnamemodify(fn,':s?\(.*\)[\/][^\/]*$?\1?')
   endif
