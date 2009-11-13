@@ -3,7 +3,7 @@
 let mapleader=","
 
 set nocompatible
-set nu
+set number
 set grepprg=ack
 set grepformat=%f:%l:%m
 set bs=2
@@ -33,16 +33,8 @@ imap <F2> <ESC>
 :noremap <leader>w :Bclose<cr>
 :noremap <leader>q :bd<cr>
 :noremap <leader>f :Ack 
-:noremap <leader>r :AORubyRun<cr>
+:noremap <leader>r :RunFile<cr>
 :noremap <leader>c :!pbcopy<cr>u
-
-
-
-imap jj <Esc>
-"imap uu _
-"imap hh =>
-"imap aa @
-"imap its it "should
 
 " autocmd FileType ruby,eruby set omnifunc=rubycomplete ai sw=2 sts=2 et
 if has("autocmd")
@@ -53,7 +45,6 @@ endif
 if filereadable(".vim")
   source .vim
 endif
-
 
 colorscheme vividchalk
 syntax on
