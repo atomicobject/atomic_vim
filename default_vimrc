@@ -30,19 +30,39 @@ filetype on
 filetype plugin on
 compiler ruby
 
+" close the current buffer, doesn't close the window
 :noremap <leader>w :Bclose<cr>
+" close the current window, doesn't close the buffer
 :noremap <leader>q :close<cr>
-:noremap <leader>f :Ack 
-:noremap <leader>r :RunFile<cr>
-:noremap <leader>c :!pbcopy<cr>u
 
+" Find in cwd/"project"
+:noremap <leader>f :Ack 
+
+" Run the current file. Uses .vim/ruby/run_file.rb
+:noremap <leader>r :RunFile<cr>
+
+" Textmate CMD-t emulation
 let g:fuzzy_matching_limit = 20
 map <leader>t :FuzzyFinderTextMate<CR>
 map <leader>T :FuzzyFinderTextMateRefreshFiles<CR>:FuzzyFinderTextMate<CR>
+
+" bring up buffer list. ,,<CR> switches to last used buffer
 map <leader>, :FuzzyFinderBuffer<CR>
+
+" like browse to a file with a convenient ,t-like interface
 map <leader>e :FuzzyFinderFile<CR>
+
+" bring up nerdtree directory browser
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+
+" comment out a line
 map <leader>/ :TComment<Return>
+
+" paste from system clipboard on os x
+map <leader>v :set paste<CR>:r! pbpaste<CR>:set nopaste<CR>
+
+" used to set the clipboard buffer to system clipboard
+map <leader>c "*
 
 " autocmd FileType ruby,eruby set omnifunc=rubycomplete ai sw=2 sts=2 et
 if has("autocmd")
