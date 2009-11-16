@@ -58,9 +58,6 @@ map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 " comment out a line
 map <leader>/ :TComment<Return>
 
-" paste from system clipboard on os x
-map <leader>v :set paste<CR>:r! pbpaste<CR>:set nopaste<CR>
-
 " used to set the clipboard buffer to system clipboard
 map <leader>c "*
 
