@@ -1,3 +1,11 @@
+def exec_in_path(command, filename)
+  Pathname(File.dirname(filename)).ascend do |dir|
+    if File.executable? "#{dir}/#{command}"
+      exec "#{dir}/#{command} #{filename}"
+    end
+  end
+end
+
 if $0 == __FILE__
   filename = File.expand_path ARGV[0]
 
@@ -11,15 +19,15 @@ if $0 == __FILE__
   require 'pathname'
   case filename
   when /_spec\.rb$/
-    Pathname(File.dirname(filename)).ascend do |dir|
-      if File.executable? "#{dir}/script/spec"
-        exec "#{dir}/script/spec #{filename}"
-      end
-    end
+    exec_in_path "script/spec", filename
     exec "spec #{filename}"
 
   when /\.rb$/
     exec "ruby #{filename}"
+
+  when /\.feature$/
+    exec_in_path "script/cucumber", filename
+    exec "cucumber #{filename}"
 
   else
     puts "Couldn't figure out how to run #{filename}. Edit #{__FILE__}"

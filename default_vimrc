@@ -29,12 +29,9 @@ syntax on
 filetype on
 filetype plugin on
 compiler ruby
-cabbr W w 
 
-:noremap <leader>v :botright vs ^M^W^W<cr>
-:noremap <leader>h :sp ^M^W^W<cr>
 :noremap <leader>w :Bclose<cr>
-:noremap <leader>q :bd<cr>
+:noremap <leader>q :close<cr>
 :noremap <leader>f :Ack 
 :noremap <leader>r :RunFile<cr>
 :noremap <leader>c :!pbcopy<cr>u
