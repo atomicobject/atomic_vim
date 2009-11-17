@@ -42,7 +42,7 @@ compiler ruby
 :noremap <leader>r :RunFile<cr>
 
 " Textmate CMD-t emulation
-let g:fuzzy_matching_limit = 20
+let g:fuzzy_enumerating_limit = 20
 map <leader>t :FuzzyFinderTextMate<CR>
 map <leader>T :FuzzyFinderTextMateRefreshFiles<CR>:FuzzyFinderTextMate<CR>
 
