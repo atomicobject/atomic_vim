@@ -52,9 +52,6 @@ map <leader>, :FuzzyFinderBuffer<CR>
 " like browse to a file with a convenient ,t-like interface
 map <leader>e :FuzzyFinderFile<CR>
 
-" bring up nerdtree directory browser
-map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
-
 " comment out a line
 map <leader>/ :TComment<Return>
 
