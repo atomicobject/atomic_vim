@@ -33,7 +33,7 @@ compiler ruby
 " close the current buffer, doesn't close the window
 :noremap <leader>w :Bclose<cr>
 " close the current window, doesn't close the buffer
-:noremap <leader>q :close<cr>
+:noremap <leader>q :bd<cr>
 
 " Find in cwd/"project"
 :noremap <leader>f :Ack 
