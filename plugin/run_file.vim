@@ -1,23 +1,37 @@
-function! RunFile_Execify(command)
+function! RunFile_Execify(command, message)
   execute "botright sp"
   execute "enew"
   execute "res -10"
-  normal ggiRunning...
+  execute "normal ggi" . a:message
   execute "redraw!"
   normal ggdG
-  execute "r!" . a:command
+  if has("ruby")
+    ruby << EOF
+    i = 0
+    IO.popen(VIM.evaluate("a:command")) do |io|
+      while line = io.gets
+        $curbuf.append(i, line.chomp)
+        VIM.command("redraw")
+        i += 1
+      end
+    end
+EOF
+  echo "Done"
+  else
+    execute "r!" . a:command
+  endif
   execute "setlocal nomodified"
   execute "setlocal readonly"
   normal gg
 endfunction
 
-function! RunFile(args)
-  call RunFile_Execify("ruby ~/.vim/ruby/run_file.rb " . expand("%") . " 2>&1")
+function! RunFile()
+  call RunFile_Execify("ruby ~/.vim/ruby/run_file.rb " . expand("%") . " 2>&1", "Running " . expand("%") . "...")
 endfunction
 
-function! RunFileAtLine(args)
-  call RunFile_Execify("ruby ~/.vim/ruby/run_file_at_line.rb " . expand("%") . " " . line(".") . " 2>&1")
+function! RunFileAtLine()
+  call RunFile_Execify("ruby ~/.vim/ruby/run_file_at_line.rb " . expand("%") . " " . line(".") . " 2>&1", "Running " . expand("%") . " at line " . line(".") . "...")
 endfunction
 
-command! -nargs=0 -complete=file RunFile call RunFile(<q-args>)
-command! -nargs=0 -complete=file RunFileAtLine call RunFileAtLine(<q-args>)
+command! RunFile call RunFile()
+command! RunFileAtLine call RunFileAtLine()
