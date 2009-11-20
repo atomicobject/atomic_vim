@@ -18,7 +18,7 @@ EOF
     execute "r!" . a:command
   endif
   execute "setlocal nomodified"
-  execute "setlocal readonly"
+  execute "setlocal nomodifiable"
   echo "Done"
 endfunction
 
