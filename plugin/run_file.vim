@@ -7,15 +7,10 @@ function! RunFile_Execify(command, message)
   normal ggdG
   if has("ruby")
     ruby << EOF
-    i = 0
-    IO.popen(VIM.evaluate("a:command")) do |io|
-      begin
-        while output = io.readpartial(1000)
-          Vim.command "normal A" + output
-          VIM.command("redraw")
-          i += 1
-        end
-      rescue EOFError
+    IO.popen(Vim.evaluate("a:command")) do |io|
+      until io.eof?
+        Vim.command "normal A" + io.readpartial(1000)
+        Vim.command("redraw")
       end
     end
 EOF
