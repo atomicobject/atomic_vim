@@ -9,11 +9,13 @@ function! RunFile_Execify(command, message)
     ruby << EOF
     i = 0
     IO.popen(VIM.evaluate("a:command")) do |io|
-      while line = io.gets
-        $curbuf.append(i, line.chomp)
-        Vim.command "normal G"
-        VIM.command("redraw")
-        i += 1
+      begin
+        while output = io.readpartial(1000)
+          Vim.command "normal A" + output
+          VIM.command("redraw")
+          i += 1
+        end
+      rescue EOFError
       end
     end
 EOF
