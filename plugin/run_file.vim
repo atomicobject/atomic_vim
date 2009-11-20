@@ -11,18 +11,18 @@ function! RunFile_Execify(command, message)
     IO.popen(VIM.evaluate("a:command")) do |io|
       while line = io.gets
         $curbuf.append(i, line.chomp)
+        Vim.command "normal G"
         VIM.command("redraw")
         i += 1
       end
     end
 EOF
-  echo "Done"
   else
     execute "r!" . a:command
   endif
   execute "setlocal nomodified"
   execute "setlocal readonly"
-  normal gg
+  echo "Done"
 endfunction
 
 function! RunFile()
