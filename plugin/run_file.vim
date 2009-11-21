@@ -1,11 +1,12 @@
 function! RunFile_Execify(command, message)
-  execute "botright sp"
-  execute "enew"
-  execute "res -10"
+  execute "botright copen"
+  setlocal modifiable
+  normal ggdG
   execute "normal ggi" . a:message
   execute "redraw!"
   normal ggdG
   if has("ruby")
+    execute "setlocal paste"
     ruby << EOF
     IO.popen(Vim.evaluate("a:command")) do |io|
       until io.eof?
@@ -14,6 +15,7 @@ function! RunFile_Execify(command, message)
       end
     end
 EOF
+    execute "setlocal nopaste"
   else
     execute "r!" . a:command
   endif
