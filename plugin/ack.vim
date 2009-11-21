@@ -17,6 +17,21 @@ function! Ack(args)
     exec "redraw!"
 endfunction
 
+function! AckWithIgnore(args)
+    let grepprg_bak=&grepprg
+
+    if exists('g:ack_ignore')
+      exec "set grepprg=" . g:ackprg . "\\ " . join(map(copy(g:ack_ignore), '"--ignore-dir=" . v:val . ""'), "\\ ")
+    else
+      exec "set grepprg=" . g:ackprg
+    endif
+
+    execute "silent! grep " . a:args
+    botright copen
+    let &grepprg=grepprg_bak
+    exec "redraw!"
+endfunction
+
 function! AckAdd(args)
     let grepprg_bak=&grepprg
     exec "set grepprg=" . g:ackprg
@@ -45,6 +60,7 @@ function! LAckAdd(args)
 endfunction
 
 command! -nargs=* -complete=file Ack call Ack(<q-args>)
+command! -nargs=* -complete=file AckWithIgnore call AckWithIgnore(<q-args>)
 command! -nargs=* -complete=file AckAdd call AckAdd(<q-args>)
 command! -nargs=* -complete=file LAck call LAck(<q-args>)
 command! -nargs=* -complete=file LAckAdd call LAckAdd(<q-args>)

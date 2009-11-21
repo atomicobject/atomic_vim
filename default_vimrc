@@ -37,7 +37,7 @@ compiler ruby
 :noremap <leader>Q :close<cr>
 
 " Find in cwd/"project"
-:noremap <leader>f :Ack 
+:noremap <leader>f :AckWithIgnore 
 
 " Run the current file. Uses .vim/ruby/run_file.rb
 :noremap <leader>r :RunFile<cr>:redraw!<cr>
@@ -66,11 +66,23 @@ if has("autocmd")
   filetype indent on
 endif
 
+let g:vim_ignore = ["vendor", "log"]
+
+"gist
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+
 " load .vim in the current directory if it exists
 if filereadable(".vim")
   source .vim
 endif
 
-"gist
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filetype = 1
+if exists('g:vim_ignore')
+  if !exists('g:fuzzy_ignore')
+    let g:fuzzy_ignore=join(map(copy(g:vim_ignore), 'v:val . "/**"'), ",")
+  endif
+
+  if !exists('g:ack_ignore')
+    let g:ack_ignore=copy(g:vim_ignore)
+  endif
+endif
