@@ -23,7 +23,7 @@ command! FuzzyFinderTextMateRefreshFiles ruby refresh_finder
 function! InstantiateTextMateMode() "{{{
 ruby << RUBY
   begin
-    require "#{ENV['HOME']}/.vim/ruby/fuzzy_file_finder"
+    require "#{ENV['HOME']}/.vim/tools/fuzzy_file_finder"
   rescue LoadError
     begin
       require 'rubygems'

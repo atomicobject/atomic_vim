@@ -25,11 +25,11 @@ EOF
 endfunction
 
 function! RunFile()
-  call RunFile_Execify("ruby ~/.vim/ruby/run_file.rb " . expand("%") . " 2>&1", "Running " . expand("%") . "...")
+  call RunFile_Execify("ruby ~/.vim/tools/run_file.rb " . expand("%") . " 2>&1", "Running " . expand("%") . "...")
 endfunction
 
 function! RunFileAtLine()
-  call RunFile_Execify("ruby ~/.vim/ruby/run_file_at_line.rb " . expand("%") . " " . line(".") . " 2>&1", "Running " . expand("%") . " at line " . line(".") . "...")
+  call RunFile_Execify("ruby ~/.vim/tools/run_file_at_line.rb " . expand("%") . " " . line(".") . " 2>&1", "Running " . expand("%") . " at line " . line(".") . "...")
 endfunction
 
 command! RunFile call RunFile()
