@@ -1,15 +1,23 @@
-function! RunFile_Execify(command, message)
+function! Run(command, ...)
+  let command = a:command . " 2>&1"
   execute "botright copen"
+  setlocal wrap
   setlocal modifiable
   normal ggdG
-  execute "normal ggi" . a:message
+
+  if a:0 > 0
+    execute "normal ggi" . a:1
+  else
+    execute "normal ggiRunning " . a:command . "..."
+  end
+
   execute "redraw!"
   normal ggdG
   if has("ruby")
     execute "setlocal paste"
     ruby << EOF
-    IO.popen(Vim.evaluate("a:command")) do |io|
-      until io.eof?
+    IO.popen(Vim.evaluate("command")) do |io|
+      while !io.eof?
         Vim.command "normal A" + io.readpartial(1000)
         Vim.command("redraw")
       end
@@ -25,12 +33,13 @@ EOF
 endfunction
 
 function! RunFile()
-  call RunFile_Execify("ruby ~/.vim/tools/run_file.rb " . expand("%") . " 2>&1", "Running " . expand("%") . "...")
+  call Run("ruby ~/.vim/tools/run_file.rb " . expand("%"), "Running " . expand("%") . "...")
 endfunction
 
 function! RunFileAtLine()
-  call RunFile_Execify("ruby ~/.vim/tools/run_file_at_line.rb " . expand("%") . " " . line(".") . " 2>&1", "Running " . expand("%") . " at line " . line(".") . "...")
+  call Run("ruby ~/.vim/tools/run_file_at_line.rb " . expand("%") . " " . line("."), "Running " . expand("%") . " at line " . line(".") . "...")
 endfunction
 
-command! RunFile call RunFile()
-command! RunFileAtLine call RunFileAtLine()
+command! -nargs=* -complete=file Run call Run(<q-args>)|redraw!
+command! RunFile call RunFile()|redraw!
+command! RunFileAtLine call RunFileAtLine()|redraw!
