@@ -1,6 +1,6 @@
 function! Run(command, ...)
   let command = a:command . " 2>&1"
-  execute "botright copen"
+  botright copen
   setlocal wrap
   setlocal modifiable
   normal ggdG
@@ -23,12 +23,12 @@ function! Run(command, ...)
       end
     end
 EOF
-    execute "setlocal nopaste"
+    setlocal nopaste
   else
     execute "r!" . a:command
   endif
-  execute "setlocal nomodified"
-  execute "setlocal nomodifiable"
+  setlocal nomodified
+  setlocal nomodifiable
   echo "Done"
 endfunction
 

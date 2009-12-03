@@ -30,18 +30,25 @@ filetype on
 filetype plugin on
 compiler ruby
 
+cabbr W w
+cabbr Q q
+
+" Fix typos
+map <F1> <Esc>
+imap <F1> <Esc>
+
 " close the current buffer, doesn't close the window
-:noremap <leader>w :Bclose<cr>
+noremap <leader>w :Bclose<cr>
 " close the current window, doesn't close the buffer
-:noremap <leader>q :bd<cr>
-:noremap <leader>Q :close<cr>
+noremap <leader>q :bd<cr>
+noremap <leader>Q :close<cr>
 
 " Find in cwd/"project"
-:noremap <leader>f :AckWithIgnore 
+noremap <leader>f :AckWithIgnore 
 
 " Run the current file. Uses .vim/ruby/run_file.rb
-:noremap <leader>r :RunFile<cr>:redraw!<cr>
-:noremap <leader>R :RunFileAtLine<cr>:redraw!<cr>
+noremap <leader>r :RunFile<cr>:redraw!<cr>
+noremap <leader>R :RunFileAtLine<cr>:redraw!<cr>
 
 " Textmate CMD-t emulation
 let g:fuzzy_enumerating_limit = 20
