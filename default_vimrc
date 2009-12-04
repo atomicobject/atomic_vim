@@ -48,8 +48,8 @@ noremap <leader>f :AckWithIgnore ''<Left>
 noremap <leader>F :AckWithIgnore 
 
 " Run the current file. Uses .vim/ruby/run_file.rb
-noremap <leader>r :RunFile<cr>:redraw!<cr>
-noremap <leader>R :RunFileAtLine<cr>:redraw!<cr>
+noremap <leader>r :RunFile<cr>
+noremap <leader>R :RunFileAtLine<cr>
 
 " Textmate CMD-t emulation
 let g:fuzzy_enumerating_limit = 20

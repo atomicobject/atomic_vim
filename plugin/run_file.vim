@@ -1,5 +1,4 @@
 function! Run(command, ...)
-  let command = a:command . " 2>&1"
   botright copen
   setlocal wrap
   setlocal modifiable
@@ -16,12 +15,45 @@ function! Run(command, ...)
   if has("ruby")
     execute "setlocal paste"
     ruby << EOF
-    IO.popen(Vim.evaluate("command")) do |io|
-      while !io.eof?
-        Vim.command "normal A" + io.readpartial(1000)
+    cmd = Vim.evaluate("a:command")
+    run_file = "/tmp/vim_run_#{Process.pid}_#{Time.now.to_i}"
+
+    require 'fileutils'
+    FileUtils.rm run_file if File.exist? run_file
+
+    pid_read, pid_write = IO.pipe
+
+    fork {
+      fork {
+        pid_read.close
+        pid_write.puts(Process.pid)
+        pid_write.close
+        Process.setsid
+        File.umask(0)
+        IO.for_fd(0).close
+        (3..1024).each {|i| IO.for_fd(i).close rescue nil }
+        exec cmd + " >#{run_file} 2>&1"
+      }
+      exit(0)
+    }
+
+    pid_write.close
+    child_process = pid_read.read.to_i
+    pid_read.close
+
+    sleep 0.1 until File.exist?(run_file)
+
+    io = File.open run_file, "r"
+    until `ps aux`.grep(/\b#{child_process}\b/).empty? && io.eof?
+      text = io.readpartial(1000) rescue nil
+      if text
+        Vim.command "normal A" + text 
         Vim.command("redraw")
       end
+      sleep 0.25
     end
+
+    FileUtils.rm run_file
 EOF
     setlocal nopaste
   else
