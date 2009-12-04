@@ -418,3 +418,11 @@ snippet tas
 	task :${2:task_name => [:dependent, :tasks]} do
 		${3}
 	end
+snippet desc
+	describe "${1:description}" do
+		${2}
+	end
+snippet it
+	it "${1}" do
+		${2:pending}
+	end
