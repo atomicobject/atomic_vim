@@ -49,8 +49,9 @@ function! Run(command, ...)
       if text
         Vim.command "normal A" + text 
         Vim.command("redraw")
+      else
+        sleep 0.25
       end
-      sleep 0.25
     end
 
     FileUtils.rm run_file
