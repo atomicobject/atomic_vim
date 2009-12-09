@@ -54,7 +54,7 @@ noremap <leader>R :RunFileAtLine<cr>
 " Textmate CMD-t emulation
 map <leader>t :FufTaggedFile<CR>
 map <leader>T :FufTag<CR>
-map <leader><C-t> :RegenTags<CR>
+map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>
 
 " bring up buffer list. ,,<CR> switches to last used buffer
 map <leader>, :FufBuffer<CR>
