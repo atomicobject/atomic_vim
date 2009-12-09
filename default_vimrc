@@ -31,10 +31,9 @@ filetype on
 filetype plugin on
 compiler ruby
 
+" Fix typos
 cabbr W w
 cabbr Q q
-
-" Fix typos
 map <F1> <Esc>
 imap <F1> <Esc>
 
