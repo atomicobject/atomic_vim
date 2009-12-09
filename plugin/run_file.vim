@@ -72,6 +72,6 @@ function! RunFileAtLine()
   call Run("ruby ~/.vim/tools/run_file_at_line.rb " . expand("%") . " " . line("."), "Running " . expand("%") . " at line " . line(".") . "...")
 endfunction
 
-command! -nargs=* -complete=file Run call Run(<q-args>)|redraw!
-command! RunFile call RunFile()|redraw!
-command! RunFileAtLine call RunFileAtLine()|redraw!
+command! -nargs=* -complete=file Run call Run(<q-args>)
+command! RunFile call RunFile()
+command! RunFileAtLine call RunFileAtLine()
