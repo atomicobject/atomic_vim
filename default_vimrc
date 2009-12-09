@@ -4,6 +4,7 @@ let mapleader=","
 
 set autoindent
 set bs=2
+set clipboard=unnamed
 set expandtab
 set grepformat=%f:%l:%m
 set grepprg=ack
