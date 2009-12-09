@@ -3,6 +3,7 @@ function! Run(command, ...)
   setlocal wrap
   setlocal modifiable
   normal ggdG
+  :resize 20
 
   if a:0 > 0
     execute "normal ggi" . a:1

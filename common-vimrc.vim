@@ -80,7 +80,7 @@ endif
 " folders that should be ignored
 let g:vim_ignore = ["vendor", "log"]
 " extensions that should be included in tag files
-let g:taggable_extensions = ['rb', 'feature', 'js', 'java']
+let g:taggable_extensions = ['rb', 'feature', 'js', 'java', 'haml', 'erb']
 
 " load .vim in the current directory if it exists
 if filereadable(".vim")
