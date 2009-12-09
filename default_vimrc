@@ -74,12 +74,12 @@ if has("autocmd")
   filetype indent on
 endif
 
+" global variables that can be overridden or appended to in .vim in the cwd to
+" customize stuff
+
+" folders that should be ignored
 let g:vim_ignore = ["vendor", "log"]
-
-"gist
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filetype = 1
-
+" extensions that should be included in tag files
 let g:taggable_extensions = ['rb', 'feature', 'js', 'java']
 
 " load .vim in the current directory if it exists
