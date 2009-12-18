@@ -5,6 +5,7 @@ let mapleader=","
 set autoindent
 set bs=2
 set clipboard=unnamed
+set completeopt=longest,menuone
 set expandtab
 set grepformat=%f:%l:%m
 set grepprg=ack
@@ -52,9 +53,11 @@ noremap <leader>r :RunFile<cr>
 noremap <leader>R :RunFileAtLine<cr>
 
 " Textmate CMD-t emulation
+let g:fuf_enumeratingLimit = 25
 map <leader>t :FufTaggedFile<CR>
 map <leader>T :FufTag<CR>
 map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>
+map <leader>l :FufLine<CR>
 
 " bring up buffer list. ,,<CR> switches to last used buffer
 map <leader>, :FufBuffer<CR>
@@ -97,3 +100,6 @@ if exists('g:vim_ignore')
   endif
 endif
 
+" clojure configuration
+let clj_highlight_builtins = 1
+let clj_paren_rainbow = 1
