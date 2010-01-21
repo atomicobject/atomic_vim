@@ -1,5 +1,6 @@
 require 'set'
 require 'find'
+require 'fileutils'
 
 tag_file = "tags"
 extensions = ARGV[0]
@@ -9,6 +10,7 @@ exclude_regexp = /^\..*\/\.|\b(#{excludes})\b/
 
 puts "Generating tags..."
 system %(find . | egrep '\.(#{extensions})$' | egrep -v '\\b(#{excludes})\\b' | xargs ctags -f #{tag_file})
+FileUtils.touch tag_file
 
 puts "Adding missing files..."
 included = Set.new
