@@ -9,16 +9,6 @@
 " Original matchit support thanks to Ned Konz.  See his ftplugin/ruby.vim at
 "   http://bike-nomad.com/vim/ruby.vim.
 " ----------------------------------------------------------------------------
-" Atomic Stuff!!!!
-"
-"
-" if !exists("g:ao_ruby_cmd")
-"   let g:ao_ruby_cmd = "ruby"
-" endif
-" 
-" if has("unix")
-"   noremap <Leader>r :w<CR>:!<C-R>=expand(g:ao_ruby_cmd)<CR> '%' 2>&1 \| tee ~/tmp/.rubyrun.out<CR>:sp ~/tmp/.rubyrun.out<CR><CR>
-" endif
 
 " Only do this when not done yet for this buffer
 if (exists("b:did_ftplugin"))
@@ -78,26 +68,28 @@ endif
 setlocal comments=:#
 setlocal commentstring=#\ %s
 
-if !exists("s:rubypath")
-  if has("ruby") && has("win32")
-    ruby VIM::command( 'let s:rubypath = "%s"' % ($: + begin; require %q{rubygems}; Gem.all_load_paths.sort.uniq; rescue LoadError; []; end).join(%q{,}) )
-    let s:rubypath = '.,' . substitute(s:rubypath, '\%(^\|,\)\.\%(,\|$\)', ',,', '')
+if !exists("s:ruby_path")
+  if exists("g:ruby_path")
+    let s:ruby_path = g:ruby_path
+  elseif has("ruby") && has("win32")
+    ruby VIM::command( 'let s:ruby_path = "%s"' % ($: + begin; require %q{rubygems}; Gem.all_load_paths.sort.uniq; rescue LoadError; []; end).join(%q{,}) )
+    let s:ruby_path = '.,' . substitute(s:ruby_path, '\%(^\|,\)\.\%(,\|$\)', ',,', '')
   elseif executable("ruby")
     let s:code = "print ($: + begin; require %q{rubygems}; Gem.all_load_paths.sort.uniq; rescue LoadError; []; end).join(%q{,})"
     if &shellxquote == "'"
-      let s:rubypath = system('ruby -e "' . s:code . '"')
+      let s:ruby_path = system('ruby -e "' . s:code . '"')
     else
-      let s:rubypath = system("ruby -e '" . s:code . "'")
+      let s:ruby_path = system("ruby -e '" . s:code . "'")
     endif
-    let s:rubypath = '.,' . substitute(s:rubypath, '\%(^\|,\)\.\%(,\|$\)', ',,', '')
+    let s:ruby_path = '.,' . substitute(s:ruby_path, '\%(^\|,\)\.\%(,\|$\)', ',,', '')
   else
     " If we can't call ruby to get its path, just default to using the
     " current directory and the directory of the current file.
-    let s:rubypath = ".,,"
+    let s:ruby_path = ".,,"
   endif
 endif
 
-let &l:path = s:rubypath
+let &l:path = s:ruby_path
 
 if has("gui_win32") && !exists("b:browsefilter")
   let b:browsefilter = "Ruby Source Files (*.rb)\t*.rb\n" .
@@ -133,10 +125,13 @@ if !exists("g:no_plugin_maps") && !exists("g:no_ruby_maps")
     nnoremap <silent> <buffer> <C-W><C-]>  :<C-U>exe v:count1."stag <C-R>=RubyCursorIdentifier()<CR>"<CR>
     nnoremap <silent> <buffer> <C-W>g<C-]> :<C-U>exe        "stjump <C-R>=RubyCursorIdentifier()<CR>"<CR>
     nnoremap <silent> <buffer> <C-W>g]     :<C-U>exe      "stselect <C-R>=RubyCursorIdentifier()<CR>"<CR>
+    nnoremap <silent> <buffer> <C-W>}      :<C-U>exe          "ptag <C-R>=RubyCursorIdentifier()<CR>"<CR>
+    nnoremap <silent> <buffer> <C-W>g}     :<C-U>exe        "ptjump <C-R>=RubyCursorIdentifier()<CR>"<CR>
     let b:undo_ftplugin = b:undo_ftplugin
           \."| sil! exe 'nunmap <buffer> <C-]>'| sil! exe 'nunmap <buffer> g<C-]>'| sil! exe 'nunmap <buffer> g]'"
           \."| sil! exe 'nunmap <buffer> <C-W>]'| sil! exe 'nunmap <buffer> <C-W><C-]>'"
           \."| sil! exe 'nunmap <buffer> <C-W>g<C-]>'| sil! exe 'nunmap <buffer> <C-W>g]'"
+          \."| sil! exe 'nunmap <buffer> <C-W>}'| sil! exe 'nunmap <buffer> <C-W>g}'"
   endif
 endif
 

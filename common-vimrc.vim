@@ -40,8 +40,9 @@ imap <F1> <Esc>
 
 " close the current buffer, doesn't close the window
 noremap <leader>w :Bclose<cr>
-" close the current window, doesn't close the buffer
+" close the current window and buffer
 noremap <leader>q :bd<cr>
+" close the current window, doesn't close the buffer
 noremap <leader>Q :close<cr>
 
 " Find in cwd/"project"
@@ -71,6 +72,9 @@ map <leader>/ :TComment<Return>
 " used to set the clipboard buffer to system clipboard. example use: ,cp to
 " paste from clipboard
 map <leader>c "*
+
+" self explanatory
+map <leader>d :redraw!<CR>
 
 " autocmd FileType ruby,eruby set omnifunc=rubycomplete ai sw=2 sts=2 et
 if has("autocmd")
