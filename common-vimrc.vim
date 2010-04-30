@@ -1,3 +1,6 @@
+" Load all plugins in bundles
+call pathogen#runtime_append_all_bundles() 
+
 :set guifont=Monaco:h12
 :set guioptions-=T
 let mapleader=","
@@ -18,18 +21,18 @@ set nowrap
 set number
 set ruler
 set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set smartcase
 set smartindent
 set smarttab
-set softtabstop=2
-set tabstop=2
 set wildmenu
 set wildmode=longest,list,full
 
 colorscheme vividchalk
 syntax on
 filetype on
-filetype plugin on
+filetype plugin indent on
 compiler ruby
 
 " Fix typos
@@ -87,7 +90,7 @@ endif
 " folders that should be ignored
 let g:vim_ignore = ["vendor", "log"]
 " extensions that should be included in tag files
-let g:taggable_extensions = ['rb', 'feature', 'js', 'java', 'haml', 'erb', 'css', 'yml', 'yaml', 'thor', 'sass']
+let g:taggable_extensions = ['rb', 'feature', 'js', 'java', 'haml', 'erb', 'css', 'yml', 'yaml', 'thor', 'sass', 'php', 'coffee']
 
 " load .vim in the current directory if it exists
 if filereadable(".vim")
