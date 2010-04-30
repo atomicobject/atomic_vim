@@ -88,7 +88,7 @@ endif
 " customize stuff
 
 " folders that should be ignored
-let g:vim_ignore = ["vendor", "log"]
+let g:vim_ignore = ["vendor", "log", "tools"]
 " extensions that should be included in tag files
 let g:taggable_extensions = ['rb', 'feature', 'js', 'java', 'haml', 'erb', 'css', 'yml', 'yaml', 'thor', 'sass', 'php', 'coffee']
 
