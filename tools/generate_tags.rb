@@ -29,7 +29,8 @@ File.open tag_file, "a" do |io|
         Find.prune 
       end
     else
-      io.puts %(#{path[2..-1]}\t#{path}\t//;"\tf) if path =~ extension_regexp && !included.include?(path)
+      path = path[2..-1] if path =~ %{^\./}
+      io.puts %(#{path}\t#{path}\t//;"\tf) if path =~ extension_regexp && !included.include?(path)
     end
   end
 end
