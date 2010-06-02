@@ -76,8 +76,14 @@ map <leader>/ :TComment<Return>
 " paste from clipboard
 map <leader>c "*
 
-" self explanatory
+" Redraw screen
 map <leader>d :redraw!<CR>
+
+" Window split vertical
+noremap <leader>v :vsplit<CR>
+
+" Remove all window splits
+noremap <leader>o :only<CR>
 
 " autocmd FileType ruby,eruby set omnifunc=rubycomplete ai sw=2 sts=2 et
 if has("autocmd")
