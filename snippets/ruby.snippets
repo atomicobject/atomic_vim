@@ -426,3 +426,7 @@ snippet it
 	it "${1}" do
 		${2:pending}
 	end
+snippet step
+	Then %r{^I say "([^"]+)"$} do |${1:word}|
+		${2:pending}
+	end
