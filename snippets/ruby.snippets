@@ -430,3 +430,11 @@ snippet step
 	Then %r{^I say "([^"]+)"$} do |${1:word}|
 		${2:pending}
 	end
+snippet shr
+	should_receive(:${1:method_name})
+snippet shrr
+	should_receive(:${1:method_name}).and_return(${2:return})
+snippet shrw
+	should_receive(:${1:method_name}).with(${2:args})
+snippet shrwr
+	should_receive(:${1:method_name}).with(${2:args}).and_return(${3:return})
