@@ -97,6 +97,7 @@ endif
 let g:vim_ignore = ["vendor", "log", "tools"]
 " extensions that should be included in tag files
 let g:taggable_extensions = [
+                              \ 'c',
                               \ 'coffee',
                               \ 'css',
                               \ 'erb',
