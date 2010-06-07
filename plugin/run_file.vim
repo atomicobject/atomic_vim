@@ -5,14 +5,6 @@ function! Run(command, ...)
   normal ggdG
   :resize 20
 
-  if a:0 > 0
-    execute "normal ggi" . a:1
-  else
-    execute "normal ggiRunning " . a:command . "..."
-  end
-
-  execute "redraw!"
-  normal ggdG
   execute "!" . a:command . " 2>&1 | tee ~/.run.out"
   execute "read ~/.run.out"
   setlocal nomodified
