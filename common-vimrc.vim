@@ -112,6 +112,7 @@ let g:taggable_extensions = [
                               \ 'thor',
                               \ 'yaml',
                               \ 'yml',
+                              \ 'sass',
                               \ ]
 
 " load .vim in the current directory if it exists
