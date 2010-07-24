@@ -2,14 +2,19 @@ require 'set'
 require 'find'
 require 'fileutils'
 
+def run(cmd)
+  puts cmd
+  system cmd
+end
+
 tag_file = "tags"
 extensions = ARGV[0]
 extension_regexp = /\.(#{extensions})$/
-excludes = ARGV[1]
+excludes = ARGV[1].gsub("|.", "|")
 exclude_regexp = /^\..*\/\.|\b(#{excludes})\b/
 
 puts "Generating tags..."
-system %(find . | egrep '\.(#{extensions})$' | egrep -v '\\b(#{excludes})\\b' | xargs ctags -f #{tag_file})
+run %(find . | egrep '\.(#{extensions})$' | egrep -v '\\b(#{excludes})\\b' | xargs ctags -f #{tag_file})
 FileUtils.touch tag_file
 
 puts "Adding missing files..."
@@ -35,6 +40,6 @@ File.open tag_file, "a" do |io|
   end
 end
 
-system "sort #{tag_file} --output=#{tag_file}"
+run "sort #{tag_file} --output=#{tag_file}"
 
 puts "Done."
