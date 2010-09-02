@@ -6,7 +6,7 @@
 " With MacPorts:
 "   sudo port install p5-app-ack
 
-let g:ackprg="~/.vim/tools/ack\\ -H\\ --nocolor\\ --nogroup"
+let g:ackprg="~/.vim/tools/ack\\ -H\\ --nocolor\\ --nogroup\\ -a"
 
 function! Ack(args)
     let grepprg_bak=&grepprg
