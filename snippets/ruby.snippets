@@ -438,3 +438,5 @@ snippet shrw
 	should_receive(:${1:method_name}).with(${2:args})
 snippet shrwr
 	should_receive(:${1:method_name}).with(${2:args}).and_return(${3:return})
+snippet here
+	File.expand_path(File.dirname(__FILE__))

@@ -1,3 +1,6 @@
+"crosby: From my personal .vimrc, I source:
+"  source ~/.vim/common-vimrc.vim
+"  source ~/.vim/crosby-vimrc.vim
 
 set autowrite
 set nofoldenable
@@ -19,6 +22,12 @@ noremap <C-P> :bp<CR>
 noremap <leader>hl :set hlsearch<CR>
 noremap <leader>nhl :set nohlsearch<CR>
 
+" Textmate-style arrows shortcut
+imap  <Space>=><Space>
+
+" Set search highlighting color:
+set hl=l:DiffChange 
+
 " Windowzizms:
 "   Run:
 map <F5> ,r<CR>
@@ -34,4 +43,5 @@ noremap  \rs :r ~/snip<cr>
 noremap  \es :e ~/snip<cr>
 " Append to the snip file
 noremap  \as :w! >> ~/snip<cr>
+
 

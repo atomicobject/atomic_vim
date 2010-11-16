@@ -80,7 +80,7 @@ map <leader>c "*
 map <leader>d :redraw!<CR>
 
 " Window split vertical
-noremap <leader>v :vsplit<CR>
+noremap <leader>v :vsplit<CR><C-W><C-W>
 
 " Remove all window splits
 noremap <leader>o :only<CR>

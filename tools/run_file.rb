@@ -20,7 +20,7 @@ if $0 == __FILE__
   case filename
   when /_spec\.rb$/
     exec_in_path "script/spec", filename
-    exec "spec #{filename}"
+    exec "rake spec:just file=\"#{filename}\""
 
   when /\.rb$/
     exec "ruby #{filename}"
