@@ -109,6 +109,7 @@ let g:taggable_extensions = [
                               \ 'rake',
                               \ 'rb',
                               \ 'sass',
+                              \ 'scss',
                               \ 'thor',
                               \ 'yaml',
                               \ 'yml',
