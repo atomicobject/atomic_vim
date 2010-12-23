@@ -1,5 +1,7 @@
 " Load all plugins in bundles
+filetype off
 call pathogen#runtime_append_all_bundles() 
+filetype plugin indent on
 
 :set guifont=Monaco:h12
 :set guioptions-=T
@@ -31,8 +33,6 @@ set wildmode=longest,list,full
 
 colorscheme vividchalk
 syntax on
-filetype on
-filetype plugin indent on
 compiler ruby
 
 " Fix typos
