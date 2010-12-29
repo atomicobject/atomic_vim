@@ -1,3 +1,7 @@
+"matt: From my personal .vimrc, I source:
+"  source ~/.vim/common-vimrc.vim
+"  source ~/.vim/skeletor-vimrc.vim
+"
 " most of this stolen from Steve Losh
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim/
 set relativenumber
