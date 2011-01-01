@@ -1,9 +1,28 @@
-"matt: From my personal .vimrc, I source:
-"  source ~/.vim/common-vimrc.vim
-"  source ~/.vim/skeletor-vimrc.vim
+" matt: From my personal .vimrc, I source:
+" source ~/.vim/common-vimrc.vim
+" source ~/.vim/skeletor-vimrc.vim
 "
 " most of this stolen from Steve Losh
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+
+" CRAZY SHIT TO GET THIS WORKING WITH GVIM 7.3-46
+" There's some sort of poor interaction between Ruby 1.9.2 and gVim 7.3-46 on
+" Windows; out of the box you'll get a weird Gem error.
+"
+" Hack to fix: edit $VIMRUNTIME/bundle/vim-ruby/ftplugin/ruby.vim file.
+" Around line 71 you'll see this:
+" if !exists("s:ruby_path")
+"   if exists("g:ruby_path")
+"
+" Before the first if !, put this line:
+" let s:ruby_path = 'C:\ruby192\bin'
+" Make the path appropriate; that should be the default for Ruby 1.9.2 on
+" Windows.
+"
+" BE VERY VERY CAREFUL ABOUT NOT CHECKING THIS IN AND FUCKING UP EVERYONE
+" ELSE'S VIM CONFIG
+" It looks like this problem may be fixed as of gVim 7.3-88, but I can't get a
+" compiled version of that right now (1/1/2011)
 set relativenumber
 nnoremap / /\v
 vnoremap / /\v
