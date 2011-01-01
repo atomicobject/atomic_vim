@@ -13,10 +13,24 @@ extension_regexp = /\.(#{extensions})$/
 excludes = ARGV[1].gsub("|.", "|")
 exclude_regexp = /^\..*\/\.|\b(#{excludes})\b/
 
+# old way of generating tags - here for reference in case the new technique
+# using Ruby's Find doesn't work out
+# run %(find . | egrep '\.(#{extensions})$' | egrep -v '\\b(#{excludes})\\b' | xargs ctags -f #{tag_file})
 puts "Generating tags..."
-run %(find . | egrep '\.(#{extensions})$' | egrep -v '\\b(#{excludes})\\b' | xargs ctags -f #{tag_file})
+files_to_tag = []
+Find.find "." do |path|
+  if File.directory?(path) and path =~ exclude_regexp
+    puts "pruning #{path}"
+    Find.prune
+  elsif path =~ extension_regexp
+    files_to_tag << path
+  else; next
+  end
+end
+run "ctags -f #{tag_file} #{files_to_tag.join(' ')}"
 FileUtils.touch tag_file
 
+# ctags doesn't generate anything for empty files, so manually jam them into the tags file
 puts "Adding missing files..."
 included = Set.new
 File.open tag_file, "r" do |io|
@@ -27,16 +41,9 @@ File.open tag_file, "r" do |io|
 end
 
 File.open tag_file, "a" do |io|
-  Find.find "." do |path|
-    if File.directory? path
-      if path =~ exclude_regexp
-        puts "pruning #{path}"
-        Find.prune 
-      end
-    else
-      path = path[2..-1] if path =~ %r{^\./} && !included.include?(path)
-      io.puts %(#{path}\t#{path}\t//;"\tf) if path =~ extension_regexp && !included.include?(path)
-    end
+  files_to_tag.each do |path|
+    path = path[2..-1] if path =~ %r{^\./} && !included.include?(path)
+    io.puts %(#{path}\t#{path}\t//;"\tf) if path =~ extension_regexp && !included.include?(path)
   end
 end
 
