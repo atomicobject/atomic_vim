@@ -3,8 +3,8 @@ function! RegenTags()
   let ext_list = join(g:taggable_extensions, "|")
   if has("win32")
     let ruby_generate_tags = "!ruby '" . $HOME . "/vimfiles/tools/generate_tags.rb'"
-  elseif
-    let ruby_generate_tags = "!ruby ~/.vim/tools/generate_tags.rb'"
+  else
+    let ruby_generate_tags = "!ruby ~/.vim/tools/generate_tags.rb"
   endif
 
   execute ruby_generate_tags . " '" . ext_list . "' '". exclude_list ."'"
