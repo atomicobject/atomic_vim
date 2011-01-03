@@ -23,6 +23,7 @@
 " ELSE'S VIM CONFIG
 " It looks like this problem may be fixed as of gVim 7.3-88, but I can't get a
 " compiled version of that right now (1/1/2011)
+set nonumber
 set relativenumber
 nnoremap / /\v
 vnoremap / /\v
@@ -39,6 +40,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" Window split horizontal
+noremap <leader>s :split<CR><C-W><C-W>
 
 " Status line. mostly stolen from A Byte of Vim
 set laststatus=2
