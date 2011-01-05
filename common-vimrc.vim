@@ -3,6 +3,8 @@ filetype off
 call pathogen#runtime_append_all_bundles() 
 filetype plugin indent on
 
+" Matchit is now built into recent Vims (7.2+)
+" Use the native one instead of the old plugin.
 runtime macros/matchit.vim
 
 :set guifont=Monaco:h12
