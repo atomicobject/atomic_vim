@@ -3,6 +3,8 @@ filetype off
 call pathogen#runtime_append_all_bundles() 
 filetype plugin indent on
 
+runtime macros/matchit.vim
+
 :set guifont=Monaco:h12
 :set guioptions-=T
 let mapleader=","
