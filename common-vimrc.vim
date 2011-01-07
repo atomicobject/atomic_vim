@@ -1,5 +1,11 @@
 " Load all plugins in bundles
+filetype off
 call pathogen#runtime_append_all_bundles() 
+filetype plugin indent on
+
+" Matchit is now built into recent Vims (7.2+)
+" Use the native one instead of the old plugin.
+runtime macros/matchit.vim
 
 :set guifont=Monaco:h12
 :set guioptions-=T
@@ -31,8 +37,6 @@ set wildmode=longest,list,full
 
 colorscheme vividchalk
 syntax on
-filetype on
-filetype plugin indent on
 compiler ruby
 
 " Fix typos
@@ -94,7 +98,8 @@ endif
 " customize stuff
 
 " folders that should be ignored
-let g:vim_ignore = ["vendor", "log", "tools"]
+let g:vim_ignore = ["log", "tools", "vendor"]
+
 " extensions that should be included in tag files
 let g:taggable_extensions = [
                               \ 'c',
