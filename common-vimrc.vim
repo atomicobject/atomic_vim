@@ -118,6 +118,7 @@ let g:taggable_extensions = [
                               \ 'scss',
                               \ 'sql',
                               \ 'thor',
+                              \ 'xml',
                               \ 'yaml',
                               \ 'yml',
                               \ ]

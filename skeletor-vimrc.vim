@@ -60,3 +60,5 @@ set statusline+=%<%P                         " file position
 if has("win32")
   set sh=zsh
 endif
+
+xmap <Leader>s <Plug>Vsurround
