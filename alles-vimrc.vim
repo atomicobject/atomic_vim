@@ -47,4 +47,5 @@ noremap  \es :e ~/snip<cr>
 " Append to the snip file
 noremap  \as :w! >> ~/snip<cr>
 
+set wrap
 
