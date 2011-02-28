@@ -27,7 +27,7 @@ Find.find "." do |path|
   else; next
   end
 end
-run "ctags -f #{tag_file} #{files_to_tag.join(' ')}"
+run "ctags -f #{tag_file} #{files_to_tag.map{|s| "'#{s}'"}.join(' ')}"
 FileUtils.touch tag_file
 
 # ctags doesn't generate anything for empty files, so manually jam them into the tags file
