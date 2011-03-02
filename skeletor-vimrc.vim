@@ -25,11 +25,8 @@
 " compiled version of that right now (1/1/2011)
 set nonumber
 set relativenumber
-nnoremap / /\v
-vnoremap / /\v
 set ignorecase
 set smartcase
-set gdefault
 set incsearch
 set showmatch
 set hlsearch
