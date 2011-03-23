@@ -63,7 +63,7 @@ noremap <leader>Q :close<cr>
 
 " Find in cwd/"project"
 noremap <leader>f :AckWithIgnore ''<Left>
-noremap <leader>F :AckWithIgnore 
+noremap <leader>F :AckWithIgnore -i ''<Left>
 
 " Run the current file. Uses .vim/ruby/run_file.rb
 noremap <leader>r :RunFile<cr>
