@@ -61,3 +61,6 @@ if has("win32")
 endif
 
 xmap <Leader>s <Plug>Vsurround
+
+" Textmate-style arrows shortcut
+imap  <Space>=><Space>
