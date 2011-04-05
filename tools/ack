@@ -1641,6 +1641,7 @@ sub is_searchable {
     return if $filename =~ m{^#.*#$}o;
     return if $filename =~ m{^core\.\d+$}o;
     return if $filename =~ m{[._].*\.swp$}o;
+    return if $filename =~ /^tags$/i;
 
     return 1;
 }
