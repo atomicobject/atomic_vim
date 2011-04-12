@@ -1,6 +1,15 @@
 " Load all plugins in bundles
 filetype off
 call pathogen#runtime_append_all_bundles() 
+
+if v:version < '703' || !has('python')"{{{
+  let g:gundo_disable=1
+endif"}}}
+
+if v:version >= '703'"{{{
+  call pathogen#runtime_append_all_bundles("bundle73") 
+endif"}}}
+
 filetype plugin indent on
 
 " Matchit is now built into recent Vims (7.2+)
@@ -54,7 +63,7 @@ noremap <leader>Q :close<cr>
 
 " Find in cwd/"project"
 noremap <leader>f :AckWithIgnore ''<Left>
-noremap <leader>F :AckWithIgnore 
+noremap <leader>F :AckWithIgnore -i ''<Left>
 
 " Run the current file. Uses .vim/ruby/run_file.rb
 noremap <leader>r :RunFile<cr>
@@ -72,6 +81,9 @@ map <leader>, :FufBuffer<CR>
 
 " like browse to a file with a convenient ,t-like interface
 map <leader>e :FufFile<CR>
+
+" render undo tree - vim 7.3 and up
+map <leader>u :GundoToggle<CR>
 
 " comment out a line
 map <leader>/ :TComment<Return>

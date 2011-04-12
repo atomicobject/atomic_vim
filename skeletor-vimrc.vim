@@ -23,13 +23,12 @@
 " ELSE'S VIM CONFIG
 " It looks like this problem may be fixed as of gVim 7.3-88, but I can't get a
 " compiled version of that right now (1/1/2011)
-set nonumber
-set relativenumber
-nnoremap / /\v
-vnoremap / /\v
+if v:version >= 703
+  set nonumber
+  set relativenumber
+endif
 set ignorecase
 set smartcase
-set gdefault
 set incsearch
 set showmatch
 set hlsearch
@@ -62,3 +61,6 @@ if has("win32")
 endif
 
 xmap <Leader>s <Plug>Vsurround
+
+" Textmate-style arrows shortcut
+imap  <Space>=><Space>
