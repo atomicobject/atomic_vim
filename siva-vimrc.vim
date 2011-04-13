@@ -54,3 +54,7 @@ let clj_want_gorilla = 1
 syntax on
 filetype plugin indent on
 
+
+" Textmate-style arrows shortcut
+imap  <Space>=><Space>
+

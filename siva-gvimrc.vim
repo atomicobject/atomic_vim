@@ -2,7 +2,7 @@
 
 colorscheme koehler
 
-set guifont=Consolas:h12:cANSI
+set guifont=Consolas:h14:cANSI
 "FALLBACK: set guifont=Monospace
 
 " Remove toolbar, it sux
