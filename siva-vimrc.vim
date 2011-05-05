@@ -26,6 +26,12 @@ noremap ,<Space> :set nohlsearch
 noremap <leader>hl :set hlsearch<CR>
 noremap <leader>nhl :set nohlsearch<CR>
 
+" Faster Ctrl+W+hjkl by taking W out
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 " Textmate-style arrows shortcut
 imap  <Space>=><Space>
 
