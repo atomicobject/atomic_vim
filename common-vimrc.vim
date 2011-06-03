@@ -120,6 +120,7 @@ let g:vim_ignore = ["vendor", "log"]
 let g:taggable_extensions = [
                               \ 'c',
                               \ 'coffee',
+                              \ 'cs',
                               \ 'css',
                               \ 'erb',
                               \ 'feature',
