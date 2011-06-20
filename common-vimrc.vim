@@ -30,6 +30,7 @@ set grepprg=ack
 set hidden
 set ignorecase
 set incsearch
+set mouse=a
 set nocompatible
 set nohlsearch
 set nowrap
