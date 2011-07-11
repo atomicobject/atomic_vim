@@ -47,4 +47,11 @@ noremap  \es :e ~/snip<cr>
 " Append to the snip file
 noremap  \as :w! >> ~/snip<cr>
 
+set wrap
 
+" Camel-hump case boundary detection
+map ,w cv/[a-z][A-Z^\n^ ^\t^(^[^.^_]<CR>
+
+map <F4> :A
+map <F3> :A
+map <F2> :A

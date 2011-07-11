@@ -30,6 +30,7 @@ set grepprg=ack
 set hidden
 set ignorecase
 set incsearch
+set mouse=a
 set nocompatible
 set nohlsearch
 set nowrap
@@ -55,11 +56,13 @@ map <F1> <Esc>
 imap <F1> <Esc>
 
 " close the current buffer, doesn't close the window
-noremap <leader>w :Bclose<cr>
+ noremap <leader>w :Bclose<cr>
+" close the current buffer, ignoring save state, doesn't close the window
+ noremap <leader>W :Bclose!<cr>
 " close the current window and buffer
-noremap <leader>q :bd<cr>
+ noremap <leader>q :bd<cr>
 " close the current window, doesn't close the buffer
-noremap <leader>Q :close<cr>
+ noremap <leader>Q :close<cr>
 
 " Find in cwd/"project"
 noremap <leader>f :AckWithIgnore ''<Left>
@@ -104,6 +107,11 @@ noremap <leader>o :only<CR>
 " autocmd FileType ruby,eruby set omnifunc=rubycomplete ai sw=2 sts=2 et
 if has("autocmd")
   filetype indent on
+  augroup module
+    autocmd BufRead,BufNewFile *.module set filetype=php
+    autocmd BufRead,BufNewFile *.install set filetype=php
+    autocmd BufRead,BufNewFile *.test set filetype=php
+  augroup END
 endif
 
 " global variables that can be overridden or appended to in .vim in the cwd to
@@ -116,6 +124,7 @@ let g:vim_ignore = ["log", "tools", "vendor", "build"]
 let g:taggable_extensions = [
                               \ 'c',
                               \ 'coffee',
+                              \ 'cs',
                               \ 'css',
                               \ 'erb',
                               \ 'feature',
