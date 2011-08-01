@@ -30,7 +30,7 @@ Find.find "." do |path|
   else; next
   end
 end
-run "ctags #{lang_map_str}--langmap=c++:.pde -f #{tag_file} #{files_to_tag.map{|s| "'#{s}'"}.join(' ')}"
+run "ctags #{lang_map_str} -f #{tag_file} #{files_to_tag.map{|s| "'#{s}'"}.join(' ')}"
 FileUtils.touch tag_file
 
 # ctags doesn't generate anything for empty files, so manually jam them into the tags file

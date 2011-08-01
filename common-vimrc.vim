@@ -144,6 +144,8 @@ let g:taggable_extensions = [
                               \ 'yml',
                               \ 'clj',
                               \ 'pde',
+                              \ 'cpp',
+                              \ 'h',
                               \ ]
 
 " load .vim in the current directory if it exists
