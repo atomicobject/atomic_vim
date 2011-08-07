@@ -10,7 +10,7 @@ Atomic Vim has a few ideas that (not entirely consistently) direct it's approach
 
 h2. To use:
 
-In your @~/.vimrc@, add @source ~/.vim/common-vimrc.vim@ and @brew install ctags@ to get exuberant ctags. I've mainly used the config under cygwin on windows, but gvim works pretty well (I've never tried setting up ctags and ruby on windows without cygwin).
+Clone into @~/.vim@, and addadd @source ~/.vim/common-vimrc.vim@ to your @.vimrc@. @brew install ctags@ to get exuberant ctags. I've mainly used the config under cygwin on windows, but gvim works pretty well (I've never tried setting up ctags and ruby on windows without cygwin).
 
 h2. Project settings
 
