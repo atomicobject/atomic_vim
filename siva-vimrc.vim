@@ -20,10 +20,17 @@ iabbr descrube describe
 " Buffer navigation: Next and Previous
 noremap <C-N> :bn<CR>
 noremap <C-P> :bp<CR>
+noremap ,<Space> :set nohlsearch
 
 " Search term highlighting on / off: 
 noremap <leader>hl :set hlsearch<CR>
 noremap <leader>nhl :set nohlsearch<CR>
+
+" Faster Ctrl+W+hjkl by taking W out
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Textmate-style arrows shortcut
 imap  <Space>=><Space>
@@ -35,7 +42,7 @@ set hl=l:DiffChange
 "   Run:
 map <F5> ,r<CR>
 "   Save:
-noremap <F2> :w<CR>
+noremap <F2> :wa<CR>
 
 " ~/snip is a junk file; call it a customized clipboard
 " Write to snip.  Either uses current visual selection, or entire buffer
@@ -46,7 +53,7 @@ noremap  \rs :r ~/snip<cr>
 noremap  \es :e ~/snip<cr>
 " Append to the snip file
 noremap  \as :w! >> ~/snip<cr>
-
+nnoremap <leader><space> :noh<cr>
 :set incsearch
 :set autowrite
 
@@ -58,3 +65,8 @@ filetype plugin indent on
 " Textmate-style arrows shortcut
 imap  <Space>=><Space>
 
+map <F4> :A
+map <F3> :A
+
+:set hlsearch
+" :set nohlsearch
