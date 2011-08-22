@@ -118,7 +118,8 @@ endif
 " customize stuff
 
 " folders that should be ignored
-let g:vim_ignore = ["vendor", "log"]
+let g:vim_ignore = ["log", "tools", "vendor", "build"]
+
 " extensions that should be included in tag files
 let g:taggable_extensions = [
                               \ 'c',
@@ -142,6 +143,10 @@ let g:taggable_extensions = [
                               \ 'xml',
                               \ 'yaml',
                               \ 'yml',
+                              \ 'clj',
+                              \ 'pde',
+                              \ 'cpp',
+                              \ 'h',
                               \ ]
 
 " load .vim in the current directory if it exists
