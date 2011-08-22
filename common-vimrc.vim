@@ -125,6 +125,7 @@ let g:taggable_extensions = [
                               \ 'coffee',
                               \ 'cs',
                               \ 'css',
+                              \ 'csv',
                               \ 'erb',
                               \ 'feature',
                               \ 'java',
