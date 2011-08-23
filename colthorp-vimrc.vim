@@ -16,3 +16,9 @@ set statusline+=%<%P                         " file position
 
 let g:solarized_termcolors=16
 colorscheme solarized
+
+" if has('win32') || has('win64')
+"   noremap <leader>s :ConqueTerm cmd<cr>
+" else
+"   noremap <leader>s :ConqueTerm sh<cr>
+" end
