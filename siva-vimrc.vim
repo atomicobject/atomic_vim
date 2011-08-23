@@ -17,6 +17,9 @@ cabbr tidy %!tidy -q -i -ashtml<CR>
 " Croz can't type:
 iabbr descrube describe
 
+" Window horizontal split 
+noremap <leader>h :split<CR><C-W><C-W>
+
 " Buffer navigation: Next and Previous
 noremap <C-N> :bn<CR>
 noremap <C-P> :bp<CR>
@@ -70,3 +73,9 @@ map <F3> :A
 
 :set hlsearch
 " :set nohlsearch
+
+" ERB renders like HTML
+if has("autocmd")
+  au BufRead,BufNewFile *.erb set filetype=eruby
+endif
+
