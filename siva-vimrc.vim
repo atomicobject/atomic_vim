@@ -79,3 +79,6 @@ if has("autocmd")
   au BufRead,BufNewFile *.erb set filetype=eruby
 endif
 
+if has('gui_running')
+  set guifont=Anonymous:h14
+endif
