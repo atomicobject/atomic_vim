@@ -8,8 +8,7 @@ xmap <Leader>s <Plug>Vsurround
 set autowrite
 set nofoldenable
 
-"set nonu
-"colorscheme koehler
+colorscheme synic
 
 " Tidy (cheap shot; would like a better plugin)
 cabbr tidy %!tidy -q -i -ashtml<CR>
