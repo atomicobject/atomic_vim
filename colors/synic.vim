@@ -35,7 +35,7 @@ hi SpellBad gui=undercurl guifg=NONE guisp=Red cterm=undercurl ctermfg=NONE cter
 hi SpellCap gui=undercurl guifg=NONE guisp=Blue cterm=undercurl ctermfg=NONE ctermbg=21
 hi SpellRare gui=undercurl guifg=NONE guisp=Magenta cterm=undercurl ctermfg=NONE ctermbg=201
 hi SpellLocal gui=undercurl guifg=NONE guisp=Cyan cterm=undercurl ctermfg=NONE ctermbg=51
-hi Pmenu gui=NONE guifg=NONE guibg=Magenta cterm=NONE ctermfg=NONE ctermbg=201
+hi Pmenu gui=NONE guifg=NONE guibg=DarkBlue cterm=NONE ctermfg=NONE ctermbg=201
 hi PmenuSel gui=NONE guifg=NONE guibg=DarkGrey cterm=NONE ctermfg=NONE ctermbg=248
 hi PmenuSbar gui=NONE guifg=NONE guibg=Grey cterm=NONE ctermfg=NONE ctermbg=250
 hi PmenuThumb gui=reverse guifg=NONE guibg=NONE cterm=reverse ctermfg=NONE ctermbg=NONE
