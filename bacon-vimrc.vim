@@ -30,4 +30,18 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Get the 's' key back
 xmap <Leader>s <Plug>Vsurround
+
+" ~/snip is a junk file; call it a customized clipboard
+" Write to snip.  Either uses current visual selection, or entire buffer
+noremap  \ws :w! ~/snip<cr>
+" Read contents of snip into current buffer
+noremap  \rs :r ~/snip<cr>
+" Edit the snip file
+noremap  \es :e ~/snip<cr>
+" Append to the snip file
+noremap  \as :w! >> ~/snip<cr>
+
+" Camel-hump case boundary detection - Change up to next boundar
+map ,w cv/[a-z][A-Z^\n^ ^\t^(^[^.^_]<CR>
