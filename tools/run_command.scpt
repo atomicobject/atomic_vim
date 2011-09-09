@@ -74,20 +74,4 @@ on run argv
       end if
     end if
   end if
-
-  if not _foundTab then
-    if appIsRunning("iTerm") then
-      tell application "iTerm"
-        set _terminal to the first terminal
-        set _session to the first session of _terminal
-      end tell
-      execInItermTab(_terminal, _session, _command) 
-    else
-      tell application "Terminal"
-        set _tab to the first tab of windows
-        set _window to the first window
-      end tell
-      execInTerminalTab(_window, _tab, _command)
-    end if
-  end if
 end run
