@@ -2,11 +2,11 @@ call pathogen#runtime_append_all_bundles("bacon_bundle")
 
 if v:version >= 703
   set nonumber
-  set relativenumber
-  set undofile
+  " set relativenumber
+  " set undofile
 endif
 set autoread
-" set nu
+set nu
 set directory=~/tmp
 
 :set guifont=Menlo:h14
@@ -89,6 +89,11 @@ nnoremap k gk
 " Save when focus is lost
 au FocusLost * :wa
 
-inoremap jj <ESC>
+" inoremap jj <ESC>
 
 nnoremap <leader>d :NERDTreeToggle<cr>
+
+autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
+
+let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'", '#{': '}', '|':'|' } 
+let g:AutoCloseProtectedRegions = ["Character"] 
