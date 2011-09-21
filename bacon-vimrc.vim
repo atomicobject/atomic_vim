@@ -1,4 +1,7 @@
-call pathogen#runtime_append_all_bundles("bacon_bundle") 
+let optional = []
+let optional += ["nerdtree"]
+let optional += ["autoclose"]
+call OptionalBundles#Include(optional)
 
 if v:version >= 703
   set nonumber
@@ -74,15 +77,6 @@ set list
 set listchars=tab:▸\ ,eol:¬ 
 
 
-" Force me to do it right
-" nnoremap <up> <nop>
-" nnoremap <down> <nop>
-" nnoremap <left> <nop>
-" nnoremap <right> <nop>
-" inoremap <up> <nop>
-" inoremap <down> <nop>
-" inoremap <left> <nop>
-" inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
@@ -91,9 +85,10 @@ au FocusLost * :wa
 
 " inoremap jj <ESC>
 
-nnoremap <leader>d :NERDTreeToggle<cr>
+nnoremap <leader>n :NERDTreeToggle<cr>
 
 autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
 
 let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'", '#{': '}', '|':'|' } 
 let g:AutoCloseProtectedRegions = ["Character"] 
+
