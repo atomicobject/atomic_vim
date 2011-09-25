@@ -37,7 +37,6 @@ noremap <leader>r :RunFileInTerminal<cr>
 noremap <leader>R :RunFileAtLineInTerminal<cr>
 map <leader><C-r> :let g:vim_terminal="/dev/ttys000"
 noremap <leader>rr :ReRunLastFileCommand<cr>
-" let g:vim_terminal=""
 
 set visualbell
 
