@@ -25,7 +25,7 @@ end execInTerminalTab
 on run argv
   set _command to item 1 of argv
   set _foundTab to false
-  -- If a tty is specified look in both iTerm and Terminal
+  -- Second arguments shoul be the tty to look for
   if length of argv is 2
     if appIsRunning("iTerm") then
       tell application "iTerm"
@@ -50,7 +50,7 @@ on run argv
         execInItermTab(_terminal, _session, _command)
       end if
     end if
-    if appIsRunning("Terminal") and not _foundTab then
+    if not _foundTab and appIsRunning("Terminal") then
       tell application "Terminal"
         repeat with w in windows
           tell w

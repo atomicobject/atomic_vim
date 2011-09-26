@@ -1,11 +1,23 @@
-function! RunBackground(command, ...)
-  silent execute "!" . a:command . " &"
+function! RunInTerminal(file)
+  if match(a:file, '_spec\.rb') != -1
+    let l:command = 'bundle exec rspec'
+  elseif match(a:file, '\.feature') != -1
+    let l:command = 'bundle exec cucumber'
+  elseif match(a:file, '\.rb') != -1
+    let l:command = 'ruby'
+  endif
+  if exists("l:command")
+    let g:last_run_in_terminal = a:file
+    silent execute ":up"
+    silent execute "!osascript ~/.vim/tools/run_command.scpt '" . l:command . " " . a:file . "' " . g:vim_terminal . " &"
+  else
+    echo "Couldn't figure out how to run " . a:file 
+  end
 endfunction
 
 function! RunFileInTerminal()
   if exists("g:vim_terminal")
-    let g:run_file = "ruby ~/.vim/tools/run_file_in_terminal.rb " . expand("%")
-    call RunBackground("ruby ~/.vim/tools/run_file_in_terminal.rb " . expand("%") . " " . g:vim_terminal, "Running " . expand("%") . "...")
+    call RunInTerminal(expand("%")) 
   else
     call RunFile()
   end
@@ -13,20 +25,18 @@ endfunction
 
 function! RunFileAtLineInTerminal()
   if exists("g:vim_terminal")
-    let g:run_file = "ruby ~/.vim/tools/run_file_at_line_in_terminal.rb " . expand("%") . " " . line(".")
-    call RunBackground("ruby ~/.vim/tools/run_file_at_line_in_terminal.rb " . expand("%") . " " . line(".") . " " . g:vim_terminal, "Running " . expand("%") . " at line " . line(".") . "...")
+    call RunInTerminal(expand("%") . ":" . line("."))
   else
     call RunFileAtLine()
   endif
 endfunction
 
 function! ReRunLastFileCommand()
-  if exists("g:vim_terminal") && exists("g:run_file")
-    call RunBackground(g:run_file . " " . g:vim_terminal, "Running previous command...")
+  if exists("g:vim_terminal") && exists("g:last_run_in_terminal")
+    call RunInTerminal(g:last_run_in_terminal)
   endif
 endfunction
 
-command! -nargs=* -complete=file RunBackground call RunBackground(<q-args>)
 command! RunFileInTerminal call RunFileInTerminal()
 command! RunFileAtLineInTerminal call RunFileAtLineInTerminal()
 command! ReRunLastFileCommand call ReRunLastFileCommand()
