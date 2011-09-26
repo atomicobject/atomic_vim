@@ -10,6 +10,7 @@ function! RunInTerminal(file)
     let g:last_run_in_terminal = a:file
     silent execute ":up"
     silent execute "!osascript ~/.vim/tools/run_command.scpt '" . l:command . " " . a:file . "' " . g:vim_terminal . " &"
+    silent execute ":redraw!"
   else
     echo "Couldn't figure out how to run " . a:file 
   end
