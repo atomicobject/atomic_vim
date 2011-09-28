@@ -55,3 +55,17 @@ map ,w cv/[a-z][A-Z^\n^ ^\t^(^[^.^_]<CR>
 map <F4> :A
 map <F3> :A
 map <F2> :A
+
+let optional = []
+let optional += ["nerdtree"]
+" let optional += ["autoclose"]
+call OptionalBundles#Include(optional)
+
+" Run the current file. Uses .vim/ruby/run_file_in_terminal.rb
+noremap <leader>r :RunFileInTerminal<cr>
+noremap <leader>R :RunFileAtLineInTerminal<cr>
+map <leader><C-r> :let g:vim_terminal="/dev/ttys000"
+noremap <leader>rr :ReRunLastFileCommand<cr>
+
+nnoremap <leader>n :NERDTreeToggle<cr>
+
