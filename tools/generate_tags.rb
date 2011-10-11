@@ -38,8 +38,14 @@ puts "Adding missing files..."
 included = Set.new
 File.open tag_file, "r" do |io|
   io.each_line do |line|
-    parts = line.split("\t")
-    included << parts[1]
+    begin 
+      parts = line.split("\t")
+      included << parts[1]
+    rescue Exception => e
+      puts "FAIL LINE: #{line}"
+      puts e.message
+      puts e.backtrace.join("\n\t")
+    end
   end
 end
 
