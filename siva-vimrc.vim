@@ -8,14 +8,16 @@ xmap <Leader>s <Plug>Vsurround
 set autowrite
 set nofoldenable
 
-"set nonu
-"colorscheme koehler
+colorscheme synic
 
 " Tidy (cheap shot; would like a better plugin)
 cabbr tidy %!tidy -q -i -ashtml<CR>
 
 " Croz can't type:
 iabbr descrube describe
+
+" Window horizontal split 
+noremap <leader>h :split<CR><C-W><C-W>
 
 " Buffer navigation: Next and Previous
 noremap <C-N> :bn<CR>
@@ -70,3 +72,12 @@ map <F3> :A
 
 :set hlsearch
 " :set nohlsearch
+
+" ERB renders like HTML
+if has("autocmd")
+  au BufRead,BufNewFile *.erb set filetype=eruby
+endif
+
+if has('gui_running')
+  set guifont=Anonymous:h14
+endif

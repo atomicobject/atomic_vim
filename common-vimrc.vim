@@ -126,6 +126,7 @@ let g:taggable_extensions = [
                               \ 'coffee',
                               \ 'cs',
                               \ 'css',
+                              \ 'csv',
                               \ 'erb',
                               \ 'feature',
                               \ 'java',
@@ -166,3 +167,7 @@ endif
 " clojure configuration
 let clj_highlight_builtins = 1
 let clj_paren_rainbow = 1
+
+" Don't let NERDTree hijack the normal Netrw directory browser
+let g:NERDTreeHijackNetrw=0
+
