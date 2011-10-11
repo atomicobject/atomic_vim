@@ -87,11 +87,8 @@ snippet ##
 ## Thibault NORMAND <Zenithar>
 ##
 snippet desc
-	# ${1:Specification}
-
-describe '${2:Model or When ...}', ->
-	${3}
-	return
+	describe '${1:Model or When ...}', ->
+		${2}
 
 snippet it
 	it '${1:Should ...}', ->
@@ -127,7 +124,16 @@ snippet befe
 		${1}
 
 snippet spyon
-	spyOn ${1:object}, ${2:method}
+	spyOn(${1:object}, "${2:method}")
+
+snippet spyonr
+	spyOn(${1:object}, "${2:method}").andReturn ${3:return}
+
+snippet spyont
+	spyOn(${1:object}, "${2:method}").andThrow("${3:exception message}")
+
+snippet spyonf
+	spyOn(${1:object}, "${2:method}").andCallFake -> ${3:function def}
 
 snippet expcall
 	expect(${1:predicate}).wasCalled
