@@ -33,6 +33,8 @@ set hl=l:DiffChange
 map <F5> ,r<CR>
 "   Save:
 noremap <F2> :w<CR>
+noremap <F6> :!rake<CR>
+
 
 " ~/snip is a junk file; call it a customized clipboard
 " Write to snip.  Either uses current visual selection, or entire buffer
@@ -44,4 +46,5 @@ noremap  \es :e ~/snip<cr>
 " Append to the snip file
 noremap  \as :w! >> ~/snip<cr>
 
-
+" Paragraph formatting
+noremap Q gqj
