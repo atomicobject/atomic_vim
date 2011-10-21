@@ -37,8 +37,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Textmate-style arrows shortcut
-imap  <Space>=><Space>
-
+imap  <Space>=>
+imap  "([^"]+)"
 " Set search highlighting color:
 set hl=l:DiffChange 
 
