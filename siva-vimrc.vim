@@ -2,8 +2,10 @@
 "  source ~/.vim/common-vimrc.vim
 "  source ~/.vim/crosby-vimrc.vim
 
-" Get the 's' key back
-xmap <Leader>s <Plug>Vsurround
+let optional = []
+let optional += ["nerdtree"]
+let optional += ["vim-endwise"]
+call OptionalBundles#Include(optional)
 
 set autowrite
 set nofoldenable
@@ -59,6 +61,9 @@ nnoremap <leader><space> :noh<cr>
 :set incsearch
 :set autowrite
 
+" NERDTree toggle
+nmap <silent> <C-D> :NERDTreeToggle<CR>
+
 let clj_want_gorilla = 1
 syntax on
 filetype plugin indent on
@@ -71,7 +76,6 @@ map <F4> :A
 map <F3> :A
 
 :set hlsearch
-" :set nohlsearch
 
 " ERB renders like HTML
 if has("autocmd")
