@@ -1,6 +1,7 @@
 let optional = []
 let optional += ["nerdtree"]
 let optional += ["autoclose"]
+let optional += ["vim-endwise"]
 call OptionalBundles#Include(optional)
 
 if v:version >= 703
