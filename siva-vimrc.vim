@@ -42,11 +42,10 @@ imap  <Space>=><Space>
 " Set search highlighting color:
 set hl=l:DiffChange 
 
-" Windowzizms:
-"   Run:
-map <F5> ,r<CR>
-"   Save:
+" Save all open buffers
 noremap <F2> :wa<CR>
+" Change to corresponding spec file
+map <F3> :A
 
 " ~/snip is a junk file; call it a customized clipboard
 " Write to snip.  Either uses current visual selection, or entire buffer
@@ -71,9 +70,6 @@ filetype plugin indent on
 
 " Textmate-style arrows shortcut
 imap  <Space>=><Space>
-
-map <F4> :A
-map <F3> :A
 
 :set hlsearch
 
