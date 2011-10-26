@@ -41,7 +41,11 @@ imap  <Space>=>
 imap  "([^"]+)"
 " Set search highlighting color:
 set hl=l:DiffChange 
-
+" Quick search and replace in Visual mode by using Control+R
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+" Quickly delete a word using Control+Backspace
+inoremap <C-BS> <C-O>b<C-O>dw
+noremap <C-BS> bdw
 " Save all open buffers
 noremap <F2> :wa<CR>
 " Change to corresponding spec file
