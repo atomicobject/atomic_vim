@@ -1,6 +1,7 @@
 let optional = []
 let optional += ["nerdtree"]
 let optional += ["autoclose"]
+let optional += ["vim-endwise"]
 call OptionalBundles#Include(optional)
 
 if v:version >= 703
@@ -73,7 +74,7 @@ vnoremap <tab> %
 
 " Show invisibles same as TextMate
 set list
-set listchars=tab:▸\ ,eol:¬ 
+set listchars=tab:▸\ ,eol:¬,trail:·
 
 
 nnoremap j gj
@@ -88,6 +89,9 @@ nnoremap <leader>n :NERDTreeToggle<cr>
 
 autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
 
-let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'", '#{': '}', '|':'|' } 
-let g:AutoCloseProtectedRegions = ["Character"] 
+let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'", '#{': '}', '|':'|' }
+let g:AutoCloseProtectedRegions = ["Character"]
+
+" F12 removes trailing whitespace
+nnoremap <silent> <F12> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>:retab<CR>
 
