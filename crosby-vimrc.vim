@@ -2,6 +2,9 @@
 "  source ~/.vim/common-vimrc.vim
 "  source ~/.vim/crosby-vimrc.vim
 
+" Get the 's' key back
+xmap <Leader>s <Plug>Vsurround
+
 set autowrite
 set nofoldenable
 
