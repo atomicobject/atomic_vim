@@ -1,0 +1,66 @@
+Atomic Vim has a few ideas that (not entirely consistently) direct it's approach:
+
+* graceful degradation across vim versions/capabilities
+* easy to set up dependencies (primary features depend only on ruby and ctags)
+* fully functional in a terminal – I don't want to feel hamstrung over SSH
+* project/directory oriented - like TextMate
+* customizable on a project-by-project basis – particularly files indexed for fuzzy navigation and directories ignored from navigation and search
+* tries not to override existing vim shortcuts (at least, moreso than our previous shared vim config; surround.vim is included and is a notable exception)
+* tries not to add shortcuts for things that can be done just as easily with standard vim shortcuts (@,v@ for vsplit is an exception, but I normally use @<C-w>v@ out of habit)
+
+h2. To use:
+
+Clone into @~/.vim@, and addadd @source ~/.vim/common-vimrc.vim@ to your @.vimrc@. @brew install ctags@ to get exuberant ctags. I've mainly used the config under cygwin on windows, but gvim works pretty well (I've never tried setting up ctags and ruby on windows without cygwin).
+
+h2. Project settings
+
+If your working directory contains a @.vim@ file, this is sourced automatically. We mainly use this file to add directories to @g:vim_ignore@, causing them to be ignored in search and file navigation shortcuts.
+
+h2. Navigation
+
+Uses "fuzzyfinder":http://www.vim.org/scripts/script.php?script_id=1984 for file completion. Out of the box fuzzyfinder doesn't offer textmate-style navigation. It does offer a mode to fuzzily match filenames in your tags file however. Since having an up to date tags file has other benefits, we opted to post-process the tags file and add fake entries for files of interest in which ctags didn't find anything to tag.
+
+@,t@ shows files in your tags file, @,T@ shows tagged symbols, and @,<C-t>@ regenerates your tags file and updates the fake entries (requires ctags and ruby).
+
+@,e@ fuzzily finds files and directories in your current directory - a convenient alternative to @,t@ if you don't have ctags available. @,l@ fuzzily finds lines in your buffer, a faster way to navigate within a file than searching. @,,@ fuzzily finds open buffers.
+
+Any file with an extension in @g:taggable_extensions@ is guaranteed to get a @tags@ file entry, though any file in one of the @g:vim_ignore@ directories will be pruned. This tweak to standard ctags behavior makes all the difference.
+
+h2. Search
+
+Ack.vim is included. @,f@ searches your working directory, @,F@ does so ignoring case. The command that's used is a customized ack command which ignores directories listed in your @g:vim_ignore@ list.
+
+h2. Running files
+
+@,r@ runs the current file. There's a simple ruby script which dispatches on extension to run the file.
+
+@,R@ runs the current file at the current line. This is basically just used for specs and features.
+
+It's pretty easy to extend the ruby scripts, but this is an area that can use improvement.
+
+h2. Bclose
+
+@,w@ closes the current buffer without touching your window configuration. @,W@ does so regardless of @modified@ state.
+
+@,q@ is easier to type than @:bd@ and @,Q@ easier than @:bd!@
+
+h2. Gundo
+
+@,u@ shows a graph of your buffer's history (if you have vim @>7.3@ and python support)
+
+h2. Clipboard Integration
+
+@,c@ as a prefix causes the next command to use the system clipboard instead of vim's internal register. @,cp@ pastes from your clipboard and @,cy@ yanks to it. This is mainly for terminal use in vim versions prior to 7.3. 
+
+h2. Plugins
+
+* abolish - use @:S@ to replace as you would @:s@, but it handles case variations for you automatically (and more).
+* fugitive - awesome git support
+* surround - modify things like quotes and parens
+* align - align code easily, such as forcing all equal signs in  a series of assignments to be in a column
+* snipmate - TextMate-like snippets.
+* conqueterm - embed a terminal in vim (thanks "janus":https://github.com/carlhuda/janus)
+
+h2. Sharable
+
+To make it easy for each of us to customize the configuration and port our config between machines, we've each tweaked a few things in files like @colthorp-vimrc.vim@ which we source after @common-vimrc.vim@.
