@@ -14,7 +14,9 @@ set statusline+=%=                           " right align remainder
 set statusline+=%-14(%l,%c%V%)               " line, character
 set statusline+=%<%P                         " file position
 
+" let g:solarized_termcolors=256
 let g:solarized_termcolors=16
+set background=dark
 colorscheme solarized
 
 " if has('win32') || has('win64')
@@ -22,3 +24,19 @@ colorscheme solarized
 " else
 "   noremap <leader>s :ConqueTerm sh<cr>
 " end
+"
+
+let g:paredit_leader='\'
+
+let optional = []
+let optional += ["slimv"]
+let optional += ["vimclojure"]
+call OptionalBundles#Include(optional)
+
+" clojure configuration
+let vimclojure#ParenRainbow = 1
+let vimclojure#HighlightBuiltins = 1
+
+" Don't let NERDTree hijack the normal Netrw directory browser
+let g:NERDTreeHijackNetrw=0
+
