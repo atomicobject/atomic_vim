@@ -4,6 +4,8 @@ let optional += ["autoclose"]
 let optional += ["vim-endwise"]
 let optional += ["tabular"]
 let optional += ["scratch"]
+let optional += ["conque"]
+let optional += ["gundo"]
 call OptionalBundles#Include(optional)
 
 if v:version >= 703
