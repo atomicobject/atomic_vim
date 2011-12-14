@@ -3,6 +3,7 @@ let optional += ["nerdtree"]
 let optional += ["autoclose"]
 let optional += ["vim-endwise"]
 let optional += ["tabular"]
+let optional += ["scratch"]
 call OptionalBundles#Include(optional)
 
 if v:version >= 703
@@ -125,3 +126,16 @@ function! TidyJSON()
   execute "%!python -m json.tool"
 endfunction
 command! TidyJSON  call TidyJSON()
+
+" Toggle the scratch buffer
+" function! ToggleScratch()
+"   if expand('%') == g:ScratchBufferName
+"     quit
+"   else
+"     Sscratch
+"   endif
+" endfunction
+" map <leader>s :call ToggleScratch()<CR>
+
+" Window split horizontal
+noremap <leader>h :sp<CR><C-W><C-W>
