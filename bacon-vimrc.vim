@@ -141,3 +141,8 @@ command! TidyJSON  call TidyJSON()
 
 " Window split horizontal
 noremap <leader>h :sp<CR><C-W><C-W>
+
+map <F4> :A
+map <F3> :A
+map <F2> :A
+

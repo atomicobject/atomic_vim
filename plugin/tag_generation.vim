@@ -8,6 +8,7 @@ function! RegenTags()
   endif
 
   silent execute ruby_generate_tags . " '" . ext_list . "' '". exclude_list ."'"
+  silent execute ":redraw!"
 endfunction
 
 command! RegenTags call RegenTags()|FufRenewCache
