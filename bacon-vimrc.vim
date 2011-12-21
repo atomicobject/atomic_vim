@@ -3,6 +3,9 @@ let optional += ["nerdtree"]
 let optional += ["autoclose"]
 let optional += ["vim-endwise"]
 let optional += ["tabular"]
+let optional += ["scratch"]
+let optional += ["conque"]
+let optional += ["gundo"]
 call OptionalBundles#Include(optional)
 
 if v:version >= 703
@@ -109,4 +112,37 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
+
+" disable arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
+" Tidy up a json file
+function! TidyJSON()
+  execute "%!python -m json.tool"
+endfunction
+command! TidyJSON  call TidyJSON()
+
+" Toggle the scratch buffer
+" function! ToggleScratch()
+"   if expand('%') == g:ScratchBufferName
+"     quit
+"   else
+"     Sscratch
+"   endif
+" endfunction
+" map <leader>s :call ToggleScratch()<CR>
+
+" Window split horizontal
+noremap <leader>h :sp<CR><C-W><C-W>
+
+map <F4> :A
+map <F3> :A
+map <F2> :A
 

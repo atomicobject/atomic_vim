@@ -2,6 +2,10 @@
 "  source ~/.vim/common-vimrc.vim
 "  source ~/.vim/crosby-vimrc.vim
 
+let optional = []
+let optional += ["factor"]
+call OptionalBundles#Include(optional)
+
 " Get the 's' key back
 xmap <Leader>s <Plug>Vsurround
 
