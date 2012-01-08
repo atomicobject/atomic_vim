@@ -6,6 +6,7 @@ let optional += ["tabular"]
 let optional += ["scratch"]
 let optional += ["conque"]
 let optional += ["gundo"]
+let optional += ["cucumber"]
 call OptionalBundles#Include(optional)
 
 if v:version >= 703
@@ -33,7 +34,10 @@ set statusline+=%-14(%l,%c%V%)               " line, character
 set statusline+=%<%P                         " file position
 
 set encoding=utf-8
-"set scrolloff
+
+" provide some context when editing
+set scrolloff=3
+
 " let g:solarized_termcolors=16
 " colorscheme solarized
 
@@ -42,6 +46,9 @@ noremap <leader>r :RunFileInTerminal<cr>
 noremap <leader>R :RunFileAtLineInTerminal<cr>
 map <leader><C-r> :let g:vim_terminal="/dev/ttys000"
 noremap <leader>rr :ReRunLastFileCommand<cr>
+
+" Only the current buffer and its test in a vertical split
+nmap <leader><C-v> <leader>o <leader>v :A<cr>
 
 set visualbell
 
@@ -142,7 +149,7 @@ command! TidyJSON  call TidyJSON()
 " Window split horizontal
 noremap <leader>h :sp<CR><C-W><C-W>
 
-map <F4> :A
-map <F3> :A
-map <F2> :A
+map <F4> :A<CR>
+map <F3> :A<CR>
+map <F2> :A<CR>
 
