@@ -153,3 +153,7 @@ map <F4> :A<CR>
 map <F3> :A<CR>
 map <F2> :A<CR>
 
+" Map F10 to display the syntax highlighting group of the current word
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
