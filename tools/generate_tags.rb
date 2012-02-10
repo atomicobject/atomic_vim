@@ -29,7 +29,7 @@ Find.find "." do |path|
 end
 
 dotctags_file = File.expand_path(File.join(File.dirname(__FILE__),"dotctags"))
-run "ctags --options=#{dotctags_file} -f #{tag_file} #{files_to_tag.map{|s| "'#{s}'"}.join(' ')}"
+run "ctags --options='#{dotctags_file}' -f #{tag_file} #{files_to_tag.map{|s| "'#{s}'"}.join(' ')}"
 FileUtils.touch tag_file
 
 # ctags doesn't generate anything for empty files, so manually jam them into the tags file
