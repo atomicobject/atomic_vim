@@ -1,6 +1,6 @@
 let optional = []
 let optional += ["nerdtree"]
-let optional += ["autoclose"]
+let optional += ["smartinput"]
 let optional += ["vim-endwise"]
 let optional += ["tabular"]
 let optional += ["scratch"]
@@ -58,7 +58,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Get the 's' key back
-xmap <Leader>s <Plug>Vsurround
+" xmap <Leader>s <Plug>Vsurround
 
 " ~/snip is a junk file; call it a customized clipboard
 " Write to snip.  Either uses current visual selection, or entire buffer
@@ -95,7 +95,7 @@ nnoremap k gk
 " Save when focus is lost
 au FocusLost * :wa
 
-" inoremap jj <ESC>
+inoremap jj <ESC>
 
 nnoremap <leader>n :NERDTreeToggle<cr>
 
