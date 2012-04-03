@@ -30,6 +30,10 @@ if $0 == __FILE__
     exec_in_path "script/cucumber", filename
     exec "cucumber #{filename}"
 
+  when /spec\.(coffee|js)$/
+    puts "vows --spec --no-color \"#{filename}\""
+    exec "vows --spec --no-color \"#{filename}\""
+
   else
     puts "Couldn't figure out how to run #{filename}. Edit #{__FILE__}"
   end

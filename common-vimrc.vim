@@ -120,6 +120,9 @@ endif
 " folders that should be ignored
 let g:vim_ignore = ["log", "tools", "vendor", "build"]
 
+" settings for coffeescript tags
+let g:tlist_coffee_settings = 'coffee;f:function,v:variable'
+
 " extensions that should be included in tag files
 let g:taggable_extensions = [
                               \ 'c',
@@ -147,6 +150,7 @@ let g:taggable_extensions = [
                               \ 'pde',
                               \ 'cpp',
                               \ 'h',
+                              \ 'hpp',
                               \ ]
 
 " load .vim in the current directory if it exists
