@@ -1,10 +1,12 @@
 let optional = []
 let optional += ["nerdtree"]
 let optional += ["tabular"]
+let optional += ["webapi-vim"]
+let optional += ["gist-vim"]
 call OptionalBundles#Include(optional)
 
 set nu
-set list
+" set list
 set listchars=tab:▸\ ,eol:¬,trail:·
 
 " Camel-hump case boundary detection
@@ -19,8 +21,9 @@ nnoremap <C-l> <C-w>l
 
 nnoremap <leader>A :A<cr>
 
-let g:solarized_termcolors=16
-colorscheme solarized
+" let g:solarized_termcolors=16
+" colorscheme solarized
+colorscheme koehler
 
 " Run the current file. Uses .vim/ruby/run_file_in_terminal.rb
 noremap <leader>r :RunFileInTerminal<cr>
@@ -38,3 +41,8 @@ map <F3> :A
 " Micah
 xmap <Leader>s <Plug>Vsurround
 
+map <leader>O :NERDTreeFind<cr>
+map <leader>d :exec("CocoaDoc ".expand("<cword>"))<CR>
+
+filetype plugin on
+set ofu=syntaxcomplete#Complete
