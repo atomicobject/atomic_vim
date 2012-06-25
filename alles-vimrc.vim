@@ -55,3 +55,11 @@ map ,w cv/[a-z][A-Z^\n^ ^\t^(^[^.^_]<CR>
 map <F4> :A
 map <F3> :A
 map <F2> :A
+
+let optional = []
+let optional += ["nerdtree"]
+" let optional += ["autoclose"]
+call OptionalBundles#Include(optional)
+
+nnoremap <leader>n :NERDTreeToggle<cr>
+

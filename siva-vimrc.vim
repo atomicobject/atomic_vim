@@ -2,20 +2,24 @@
 "  source ~/.vim/common-vimrc.vim
 "  source ~/.vim/crosby-vimrc.vim
 
-" Get the 's' key back
-xmap <Leader>s <Plug>Vsurround
+let optional = []
+let optional += ["nerdtree"]
+let optional += ["vim-endwise"]
+call OptionalBundles#Include(optional)
 
 set autowrite
 set nofoldenable
 
-"set nonu
-"colorscheme koehler
+colorscheme synic
 
 " Tidy (cheap shot; would like a better plugin)
 cabbr tidy %!tidy -q -i -ashtml<CR>
 
 " Croz can't type:
 iabbr descrube describe
+
+" Window horizontal split 
+noremap <leader>h :split<CR><C-W><C-W>
 
 " Buffer navigation: Next and Previous
 noremap <C-N> :bn<CR>
@@ -33,16 +37,19 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Textmate-style arrows shortcut
-imap  <Space>=><Space>
-
+imap  <Space>=>
+imap  "([^"]+)"
 " Set search highlighting color:
 set hl=l:DiffChange 
-
-" Windowzizms:
-"   Run:
-map <F5> ,r<CR>
-"   Save:
+" Quick search and replace in Visual mode by using Control+R
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+" Quickly delete a word using Control+Backspace
+inoremap <C-BS> <C-O>b<C-O>dw
+noremap <C-BS> bdw
+" Save all open buffers
 noremap <F2> :wa<CR>
+" Change to corresponding spec file
+map <F3> :A
 
 " ~/snip is a junk file; call it a customized clipboard
 " Write to snip.  Either uses current visual selection, or entire buffer
@@ -57,6 +64,9 @@ nnoremap <leader><space> :noh<cr>
 :set incsearch
 :set autowrite
 
+" NERDTree toggle
+nmap <silent> <C-D> :NERDTreeToggle<CR>
+
 let clj_want_gorilla = 1
 syntax on
 filetype plugin indent on
@@ -65,8 +75,13 @@ filetype plugin indent on
 " Textmate-style arrows shortcut
 imap  <Space>=><Space>
 
-map <F4> :A
-map <F3> :A
-
 :set hlsearch
-" :set nohlsearch
+
+" ERB renders like HTML
+if has("autocmd")
+  au BufRead,BufNewFile *.erb set filetype=eruby
+endif
+
+if has('gui_running')
+  set guifont=Anonymous:h14
+endif

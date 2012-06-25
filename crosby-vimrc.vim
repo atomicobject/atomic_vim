@@ -2,6 +2,13 @@
 "  source ~/.vim/common-vimrc.vim
 "  source ~/.vim/crosby-vimrc.vim
 
+let optional = []
+let optional += ["factor"]
+call OptionalBundles#Include(optional)
+
+" Get the 's' key back
+xmap <Leader>s <Plug>Vsurround
+
 set autowrite
 set nofoldenable
 
@@ -33,6 +40,8 @@ set hl=l:DiffChange
 map <F5> ,r<CR>
 "   Save:
 noremap <F2> :w<CR>
+noremap <F6> :!rake<CR>
+
 
 " ~/snip is a junk file; call it a customized clipboard
 " Write to snip.  Either uses current visual selection, or entire buffer
@@ -44,4 +53,5 @@ noremap  \es :e ~/snip<cr>
 " Append to the snip file
 noremap  \as :w! >> ~/snip<cr>
 
-
+" Paragraph formatting
+noremap Q gqj

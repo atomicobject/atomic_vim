@@ -120,12 +120,16 @@ endif
 " folders that should be ignored
 let g:vim_ignore = ["log", "tools", "vendor", "build"]
 
+" settings for coffeescript tags
+let g:tlist_coffee_settings = 'coffee;f:function,v:variable'
+
 " extensions that should be included in tag files
 let g:taggable_extensions = [
                               \ 'c',
                               \ 'coffee',
                               \ 'cs',
                               \ 'css',
+                              \ 'csv',
                               \ 'erb',
                               \ 'feature',
                               \ 'java',
@@ -146,6 +150,7 @@ let g:taggable_extensions = [
                               \ 'pde',
                               \ 'cpp',
                               \ 'h',
+                              \ 'hpp',
                               \ ]
 
 " load .vim in the current directory if it exists
@@ -163,6 +168,4 @@ if exists('g:vim_ignore')
   endif
 endif
 
-" clojure configuration
-let clj_highlight_builtins = 1
-let clj_paren_rainbow = 1
+

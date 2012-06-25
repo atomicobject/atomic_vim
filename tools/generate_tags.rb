@@ -13,9 +13,6 @@ extension_regexp = /\.(#{extensions})$/
 excludes = ARGV[1].gsub("|.", "|")
 exclude_regexp = /^\..*\/\.|\b(#{excludes})\b/
 
-# Tell ctags to tag .pde (Arduino source) 
-lang_map_str = "--langmap=c++:.pde"
-
 # old way of generating tags - here for reference in case the new technique
 # using Ruby's Find doesn't work out
 # run %(find . | egrep '\.(#{extensions})$' | egrep -v '\\b(#{excludes})\\b' | xargs ctags -f #{tag_file})
@@ -30,7 +27,9 @@ Find.find "." do |path|
   else; next
   end
 end
-run "ctags #{lang_map_str} -f #{tag_file} #{files_to_tag.map{|s| "'#{s}'"}.join(' ')}"
+
+dotctags_file = File.expand_path(File.join(File.dirname(__FILE__),"dotctags"))
+run "ctags --options='#{dotctags_file}' -f #{tag_file} #{files_to_tag.map{|s| "'#{s}'"}.join(' ')}"
 FileUtils.touch tag_file
 
 # ctags doesn't generate anything for empty files, so manually jam them into the tags file
@@ -38,8 +37,14 @@ puts "Adding missing files..."
 included = Set.new
 File.open tag_file, "r" do |io|
   io.each_line do |line|
-    parts = line.split("\t")
-    included << parts[1]
+    begin 
+      parts = line.split("\t")
+      included << parts[1]
+    rescue Exception => e
+      puts "FAIL LINE: #{line}"
+      puts e.message
+      puts e.backtrace.join("\n\t")
+    end
   end
 end
 

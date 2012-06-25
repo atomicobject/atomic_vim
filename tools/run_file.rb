@@ -17,6 +17,7 @@ if $0 == __FILE__
   exec "#$1 #{filename}" if first_line =~ /^#!\s*(.*)$/
 
   require 'pathname'
+  puts filename
   case filename
   when /_spec\.rb$/
     exec_in_path "script/spec", filename
@@ -29,6 +30,14 @@ if $0 == __FILE__
   when /\.feature$/
     exec_in_path "script/cucumber", filename
     exec "cucumber #{filename}"
+
+  when /spec\.(coffee|js)$/
+    puts "vows --spec --no-color \"#{filename}\""
+    exec "vows --spec --no-color \"#{filename}\""
+
+  when /\/t_(.+)\.clj$/
+    inferred_ns = filename[/test.*/].sub(/test\//, "").gsub(/\//, ".").gsub(/_/,"-").chomp(File.extname(filename))
+    exec "lein midje #{inferred_ns}"
 
   else
     puts "Couldn't figure out how to run #{filename}. Edit #{__FILE__}"

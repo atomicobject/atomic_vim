@@ -1,0 +1,5 @@
+--langdef=coffee
+--langmap=coffee:.coffee
+--regex-coffee=/^[ \t]*([\$A-Za-z]+\.)*([A-Za-z]+)([ \t]+=|:).*[=-]>.*$/\2/f,function/
+--langmap=c++:.pde
+

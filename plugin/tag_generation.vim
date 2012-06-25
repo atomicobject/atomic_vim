@@ -7,7 +7,8 @@ function! RegenTags()
     let ruby_generate_tags = "!ruby ~/.vim/tools/generate_tags.rb"
   endif
 
-  execute ruby_generate_tags . " '" . ext_list . "' '". exclude_list ."'"
+  silent execute ruby_generate_tags . " '" . ext_list . "' '". exclude_list ."'"
+  silent execute ":redraw!"
 endfunction
 
 command! RegenTags call RegenTags()|FufRenewCache
