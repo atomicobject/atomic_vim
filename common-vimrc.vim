@@ -136,6 +136,8 @@ let g:taggable_extensions = [
                               \ 'js',
                               \ 'haml',
                               \ 'html',
+                              \ 'groovy',
+                              \ 'gsp',
                               \ 'php',
                               \ 'rake',
                               \ 'rb',
