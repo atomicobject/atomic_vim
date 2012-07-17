@@ -19,10 +19,6 @@
 " Make the path appropriate; that should be the default for Ruby 1.9.2 on
 " Windows.
 "
-" BE VERY VERY CAREFUL ABOUT NOT CHECKING THIS IN AND FUCKING UP EVERYONE
-" ELSE'S VIM CONFIG
-" It looks like this problem may be fixed as of gVim 7.3-88, but I can't get a
-" compiled version of that right now (1/1/2011)
 if v:version >= 703
   set nonumber
   set relativenumber
