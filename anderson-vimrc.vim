@@ -10,9 +10,9 @@ set nu
 set listchars=tab:▸\ ,eol:¬,trail:·
 
 " Camel-hump case boundary detection
-map ,w cv/[a-z][A-Z^\n^ ^\t^(^[^.^_]<CR>
+map <leader>w cv/[a-z][A-Z^\n^ ^\t^(^[^.^_]<CR>
 
-xmap <Leader>s <Plug>Vsurround
+xmap <leader>s <Plug>Vsurround
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -46,3 +46,17 @@ map <leader>d :exec("CocoaDoc ".expand("<cword>"))<CR>
 
 filetype plugin on
 set ofu=syntaxcomplete#Complete
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PROMOTE VARIABLE TO RSPEC LET
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! PromoteToLet()
+  :normal! dd
+  " :exec '?^\s*it\>'
+  :normal! P
+  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
+  :normal ==
+endfunction
+:command! PromoteToLet :call PromoteToLet()
+:map <leader>p :PromoteToLet<CR>
+
