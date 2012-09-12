@@ -29,6 +29,10 @@ Find.find "." do |path|
 end
 
 dotctags_file = File.expand_path(File.join(File.dirname(__FILE__),"dotctags"))
+
+# For some reason ctags started keeping entries that are no longer valid.
+# Let's just start fresh.
+run "rm #{tag_file}"
 run "ctags --options='#{dotctags_file}' -f #{tag_file} #{files_to_tag.map{|s| "'#{s}'"}.join(' ')}"
 FileUtils.touch tag_file
 

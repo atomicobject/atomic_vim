@@ -1,6 +1,6 @@
 let optional = []
 let optional += ["nerdtree"]
-let optional += ["smartinput"]
+let optional += ["autoclose"]
 let optional += ["vim-endwise"]
 let optional += ["tabular"]
 let optional += ["scratch"]
