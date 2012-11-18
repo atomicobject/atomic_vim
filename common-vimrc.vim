@@ -74,7 +74,8 @@ noremap <leader>R :RunFileAtLine<cr>
 
 " Textmate CMD-t emulation
 let g:fuf_enumeratingLimit = 25
-map <leader>t :FufTaggedFile<CR>
+"map <leader>t :FufTaggedFile<CR>
+map <leader>t :CtrlP<CR>
 map <leader>T :FufTag<CR>
 map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>
 map <leader>l :FufLine<CR>
@@ -161,6 +162,12 @@ endif
 if exists('g:vim_ignore')
   if !exists('g:fuzzy_ignore')
     let g:fuzzy_ignore=join(map(copy(g:vim_ignore), 'v:val . "/**"'), ",")
+  endif
+
+  if !exists('g:ctrlp_custom_ignore')
+    let g:ctrlp_custom_ignore = {
+          \ 'dir':  '\v[\/](' . join(map(copy(g:vim_ignore), 'v:val'), "|") . ')$'
+          \ }
   endif
 
   if !exists('g:ack_ignore')
