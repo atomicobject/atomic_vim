@@ -76,12 +76,13 @@ noremap <leader>R :RunFileAtLine<cr>
 let g:fuf_enumeratingLimit = 25
 "map <leader>t :FufTaggedFile<CR>
 map <leader>t :CtrlP<CR>
-map <leader>T :FufTag<CR>
+map <leader>T :CtrlPBufTag<CR>
 map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>
-map <leader>l :FufLine<CR>
+map <leader>l :CtrlPLine<CR>
+
 
 " bring up buffer list. ,,<CR> switches to last used buffer
-map <leader>, :FufBuffer<CR>
+map <leader>, :CtrlPBuffer<CR>
 
 " like browse to a file with a convenient ,t-like interface
 map <leader>e :FufFile<CR>
