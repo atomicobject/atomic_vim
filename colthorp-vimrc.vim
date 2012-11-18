@@ -31,7 +31,6 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 let g:paredit_leader='\'
 
 let optional = []
-let optional += ["ctrlp"]
 let optional += ["vimclojure"]
 call OptionalBundles#Include(optional)
 
