@@ -163,6 +163,8 @@ if filereadable(".vim")
   source .vim
 endif
 
+let g:ctrlp_working_path_mode = 'c'
+
 if exists('g:vim_ignore')
   if !exists('g:fuzzy_ignore')
     let g:fuzzy_ignore=join(map(copy(g:vim_ignore), 'v:val . "/**"'), ",")
