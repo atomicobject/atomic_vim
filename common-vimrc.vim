@@ -20,6 +20,7 @@ runtime macros/matchit.vim
 :set guioptions-=T
 let mapleader=","
 
+
 set autoindent
 set bs=2
 set clipboard=unnamed
@@ -88,7 +89,7 @@ map <leader>, :CtrlPBuffer<CR>
 map <leader>e :FufFile<CR>
 
 " render undo tree - vim 7.3 and up
-map <leader>u :GundoToggle<CR>
+map <leader>u :CtrlPUndo<CR>
 
 " comment out a line
 map <leader>/ :TComment<Return>
