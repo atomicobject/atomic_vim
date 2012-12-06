@@ -1,4 +1,4 @@
-fun! OptionalBundles#Include(bundles)
+function! optional#include(bundles)
   for bundle in a:bundles
     let path = "~/.vim/bundle/optional/*" . bundle . "*"
     let list = pathogen#glob_directories(path)

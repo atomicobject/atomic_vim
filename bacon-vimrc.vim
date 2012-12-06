@@ -7,7 +7,7 @@ let optional += ["scratch"]
 let optional += ["conque"]
 let optional += ["gundo"]
 let optional += ["cucumber"]
-call OptionalBundles#Include(optional)
+call optional#include(optional)
 
 if v:version >= 703
   set nonumber
