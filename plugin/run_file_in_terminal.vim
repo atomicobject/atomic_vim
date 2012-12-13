@@ -1,6 +1,10 @@
 function! RunInTerminal(file)
   if match(a:file, '_spec\.rb') != -1
-    let l:command = 'bundle exec rspec'
+    if exists("g:run_in_terminal_rspec_command")
+      let l:command = g:run_in_terminal_rspec_command
+    else
+      let l:command = 'bundle exec rspec'
+    endif
   elseif match(a:file, '\.feature') != -1
     let l:command = 'bundle exec cucumber'
   elseif match(a:file, '\.rb') != -1
