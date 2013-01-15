@@ -32,7 +32,7 @@ let g:paredit_leader='\'
 
 let optional = []
 let optional += ["vimclojure"]
-call OptionalBundles#Include(optional)
+call optional#include(optional)
 
 " clojure configuration
 let vimclojure#ParenRainbow = 1

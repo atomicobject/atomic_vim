@@ -158,8 +158,6 @@ let g:taggable_extensions = [
                               \ 'hpp',
                               \ ]
 
-call OptionalBundles#Include(["ctrlp"])
-
 " load .vim in the current directory if it exists
 if filereadable(".vim")
   source .vim
