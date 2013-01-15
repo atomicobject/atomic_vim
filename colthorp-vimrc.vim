@@ -41,3 +41,5 @@ let vimclojure#HighlightBuiltins = 1
 " Don't let NERDTree hijack the normal Netrw directory browser
 let g:NERDTreeHijackNetrw=0
 
+set list
+set listchars=extends:>,precedes:<,trail:·,tab:»\·
