@@ -20,6 +20,7 @@ runtime macros/matchit.vim
 :set guioptions-=T
 let mapleader=","
 
+
 set autoindent
 set bs=2
 set clipboard=unnamed
@@ -74,19 +75,21 @@ noremap <leader>R :RunFileAtLine<cr>
 
 " Textmate CMD-t emulation
 let g:fuf_enumeratingLimit = 25
-map <leader>t :FufTaggedFile<CR>
-map <leader>T :FufTag<CR>
+"map <leader>t :FufTaggedFile<CR>
+map <leader>t :CtrlP<CR>
+map <leader>T :CtrlPTag<CR>
 map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>
-map <leader>l :FufLine<CR>
+map <leader>l :CtrlPLine<CR>
+
 
 " bring up buffer list. ,,<CR> switches to last used buffer
-map <leader>, :FufBuffer<CR>
+map <leader>, :CtrlPBuffer<CR>
 
 " like browse to a file with a convenient ,t-like interface
 map <leader>e :FufFile<CR>
 
 " render undo tree - vim 7.3 and up
-map <leader>u :GundoToggle<CR>
+map <leader>u :CtrlPUndo<CR>
 
 " comment out a line
 map <leader>/ :TComment<Return>
@@ -155,6 +158,8 @@ let g:taggable_extensions = [
                               \ 'hpp',
                               \ ]
 
+call OptionalBundles#Include(["ctrlp"])
+
 " load .vim in the current directory if it exists
 if filereadable(".vim")
   source .vim
@@ -163,6 +168,12 @@ endif
 if exists('g:vim_ignore')
   if !exists('g:fuzzy_ignore')
     let g:fuzzy_ignore=join(map(copy(g:vim_ignore), 'v:val . "/**"'), ",")
+  endif
+
+  if !exists('g:ctrlp_custom_ignore')
+    let g:ctrlp_custom_ignore = {
+          \ 'dir':  '\v[\/](' . join(map(copy(g:vim_ignore), 'v:val'), "|") . ')$'
+          \ }
   endif
 
   if !exists('g:ack_ignore')

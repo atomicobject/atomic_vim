@@ -18,6 +18,7 @@ set statusline+=%<%P                         " file position
 let g:solarized_termcolors=16
 set background=dark
 colorscheme solarized
+" colorscheme default
 
 " if has('win32') || has('win64')
 "   noremap <leader>s :ConqueTerm cmd<cr>
@@ -30,7 +31,6 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 let g:paredit_leader='\'
 
 let optional = []
-let optional += ["slimv"]
 let optional += ["vimclojure"]
 call OptionalBundles#Include(optional)
 
@@ -41,3 +41,5 @@ let vimclojure#HighlightBuiltins = 1
 " Don't let NERDTree hijack the normal Netrw directory browser
 let g:NERDTreeHijackNetrw=0
 
+set list
+set listchars=extends:>,precedes:<,trail:·,tab:»\·
