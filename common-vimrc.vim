@@ -78,7 +78,7 @@ let g:fuf_enumeratingLimit = 25
 "map <leader>t :FufTaggedFile<CR>
 map <leader>t :CtrlP<CR>
 map <leader>T :CtrlPTag<CR>
-map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>
+map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>:CtrlPClearAllCaches<CR>
 map <leader>l :CtrlPLine<CR>
 
 
