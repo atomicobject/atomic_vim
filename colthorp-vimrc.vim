@@ -31,7 +31,7 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 let g:paredit_leader='\'
 
 let optional = []
-let optional += ["vimclojure"]
+let optional += ["vimclojure", "vim-easymotion"]
 call optional#include(optional)
 
 " clojure configuration
