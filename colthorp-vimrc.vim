@@ -31,7 +31,7 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 let g:paredit_leader='\'
 
 let optional = []
-let optional += ["vimclojure", "vim-easymotion"]
+let optional += ["vimclojure", "vim-easymotion", "nerdtree"]
 call optional#include(optional)
 
 " clojure configuration
@@ -43,3 +43,7 @@ let g:NERDTreeHijackNetrw=0
 
 set list
 set listchars=extends:>,precedes:<,trail:·,tab:»\·
+
+map <leader>b :CtrlPBuffer<CR>
+
+nnoremap <leader>n :NERDTreeToggle<cr>

@@ -170,7 +170,8 @@ if exists('g:vim_ignore')
 
   if !exists('g:ctrlp_custom_ignore')
     let g:ctrlp_custom_ignore = {
-          \ 'dir':  '\v[\/](' . join(map(copy(g:vim_ignore), 'v:val'), "|") . ')$'
+          \ 'dir':  '\v[\/](' . join(map(copy(g:vim_ignore), 'v:val'), "|") . ')$',
+          \ 'file': '\v\.(exe|so|dll|orig)$'
           \ }
   endif
 
