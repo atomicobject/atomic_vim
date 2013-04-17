@@ -2,7 +2,7 @@
 " File:        NERD_tree.vim
 " Description: vim global plugin that provides a nice tree explorer
 " Maintainer:  Martin Grenfell <martin.grenfell at gmail dot com>
-" Last Change: 1 December, 2009
+" Last Change: 28 December, 2011
 " License:     This program is free software. It comes without any warranty,
 "              to the extent permitted by applicable law. You can redistribute
 "              it and/or modify it under the terms of the Do What The Fuck You
@@ -10,7 +10,7 @@
 "              See http://sam.zoy.org/wtfpl/COPYING for more details.
 "
 " ============================================================================
-let s:NERD_tree_version = '4.1.0'
+let s:NERD_tree_version = '4.2.0'
 
 " SECTION: Script init stuff {{{1
 "============================================================
@@ -26,6 +26,8 @@ let loaded_nerd_tree = 1
 "for line continuation - i.e dont want C in &cpo
 let s:old_cpo = &cpo
 set cpo&vim
+
+let s:running_windows = has("win16") || has("win32") || has("win64")
 
 "Function: s:initVariable() function {{{2
 "This function is used to initialise a given variable to a given value. The
@@ -66,7 +68,7 @@ call s:initVariable("g:NERDTreeShowFiles", 1)
 call s:initVariable("g:NERDTreeShowHidden", 0)
 call s:initVariable("g:NERDTreeShowLineNumbers", 0)
 call s:initVariable("g:NERDTreeSortDirs", 1)
-call s:initVariable("g:NERDTreeDirArrows", 0)
+call s:initVariable("g:NERDTreeDirArrows", !s:running_windows)
 
 if !exists("g:NERDTreeSortOrder")
     let g:NERDTreeSortOrder = ['\/$', '*', '\.swp$',  '\.bak$', '\~$']
@@ -91,8 +93,6 @@ if !exists('g:NERDTreeStatusline')
 endif
 call s:initVariable("g:NERDTreeWinPos", "left")
 call s:initVariable("g:NERDTreeWinSize", 31)
-
-let s:running_windows = has("win16") || has("win32") || has("win64")
 
 "init the shell commands that will be used to copy nodes, and remove dir trees
 "
@@ -565,7 +565,7 @@ function! s:MenuController._echoPrompt()
 endfunction
 
 "FUNCTION: MenuController._current(key) {{{3
-"get the MenuItem that is curently selected
+"get the MenuItem that is currently selected
 function! s:MenuController._current()
     return self.menuItems[self.selection]
 endfunction
@@ -2562,7 +2562,18 @@ function! s:findAndRevealPath()
     endtry
 
     if !s:treeExistsForTab()
-        call s:initNerdTree(p.getParent().str())
+        try
+            let cwd = s:Path.New(getcwd())
+        catch /^NERDTree.InvalidArgumentsError/
+            call s:echo("current directory does not exist.")
+            let cwd = p.getParent()
+        endtry
+
+        if p.isUnder(cwd)
+            call s:initNerdTree(cwd.str())
+        else
+            call s:initNerdTree(p.getParent().str())
+        endif
     else
         if !p.isUnder(s:TreeFileNode.GetRootForTab().path)
             call s:initNerdTree(p.getParent().str())
@@ -2658,45 +2669,8 @@ function! s:initNerdTreeInPlace(dir)
     let b:NERDTreeRoot = s:TreeDirNode.New(path)
     call b:NERDTreeRoot.open()
 
-    "throwaway buffer options
-    setlocal noswapfile
-    setlocal buftype=nofile
-    setlocal bufhidden=hide
-    setlocal nowrap
-    setlocal foldcolumn=0
-    setlocal nobuflisted
-    setlocal nospell
-    if g:NERDTreeShowLineNumbers
-        setlocal nu
-    else
-        setlocal nonu
-        if v:version >= 703
-            setlocal nornu
-        endif
-    endif
-
-    iabc <buffer>
-
-    if g:NERDTreeHighlightCursorline
-        setlocal cursorline
-    endif
-
-    call s:setupStatusline()
-
-    let b:treeShowHelp = 0
-    let b:NERDTreeIgnoreEnabled = 1
-    let b:NERDTreeShowFiles = g:NERDTreeShowFiles
-    let b:NERDTreeShowHidden = g:NERDTreeShowHidden
-    let b:NERDTreeShowBookmarks = g:NERDTreeShowBookmarks
-
+    call s:setCommonBufOptions()
     let b:NERDTreeType = "secondary"
-
-    call s:bindMappings()
-    setfiletype nerdtree
-    " syntax highlighting
-    if has("syntax") && exists("g:syntax_on")
-        call s:setupSyntaxHighlighting()
-    endif
 
     call s:renderView()
 endfunction
@@ -2897,37 +2871,7 @@ function! s:createTreeWin()
     endif
 
     setlocal winfixwidth
-
-    "throwaway buffer options
-    setlocal noswapfile
-    setlocal buftype=nofile
-    setlocal nowrap
-    setlocal foldcolumn=0
-    setlocal nobuflisted
-    setlocal nospell
-    if g:NERDTreeShowLineNumbers
-        setlocal nu
-    else
-        setlocal nonu
-        if v:version >= 703
-            setlocal nornu
-        endif
-    endif
-
-    iabc <buffer>
-
-    if g:NERDTreeHighlightCursorline
-        setlocal cursorline
-    endif
-
-    call s:setupStatusline()
-
-    call s:bindMappings()
-    setfiletype nerdtree
-    " syntax highlighting
-    if has("syntax") && exists("g:syntax_on")
-        call s:setupSyntaxHighlighting()
-    endif
+    call s:setCommonBufOptions()
 endfunction
 
 "FUNCTION: s:dumpHelp  {{{2
@@ -3406,103 +3350,49 @@ function! s:saveScreenState()
     endtry
 endfunction
 
+"FUNCTION: s:setCommonBufOptions() {{{2
+function! s:setCommonBufOptions()
+    "throwaway buffer options
+    setlocal noswapfile
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    setlocal nowrap
+    setlocal foldcolumn=0
+    setlocal nobuflisted
+    setlocal nospell
+    if g:NERDTreeShowLineNumbers
+        setlocal nu
+    else
+        setlocal nonu
+        if v:version >= 703
+            setlocal nornu
+        endif
+    endif
+
+    iabc <buffer>
+
+    if g:NERDTreeHighlightCursorline
+        setlocal cursorline
+    endif
+
+    call s:setupStatusline()
+
+
+    let b:treeShowHelp = 0
+    let b:NERDTreeIgnoreEnabled = 1
+    let b:NERDTreeShowFiles = g:NERDTreeShowFiles
+    let b:NERDTreeShowHidden = g:NERDTreeShowHidden
+    let b:NERDTreeShowBookmarks = g:NERDTreeShowBookmarks
+    setfiletype nerdtree
+    call s:bindMappings()
+endfunction
+
 "FUNCTION: s:setupStatusline() {{{2
 function! s:setupStatusline()
     if g:NERDTreeStatusline != -1
         let &l:statusline = g:NERDTreeStatusline
     endif
 endfunction
-"FUNCTION: s:setupSyntaxHighlighting() {{{2
-function! s:setupSyntaxHighlighting()
-    "NERDTreeFlags are syntax items that should be invisible, but give clues as to
-    "how things should be highlighted
-    syn match NERDTreeFlag #\~#
-    syn match NERDTreeFlag #\[RO\]#
-
-    "highlighting for the .. (up dir) line at the top of the tree
-    execute "syn match NERDTreeUp #\\V". s:tree_up_dir_line ."#"
-
-    "highlighting for the ~/+ symbols for the directory nodes
-    syn match NERDTreeClosable #\~\<#
-    syn match NERDTreeClosable #\~\.#
-    syn match NERDTreeOpenable #+\<#
-    syn match NERDTreeOpenable #+\.#he=e-1
-
-    "highlighting for the tree structural parts
-    syn match NERDTreePart #|#
-    syn match NERDTreePart #`#
-    syn match NERDTreePartFile #[|`]-#hs=s+1 contains=NERDTreePart
-
-    "quickhelp syntax elements
-    syn match NERDTreeHelpKey #" \{1,2\}[^ ]*:#hs=s+2,he=e-1
-    syn match NERDTreeHelpKey #" \{1,2\}[^ ]*,#hs=s+2,he=e-1
-    syn match NERDTreeHelpTitle #" .*\~#hs=s+2,he=e-1 contains=NERDTreeFlag
-    syn match NERDTreeToggleOn #".*(on)#hs=e-2,he=e-1 contains=NERDTreeHelpKey
-    syn match NERDTreeToggleOff #".*(off)#hs=e-3,he=e-1 contains=NERDTreeHelpKey
-    syn match NERDTreeHelpCommand #" :.\{-}\>#hs=s+3
-    syn match NERDTreeHelp  #^".*# contains=NERDTreeHelpKey,NERDTreeHelpTitle,NERDTreeFlag,NERDTreeToggleOff,NERDTreeToggleOn,NERDTreeHelpCommand
-
-    "highlighting for readonly files
-    syn match NERDTreeRO #.*\[RO\]#hs=s+2 contains=NERDTreeFlag,NERDTreeBookmark,NERDTreePart,NERDTreePartFile
-
-    "highlighting for sym links
-    syn match NERDTreeLink #[^-| `].* -> # contains=NERDTreeBookmark,NERDTreeOpenable,NERDTreeClosable,NERDTreeDirSlash
-
-    "highlighing for directory nodes and file nodes
-    syn match NERDTreeDirSlash #/#
-    syn match NERDTreeDir #[^-| `].*/# contains=NERDTreeLink,NERDTreeDirSlash,NERDTreeOpenable,NERDTreeClosable
-    syn match NERDTreeExecFile  #[|` ].*\*\($\| \)# contains=NERDTreeLink,NERDTreePart,NERDTreeRO,NERDTreePartFile,NERDTreeBookmark
-    syn match NERDTreeFile  #|-.*# contains=NERDTreeLink,NERDTreePart,NERDTreeRO,NERDTreePartFile,NERDTreeBookmark,NERDTreeExecFile
-    syn match NERDTreeFile  #`-.*# contains=NERDTreeLink,NERDTreePart,NERDTreeRO,NERDTreePartFile,NERDTreeBookmark,NERDTreeExecFile
-    syn match NERDTreeCWD #^[</].*$#
-
-    "highlighting for bookmarks
-    syn match NERDTreeBookmark # {.*}#hs=s+1
-
-    "highlighting for the bookmarks table
-    syn match NERDTreeBookmarksLeader #^>#
-    syn match NERDTreeBookmarksHeader #^>-\+Bookmarks-\+$# contains=NERDTreeBookmarksLeader
-    syn match NERDTreeBookmarkName #^>.\{-} #he=e-1 contains=NERDTreeBookmarksLeader
-    syn match NERDTreeBookmark #^>.*$# contains=NERDTreeBookmarksLeader,NERDTreeBookmarkName,NERDTreeBookmarksHeader
-
-    if g:NERDChristmasTree
-        hi def link NERDTreePart Special
-        hi def link NERDTreePartFile Type
-        hi def link NERDTreeFile Normal
-        hi def link NERDTreeExecFile Title
-        hi def link NERDTreeDirSlash Identifier
-        hi def link NERDTreeClosable Type
-    else
-        hi def link NERDTreePart Normal
-        hi def link NERDTreePartFile Normal
-        hi def link NERDTreeFile Normal
-        hi def link NERDTreeClosable Title
-    endif
-
-    hi def link NERDTreeBookmarksHeader statement
-    hi def link NERDTreeBookmarksLeader ignore
-    hi def link NERDTreeBookmarkName Identifier
-    hi def link NERDTreeBookmark normal
-
-    hi def link NERDTreeHelp String
-    hi def link NERDTreeHelpKey Identifier
-    hi def link NERDTreeHelpCommand Identifier
-    hi def link NERDTreeHelpTitle Macro
-    hi def link NERDTreeToggleOn Question
-    hi def link NERDTreeToggleOff WarningMsg
-
-    hi def link NERDTreeDir Directory
-    hi def link NERDTreeUp Directory
-    hi def link NERDTreeCWD Statement
-    hi def link NERDTreeLink Macro
-    hi def link NERDTreeOpenable Title
-    hi def link NERDTreeFlag ignore
-    hi def link NERDTreeRO WarningMsg
-    hi def link NERDTreeBookmark Statement
-
-    hi def link NERDTreeCurrentNode Search
-endfunction
-
 "FUNCTION: s:stripMarkupFromLine(line, removeLeadingSpaces){{{2
 "returns the given line with all the tree parts stripped off
 "
@@ -3645,7 +3535,7 @@ function! s:bindMappings()
     "bind all the user custom maps
     call s:KeyMap.BindAll()
 
-    command! -buffer -nargs=1 Bookmark :call <SID>bookmarkNode('<args>')
+    command! -buffer -nargs=? Bookmark :call <SID>bookmarkNode('<args>')
     command! -buffer -complete=customlist,s:completeBookmarks -nargs=1 RevealBookmark :call <SID>revealBookmark('<args>')
     command! -buffer -complete=customlist,s:completeBookmarks -nargs=1 OpenBookmark :call <SID>openBookmark('<args>')
     command! -buffer -complete=customlist,s:completeBookmarks -nargs=* ClearBookmarks call <SID>clearBookmarks('<args>')
@@ -3657,11 +3547,15 @@ endfunction
 
 " FUNCTION: s:bookmarkNode(name) {{{2
 " Associate the current node with the given name
-function! s:bookmarkNode(name)
+function! s:bookmarkNode(...)
     let currentNode = s:TreeFileNode.GetSelected()
     if currentNode != {}
+        let name = a:1
+        if empty(name)
+            let name = currentNode.path.getLastPathComponent(0)
+        endif
         try
-            call currentNode.bookmark(a:name)
+            call currentNode.bookmark(name)
             call s:renderView()
         catch /^NERDTree.IllegalBookmarkNameError/
             call s:echo("bookmark names must not contain spaces")
