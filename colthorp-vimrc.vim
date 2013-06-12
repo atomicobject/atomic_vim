@@ -1,5 +1,6 @@
 set autoread
 
+set nonu
 
 " Status line. mostly stolen from A Byte of Vim
 set laststatus=2
@@ -15,10 +16,10 @@ set statusline+=%-14(%l,%c%V%)               " line, character
 set statusline+=%<%P                         " file position
 
 " let g:solarized_termcolors=256
-let g:solarized_termcolors=16
-set background=dark
-colorscheme solarized
-" colorscheme default
+" let g:solarized_termcolors=16
+" set background=dark
+" colorscheme solarized
+colorscheme default
 
 " if has('win32') || has('win64')
 "   noremap <leader>s :ConqueTerm cmd<cr>
@@ -31,7 +32,7 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 let g:paredit_leader='\'
 
 let optional = []
-let optional += ["vimclojure"]
+let optional += ["vimclojure", "vim-easymotion", "nerdtree"]
 call optional#include(optional)
 
 " clojure configuration
@@ -43,3 +44,8 @@ let g:NERDTreeHijackNetrw=0
 
 set list
 set listchars=extends:>,precedes:<,trail:·,tab:»\·
+
+map <leader>b :CtrlPBuffer<CR>
+
+nnoremap <leader>n :NERDTreeToggle<cr>
+au BufRead,BufNewFile *.xaml            setfiletype xml
