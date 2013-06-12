@@ -1,11 +1,9 @@
 let optional = []
-let optional += ["slimv"]
-let optional += ["vimclojure"]
+" let optional += ["slimv"]
+" let optional += ["vimclojure"]
+let optional += ["YouCompleteMe"]
 let optional += ["nerdtree"]
-call OptionalBundles#Include(optional)
-" call pathogen#runtime_append_all_bundles('optional/slimv')
-" call pathogen#runtime_append_all_bundles('optional/vimclojure')
-" call pathogen#runtime_append_all_bundles('optional/nerdtree')
+call optional#include(optional)
 
 " Automatically re-read files when they change underneath us on disk
 set autoread
@@ -29,6 +27,9 @@ set statusline+=%=                           " right align remainder
 set statusline+=%-14(%l,%c%V%)               " line, character
 set statusline+=%<%P                         " file position
 
+" Booo microline literal tabs.
+" set noexpandtab
+
 " tab navigation mappings - may conflict with 't' usage occasionally
 map th :tabfirst<CR>
 map tj :tabnext<CR>
@@ -39,6 +40,10 @@ map tn :tabnext<Space>
 map tm :tabm<Space>
 
 nnoremap <leader>n :NERDTreeToggle<cr>
+
+" if !exists('g:pyclewn_args')
+"     let g:pyclewn_args="--pgm=arm-none-eabi-gdb"
+" endif
 
 " Remnant of Numerical Methods with Fortran
 " let fortran_free_source=1
