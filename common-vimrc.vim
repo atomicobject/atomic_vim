@@ -121,7 +121,7 @@ endif
 " customize stuff
 
 " folders that should be ignored
-let g:vim_ignore = ["log", "tools", "vendor", "build"]
+let g:vim_ignore = ["log", "tools", "vendor", "build", "CeedlingBuild"]
 
 " settings for coffeescript tags
 let g:tlist_coffee_settings = 'coffee;f:function,v:variable'
@@ -170,7 +170,8 @@ if exists('g:vim_ignore')
 
   if !exists('g:ctrlp_custom_ignore')
     let g:ctrlp_custom_ignore = {
-          \ 'dir':  '\v[\/](' . join(map(copy(g:vim_ignore), 'v:val'), "|") . ')$'
+          \ 'dir':  '\v[\/](' . join(map(copy(g:vim_ignore), 'v:val'), "|") . ')$',
+          \ 'file': '\v\.(exe|so|dll|orig)$'
           \ }
   endif
 
