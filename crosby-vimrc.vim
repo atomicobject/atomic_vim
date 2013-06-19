@@ -4,7 +4,7 @@
 
 let optional = []
 let optional += ["factor"]
-call OptionalBundles#Include(optional)
+call optional#include(optional)
 
 " Get the 's' key back
 xmap <Leader>s <Plug>Vsurround
