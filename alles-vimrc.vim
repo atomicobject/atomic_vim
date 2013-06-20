@@ -10,6 +10,7 @@ set nofoldenable
 
 "set nonu
 "colorscheme koehler
+colorscheme default
 
 " Tidy (cheap shot; would like a better plugin)
 cabbr tidy %!tidy -q -i -ashtml<CR>
