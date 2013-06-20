@@ -778,7 +778,7 @@ function! s:Last(bang, count) abort
 endfunction
 
 function! s:setup_eval() abort
-  command! -buffer -bang -range=0 -nargs=? -complete=customlist,fireplace#eval_complete Eval :exe s:Eval(<bang>0, <line1>, <line2>, <count>, <q-args>)
+  command! -buffer -bang -range=0 -nargs=? -complete=customlist,fireplace#eval_complete TEval :exe s:Eval(<bang>0, <line1>, <line2>, <count>, <q-args>)
   command! -buffer -bang -bar -count=1 Last exe s:Last(<bang>0, <count>)
 
   nmap <buffer> cp <Plug>FireplacePrint
