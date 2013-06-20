@@ -1,0 +1,27 @@
+*vim-writeroom.txt*    For Vim version 7.3
+
+
+            VIM REFERENCE MANUAL by James Tomasino
+
+
+Help on using vim-writeroom                                       *vim-writeroom*
+
+1. Introduction             |vim-writeroom-intro|
+3. Credits                  |vim-writeroom-credits|
+
+==============================================================================
+ 1. INTRODUCTION                                                  *vim-writeroom-intro*
+
+  A free, open source plugin will mimic the behavior of the amazing program,
+  WriteRoom, by providing a full-screen, distraction-free editing environment.
+
+  Hit <F5> to enable vim-writeroom. Enjoy.
+
+
+==============================================================================
+ 3. CREDITS                                                       *vim-writeroom-credits*
+
+  I'd like to thank Brandur and his blog post that inspired this plugin.
+  https://mutelight.org/vim-is-writeroom-level-2 
+
+ vim:tw=78:ts=8:ft=help:norl:
