@@ -27,7 +27,6 @@ colorscheme default
 "   noremap <leader>s :ConqueTerm sh<cr>
 " end
 "
-au BufNewFile,BufRead *.handlebars set filetype=html
 
 let g:paredit_leader='\'
 
