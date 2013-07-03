@@ -184,3 +184,11 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+" ctrl-p fix key bindings
+let g:ctrlp_prompt_mappings = {
+  \ 'PrtSelectMove("j")': [ '<c-n>', '<down>' ],
+  \ 'PrtSelectMove("k")': [ '<c-p>', '<up>' ],
+  \ 'PrtHistory(-1)': [ '<c-j>' ],
+  \ 'PrtHistory(1)': [ '<c-k>' ],
+  \ }
