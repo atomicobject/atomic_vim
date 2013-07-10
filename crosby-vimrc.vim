@@ -4,7 +4,8 @@
 
 let optional = []
 let optional += ["factor"]
-call OptionalBundles#Include(optional)
+let optional += ["nerdtree"]
+call optional#include(optional)
 
 " Get the 's' key back
 xmap <Leader>s <Plug>Vsurround
@@ -24,6 +25,9 @@ iabbr descrube describe
 " Buffer navigation: Next and Previous
 noremap <C-N> :bn<CR>
 noremap <C-P> :bp<CR>
+
+
+nnoremap <leader>n :NERDTreeToggle<cr>
 
 " Search term highlighting on / off: 
 noremap <leader>hl :set hlsearch<CR>
