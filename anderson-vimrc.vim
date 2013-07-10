@@ -3,7 +3,7 @@ let optional += ["nerdtree"]
 let optional += ["tabular"]
 let optional += ["webapi-vim"]
 let optional += ["gist-vim"]
-call OptionalBundles#Include(optional)
+call optional#include(optional)
 
 set nu
 " set list
@@ -60,3 +60,7 @@ endfunction
 :command! PromoteToLet :call PromoteToLet()
 :map <leader>p :PromoteToLet<CR>
 
+
+map K <Nop>
+
+autocmd Filetype gitcommit setlocal spell textwidth=72

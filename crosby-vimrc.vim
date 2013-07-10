@@ -3,7 +3,7 @@
 "  source ~/.vim/crosby-vimrc.vim
 
 let optional = []
-let optional += ["factor"]
+"let optional += ["factor"]
 let optional += ["nerdtree"]
 call optional#include(optional)
 

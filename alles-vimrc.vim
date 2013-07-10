@@ -10,6 +10,7 @@ set nofoldenable
 
 "set nonu
 "colorscheme koehler
+colorscheme default
 
 " Tidy (cheap shot; would like a better plugin)
 cabbr tidy %!tidy -q -i -ashtml<CR>
@@ -56,10 +57,19 @@ map <F4> :A
 map <F3> :A
 map <F2> :A
 
-let optional = []
-let optional += ["nerdtree"]
+map <F7> :call VimWriteRoom()<CR>
+
+" let optional = []
+" let optional += ["nerdtree"]
 " let optional += ["autoclose"]
-call OptionalBundles#Include(optional)
+" call OptionalBundles#Include(optional)
 
 nnoremap <leader>n :NERDTreeToggle<cr>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+set gfn=Menlo:h14
 

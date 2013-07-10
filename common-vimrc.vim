@@ -20,6 +20,7 @@ runtime macros/matchit.vim
 :set guioptions-=T
 let mapleader=","
 
+
 set autoindent
 set bs=2
 set clipboard=unnamed
@@ -74,19 +75,21 @@ noremap <leader>R :RunFileAtLine<cr>
 
 " Textmate CMD-t emulation
 let g:fuf_enumeratingLimit = 25
-map <leader>t :FufTaggedFile<CR>
-map <leader>T :FufTag<CR>
-map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>
-map <leader>l :FufLine<CR>
+"map <leader>t :FufTaggedFile<CR>
+map <leader>t :CtrlP<CR>
+map <leader>T :CtrlPTag<CR>
+map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>:CtrlPClearAllCaches<CR>
+map <leader>l :CtrlPLine<CR>
+
 
 " bring up buffer list. ,,<CR> switches to last used buffer
-map <leader>, :FufBuffer<CR>
+map <leader>, :CtrlPBuffer<CR>
 
 " like browse to a file with a convenient ,t-like interface
 map <leader>e :FufFile<CR>
 
 " render undo tree - vim 7.3 and up
-map <leader>u :GundoToggle<CR>
+map <leader>u :CtrlPUndo<CR>
 
 " comment out a line
 map <leader>/ :TComment<Return>
@@ -118,7 +121,7 @@ endif
 " customize stuff
 
 " folders that should be ignored
-let g:vim_ignore = ["log", "tools", "vendor", "build"]
+let g:vim_ignore = ["log", "tools", "vendor", "build", "CeedlingBuild"]
 
 " settings for coffeescript tags
 let g:tlist_coffee_settings = 'coffee;f:function,v:variable'
@@ -165,9 +168,27 @@ if exists('g:vim_ignore')
     let g:fuzzy_ignore=join(map(copy(g:vim_ignore), 'v:val . "/**"'), ",")
   endif
 
+  if !exists('g:ctrlp_custom_ignore')
+    let g:ctrlp_custom_ignore = {
+          \ 'dir':  '\v[\/](' . join(map(copy(g:vim_ignore), 'v:val'), "|") . ')$',
+          \ 'file': '\v\.(exe|so|dll|orig)$'
+          \ }
+  endif
+
   if !exists('g:ack_ignore')
     let g:ack_ignore=copy(g:vim_ignore)
   endif
 endif
 
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
+" ctrl-p fix key bindings
+let g:ctrlp_prompt_mappings = {
+  \ 'PrtSelectMove("j")': [ '<c-n>', '<down>' ],
+  \ 'PrtSelectMove("k")': [ '<c-p>', '<up>' ],
+  \ 'PrtHistory(-1)': [ '<c-j>' ],
+  \ 'PrtHistory(1)': [ '<c-k>' ],
+  \ }
