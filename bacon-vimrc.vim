@@ -7,6 +7,9 @@ let optional += ["scratch"]
 let optional += ["conque"]
 let optional += ["gundo"]
 let optional += ["cucumber"]
+let optional += ["vim-elixir"]
+let optional += ["ag.vim"]
+let optional += ["indentLine"]
 call optional#include(optional)
 
 if v:version >= 703
@@ -19,6 +22,9 @@ set nu
 set directory=~/tmp
 
 :set guifont=Menlo:h14
+
+" Don't let NERDTree hijack the normal Netrw directory browser
+let g:NERDTreeHijackNetrw=0
 
 " Status line. mostly stolen from A Byte of Vim
 set laststatus=2
@@ -40,6 +46,11 @@ set scrolloff=3
 
 " let g:solarized_termcolors=16
 " colorscheme solarized
+
+let g:paredit_leader='\'
+" clojure configuration
+let vimclojure#ParenRainbow = 1
+let vimclojure#HighlightBuiltins = 1
 
 " Run the current file. Uses .vim/ruby/run_file_in_terminal.rb
 noremap <leader>r :RunFileInTerminal<cr>
@@ -102,6 +113,7 @@ nnoremap <leader>n :NERDTreeToggle<cr>
 autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
 
 let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'", '#{': '}' }
+" let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', '#{': '}' }
 let g:AutoCloseProtectedRegions = ["Character", "Comment"]
 
 " F12 removes trailing whitespace
@@ -157,3 +169,14 @@ map <F2> :A<CR>
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" CtrlP Config
+let g:ctrlp_map = ''
+let g:ctrlp_switch_buffer = "vt"
+let g:ctrlp_root_markers = ['Gemfile']
+" let g:ctrlp_prompt_mappings = {
+"       \ 'PrtSelectMove("j")': ['<c-j>', '<c-n>', '<down>'],
+"       \ 'PrtSelectMove("k")': ['<c-k>', '<c-p>', '<up>'],
+"       \ 'PrtHistory(-1)':       [],
+"       \ 'PrtHistory(1)':        [],
+"       \}

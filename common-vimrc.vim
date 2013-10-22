@@ -121,7 +121,7 @@ endif
 " customize stuff
 
 " folders that should be ignored
-let g:vim_ignore = ["log", "tools", "vendor", "build", "CeedlingBuild"]
+let g:vim_ignore = ["log", "tools", "vendor", "build", "CeedlingBuild", "tmp"]
 
 " settings for coffeescript tags
 let g:tlist_coffee_settings = 'coffee;f:function,v:variable'
@@ -134,6 +134,8 @@ let g:taggable_extensions = [
                               \ 'css',
                               \ 'csv',
                               \ 'erb',
+                              \ 'ex',
+                              \ 'exs',
                               \ 'feature',
                               \ 'java',
                               \ 'js',
@@ -145,6 +147,7 @@ let g:taggable_extensions = [
                               \ 'rake',
                               \ 'rb',
                               \ 'sass',
+                              \ 'scala',
                               \ 'scss',
                               \ 'sql',
                               \ 'thor',
