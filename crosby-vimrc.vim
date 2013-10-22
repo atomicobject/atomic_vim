@@ -13,6 +13,9 @@ xmap <Leader>s <Plug>Vsurround
 set autowrite
 set nofoldenable
 
+set wrap
+set linebreak
+
 "set nonu
 "colorscheme koehler
 
