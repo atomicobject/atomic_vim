@@ -180,3 +180,25 @@ let g:ctrlp_root_markers = ['Gemfile']
 "       \ 'PrtHistory(-1)':       [],
 "       \ 'PrtHistory(1)':        [],
 "       \}
+"
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    '#FF9CFE'],
+    \ ['darkgreen',   '#96CBFE'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', '#FF9CFE'],
+    \ ['brown',       '#96CBFE'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', '#FF9CFE'],
+    \ ['Darkblue',    '#96CBFE'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     '#FF9CFE'],
+    \ ['red',         '#96CBFE'],
+    \ ]
+
+
+autocmd FileType css,scss,less set iskeyword=@,48-57,_,-,?,!,192-255
