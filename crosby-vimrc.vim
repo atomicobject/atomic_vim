@@ -13,6 +13,9 @@ xmap <Leader>s <Plug>Vsurround
 set autowrite
 set nofoldenable
 
+set wrap
+set linebreak
+
 "set nonu
 "colorscheme koehler
 
@@ -21,6 +24,7 @@ cabbr tidy %!tidy -q -i -ashtml<CR>
 
 " Croz can't type:
 iabbr descrube describe
+iabbr deborag deborah
 
 " Buffer navigation: Next and Previous
 noremap <C-N> :bn<CR>

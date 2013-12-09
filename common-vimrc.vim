@@ -23,7 +23,9 @@ let mapleader=","
 
 set autoindent
 set bs=2
-set clipboard=unnamed
+if $TMUX == ''
+  set clipboard=unnamed
+endif
 set completeopt=longest,menuone
 set expandtab
 set grepformat=%f:%l:%m
@@ -81,6 +83,9 @@ map <leader>T :CtrlPTag<CR>
 map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>:CtrlPClearAllCaches<CR>
 map <leader>l :CtrlPLine<CR>
 
+" Don't switch windows/tabs when using ,t. Just open the file in the current
+" window. (Default of ctrlp is 'Et')
+let g:ctrlp_switch_buffer = '0'
 
 " bring up buffer list. ,,<CR> switches to last used buffer
 map <leader>, :CtrlPBuffer<CR>
@@ -121,7 +126,7 @@ endif
 " customize stuff
 
 " folders that should be ignored
-let g:vim_ignore = ["log", "tools", "vendor", "build", "CeedlingBuild"]
+let g:vim_ignore = ["log", "tools", "vendor", "build", "CeedlingBuild", "tmp"]
 
 " settings for coffeescript tags
 let g:tlist_coffee_settings = 'coffee;f:function,v:variable'
