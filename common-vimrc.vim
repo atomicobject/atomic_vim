@@ -83,6 +83,9 @@ map <leader>T :CtrlPTag<CR>
 map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>:CtrlPClearAllCaches<CR>
 map <leader>l :CtrlPLine<CR>
 
+" Don't switch windows/tabs when using ,t. Just open the file in the current
+" window. (Default of ctrlp is 'Et')
+let g:ctrlp_switch_buffer = '0'
 
 " bring up buffer list. ,,<CR> switches to last used buffer
 map <leader>, :CtrlPBuffer<CR>
