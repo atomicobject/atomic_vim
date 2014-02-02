@@ -61,3 +61,18 @@ let g:airline#extensions#default#section_truncate_width = {
     \ 'y': 100,
     \ 'z': 50,
     \ }
+
+let g:airline#extensions#default#layout = [
+      \ [ 'a', 'c' ],
+      \ [ 'x', 'b', 'y', 'z', 'warning' ]
+      \ ]
+
+command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(values(buffer_numbers))
+endfunction
