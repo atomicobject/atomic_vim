@@ -4,16 +4,16 @@ set nu
 
 " Status line. mostly stolen from A Byte of Vim
 set laststatus=2
-set statusline=
-set statusline+=%-3.3n\                      " buffer number
-set statusline+=%f\                          " filename
-set statusline+=%h%m%r%w                     " status flags
-set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
-set statusline+=%{fugitive#statusline()}     " git branch
-set statusline+=%=                           " right align remainder
-set statusline+=0x%-8B                       " character value
-set statusline+=%-14(%l,%c%V%)               " line, character
-set statusline+=%<%P                         " file position
+" set statusline=
+" set statusline+=%-3.3n\                      " buffer number
+" set statusline+=%f\                          " filename
+" set statusline+=%h%m%r%w                     " status flags
+" set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
+" set statusline+=%{fugitive#statusline()}     " git branch
+" set statusline+=%=                           " right align remainder
+" set statusline+=0x%-8B                       " character value
+" set statusline+=%-14(%l,%c%V%)               " line, character
+" set statusline+=%<%P                         " file position
 
 " let g:solarized_termcolors=256
 " let g:solarized_termcolors=16
@@ -27,12 +27,11 @@ colorscheme solarized
 "   noremap <leader>s :ConqueTerm sh<cr>
 " end
 "
-let g:airline_powerline_fonts = 1
 let g:paredit_leader='\'
 
 let optional = []
 " let optional += ["vim-easymotion", "nerdtree", "vim-airline", "tagbar"]
-let optional += ["vim-easymotion", "nerdtree", "tagbar"]
+let optional += ["vim-easymotion", "nerdtree", "tagbar", 'vim-airline']
 call optional#include(optional)
 
 " clojure configuration
@@ -52,5 +51,13 @@ nnoremap <leader>N :NERDTreeFind<cr>
 nnoremap <leader><C-n> :NERDTree<cr>
 au BufRead,BufNewFile *.xaml            setfiletype xml
 
-set foldmethod=syntax
+set foldmethod=indent
 set foldlevelstart=99
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#default#section_truncate_width = {
+    \ 'b': 110,
+    \ 'x': 65,
+    \ 'y': 100,
+    \ 'z': 50,
+    \ }
