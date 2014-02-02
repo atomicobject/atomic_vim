@@ -49,4 +49,8 @@ map <leader>b :CtrlPBuffer<CR>
 
 nnoremap <leader>n :NERDTreeToggle<cr>
 nnoremap <leader>N :NERDTreeFind<cr>
+nnoremap <leader><C-n> :NERDTree<cr>
 au BufRead,BufNewFile *.xaml            setfiletype xml
+
+set foldmethod=syntax
+set foldlevelstart=99
