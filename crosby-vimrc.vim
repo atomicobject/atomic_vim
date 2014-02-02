@@ -24,6 +24,7 @@ cabbr tidy %!tidy -q -i -ashtml<CR>
 
 " Croz can't type:
 iabbr descrube describe
+iabbr deborag deborah
 
 " Buffer navigation: Next and Previous
 noremap <C-N> :bn<CR>

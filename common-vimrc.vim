@@ -23,7 +23,9 @@ let mapleader=","
 
 set autoindent
 set bs=2
-set clipboard=unnamed
+if $TMUX == ''
+  set clipboard=unnamed
+endif
 set completeopt=longest,menuone
 set expandtab
 set grepformat=%f:%l:%m
