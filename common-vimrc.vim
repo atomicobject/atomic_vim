@@ -79,9 +79,6 @@ imap <F1> <Esc>
 " close the current window, doesn't close the buffer
  noremap <leader>Q :close<cr>
 
-" Find in cwd/"project"
-noremap <leader>f :AckWithIgnore ''<Left>
-noremap <leader>F :AckWithIgnore -i ''<Left>
 
 " Run the current file. Uses .vim/ruby/run_file.rb
 noremap <leader>r :RunFile<cr>
@@ -115,7 +112,23 @@ map <leader>/ :TComment<Return>
 " paste from clipboard
 map <leader>c "*
 
-" Redraw screen
+
+" Find in cwd/"project"
+noremap <leader>f :AckWithIgnore ''<Left>
+noremap <leader>F :AckWithIgnore -i ''<Left>
+
+" <leader>a and <leader>d - Load search results into "args". You can then use
+" argdo to execute commands on all files that match.
+"
+" Set the files in the quicklist into "args" Use :argdo to execute a command
+" on every file that was loaded. For find and replace:
+" ,f (search)
+" ,a
+" :argdo %s/pattern/replace/ge | update
+"
+" This example replaces all 'pattern' with 'replace' and saves modified files.
+map <leader>a :Qargs<CR>:argdo 
+
 map <leader>d :redraw!<CR>
 
 " Window split vertical
@@ -212,3 +225,15 @@ let g:ctrlp_prompt_mappings = {
   \ 'PrtHistory(-1)': [ '<c-j>' ],
   \ 'PrtHistory(1)': [ '<c-k>' ],
   \ }
+
+
+
+command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(values(buffer_numbers))
+endfunction
