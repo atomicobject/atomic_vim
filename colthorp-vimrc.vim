@@ -17,7 +17,7 @@ set laststatus=2
 
 " let g:solarized_termcolors=256
 " let g:solarized_termcolors=16
-" set background=dark
+" set background=light
 colorscheme solarized
 " colorscheme default
 
@@ -30,8 +30,11 @@ colorscheme solarized
 let g:paredit_leader='\'
 
 let optional = []
-" let optional += ["vim-easymotion", "nerdtree", "vim-airline", "tagbar"]
-let optional += ["vim-easymotion", "nerdtree", "tagbar", 'vim-airline']
+let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline']
+
+let optional += ['ctrlp-cmatcher']
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+
 call optional#include(optional)
 
 " clojure configuration
@@ -64,6 +67,7 @@ let g:airline#extensions#default#section_truncate_width = {
 
 let g:airline#extensions#default#layout = [
       \ [ 'a', 'c' ],
-      \ [ 'x', 'b', 'y', 'z', 'warning' ]
+      \ [ 'x', 'b', 'z'] 
       \ ]
 
+" 'y', 'z', 'warning']
