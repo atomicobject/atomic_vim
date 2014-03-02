@@ -33,6 +33,10 @@
 " Note: these maps all use <Align.vim>.
 "
 " Load Once: {{{1
+
+finish
+
+
 if &cp || exists("g:loaded_AlignMapsPlugin")
  finish
 endif
