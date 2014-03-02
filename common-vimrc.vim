@@ -101,10 +101,9 @@ noremap <leader>R :RunFileAtLine<cr>
 
 " Textmate CMD-t emulation
 let g:fuf_enumeratingLimit = 25
-"map <leader>t :FufTaggedFile<CR>
 map <leader>t :CtrlP<CR>
 map <leader>T :CtrlPTag<CR>
-map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>:CtrlPClearAllCaches<CR>
+map <leader><C-t> :RegenTags<CR>:CtrlPClearAllCaches<CR>
 map <leader>l :CtrlPLine<CR>
 
 nmap <leader>p <Plug>yankstack_substitute_older_paste
@@ -117,9 +116,6 @@ let g:ctrlp_switch_buffer = '0'
 
 " bring up buffer list. ,,<CR> switches to last used buffer
 map <leader>, :CtrlPBuffer<CR>
-
-" like browse to a file with a convenient ,t-like interface
-map <leader>e :FufFile<CR>
 
 " render undo tree - vim 7.3 and up
 map <leader>u :CtrlPUndo<CR>

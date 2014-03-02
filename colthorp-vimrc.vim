@@ -32,7 +32,7 @@ let g:paredit_leader='\'
 let optional = []
 let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline']
 
-let optional += ['ctrlp-cmatcher']
+call optional#include(['ctrlp-cmatcher'])
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
 call optional#include(optional)
