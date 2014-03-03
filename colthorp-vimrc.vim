@@ -30,10 +30,7 @@ colorscheme solarized
 let g:paredit_leader='\'
 
 let optional = []
-let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline']
-
-call optional#include(['ctrlp-cmatcher'])
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline', 'vim-vinegar']
 
 call optional#include(optional)
 
@@ -69,5 +66,7 @@ let g:airline#extensions#default#layout = [
       \ [ 'a', 'c' ],
       \ [ 'x', 'b', 'z'] 
       \ ]
+
+let g:ctrlp_max_height = 20
 
 " 'y', 'z', 'warning']
