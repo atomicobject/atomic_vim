@@ -54,8 +54,8 @@ set wildmenu
 set wildmode=longest,list,full
 
 " Make vim a little peppier
-set ttyfast
-set lazyredraw
+" set ttyfast
+" set lazyredraw
 
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
