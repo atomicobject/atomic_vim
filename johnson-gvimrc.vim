@@ -1,1 +1,1 @@
-set guifont=Terminus\ 9
+set guifont=Ubuntu\ Mono:h14

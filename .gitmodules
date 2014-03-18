@@ -4,3 +4,9 @@
 [submodule "bundle/vim-puppet"]
 	path = bundle/vim-puppet
 	url = https://github.com/rodjek/vim-puppet.git
+[submodule "bundle/optional/YouCompleteMe"]
+	path = bundle/optional/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "bundle/vim-gnupg"]
+	path = bundle/vim-gnupg
+	url = https://github.com/jamessan/vim-gnupg

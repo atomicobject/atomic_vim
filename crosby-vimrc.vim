@@ -3,14 +3,18 @@
 "  source ~/.vim/crosby-vimrc.vim
 
 let optional = []
-let optional += ["factor"]
-call OptionalBundles#Include(optional)
+"let optional += ["factor"]
+let optional += ["nerdtree"]
+call optional#include(optional)
 
 " Get the 's' key back
 xmap <Leader>s <Plug>Vsurround
 
 set autowrite
 set nofoldenable
+
+set wrap
+set linebreak
 
 "set nonu
 "colorscheme koehler
@@ -20,10 +24,14 @@ cabbr tidy %!tidy -q -i -ashtml<CR>
 
 " Croz can't type:
 iabbr descrube describe
+iabbr deborag deborah
 
 " Buffer navigation: Next and Previous
 noremap <C-N> :bn<CR>
 noremap <C-P> :bp<CR>
+
+
+nnoremap <leader>n :NERDTreeToggle<cr>
 
 " Search term highlighting on / off: 
 noremap <leader>hl :set hlsearch<CR>
