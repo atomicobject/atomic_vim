@@ -1,7 +1,7 @@
 let optional = []
 " let optional += ["slimv"]
 " let optional += ["vimclojure"]
-let optional += ["YouCompleteMe"]
+" let optional += ["YouCompleteMe"]
 let optional += ["nerdtree"]
 call optional#include(optional)
 
@@ -27,8 +27,35 @@ set statusline+=%=                           " right align remainder
 set statusline+=%-14(%l,%c%V%)               " line, character
 set statusline+=%<%P                         " file position
 
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['white',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
 " Booo microline literal tabs.
 " set noexpandtab
+
+" tab navigation like firefox
+" nnoremap <C-S-tab> :tabprevious<CR>
+" nnoremap <C-tab>   :tabnext<CR>
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+" inoremap <C-tab>   <Esc>:tabnext<CR>i
+" inoremap <C-t>     <Esc>:tabnew<CR>
 
 " tab navigation mappings - may conflict with 't' usage occasionally
 map th :tabfirst<CR>
@@ -40,6 +67,10 @@ map tn :tabnext<Space>
 map tm :tabm<Space>
 
 nnoremap <leader>n :NERDTreeToggle<cr>
+
+" Sick and tired of accidentally hitting shift-K and accidentally triggering
+" vim docs.
+nnoremap K k
 
 " if !exists('g:pyclewn_args')
 "     let g:pyclewn_args="--pgm=arm-none-eabi-gdb"
