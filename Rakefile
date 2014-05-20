@@ -1,3 +1,4 @@
+desc "Builds ctrlp-cmatcher"
 task :default do
   Dir.chdir "bundle/optional/ctrlp-cmatcher"
   sh "./install_linux.sh"
