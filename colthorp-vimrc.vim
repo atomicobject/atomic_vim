@@ -35,7 +35,7 @@ let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline', 'vim-vin
 call optional#include(optional)
 
 
-# Run rake to get ctrlp-cmatcher to work
+" Run rake to get ctrlp-cmatcher to work
 call optional#include(['ctrlp-cmatcher'])
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
