@@ -34,6 +34,9 @@ let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline', 'vim-vin
 
 call optional#include(optional)
 
+call optional#include(['ctrlp-cmatcher'])
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+
 " clojure configuration
 let vimclojure#ParenRainbow = 1
 let vimclojure#HighlightBuiltins = 1
@@ -69,4 +72,3 @@ let g:airline#extensions#default#layout = [
 
 let g:ctrlp_max_height = 20
 
-" 'y', 'z', 'warning']
