@@ -41,6 +41,7 @@ map <F3> :A
 let optional = []
 let optional += ["nerdtree", 'vim-airline']
 let optional += ['ctrlp-cmatcher']
+let optional += ['vim-rspec']
 call optional#include(optional)
 
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
@@ -50,6 +51,12 @@ let vimclojure#ParenRainbow = 1
 let vimclojure#HighlightBuiltins = 1
 
 nnoremap <leader>n :NERDTreeToggle<cr>
+
+" RSpec.vim mappings
+map <Leader>a :call RunCurrentTestFile()<CR>
+map <Leader>r :call RunNearestTest()<CR>
+map <Leader>l :call RunLastTest()<CR>
+let g:test_runner = "os_x_terminal"
 
 " Search term highlighting on / off: 
 noremap <leader>hl :set hlsearch<CR>

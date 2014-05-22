@@ -55,7 +55,8 @@ if ispath and crfile:
     pass
 
 try:
-  matchlist = fuzzycomt.sorted_match_list(lines, searchinp, limit, mmode)
+  # TODO we should support smartcase. Needs some fixing on matching side
+  matchlist = fuzzycomt.sorted_match_list(lines, searchinp.lower(), limit, mmode)
 except:
   matchlist = []
 EOF
@@ -93,7 +94,7 @@ fu! s:highlight(input, mmode, regex)
       " matchers instead)
       let pat = join(chars, '.\{-}')
       " Ensure we match the last version of our pattern
-      let ending = '\(.*'.pat.'\)\@!.*$'
+      let ending = '\(.*'.pat.'\)\@!'
       " Case insensitive
       let beginning = '\c^.*'
       if a:mmode == "filename-only"
