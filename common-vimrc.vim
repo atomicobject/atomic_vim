@@ -92,6 +92,8 @@ imap <F1> <Esc>
  noremap <leader>q :bd<cr>
 " close the current window, doesn't close the buffer
  noremap <leader>Q :close<cr>
+ noremap <leader><C-q> :bufdo! bd<cr>
+
 
 
 " Run the current file. Uses .vim/ruby/run_file.rb
@@ -99,7 +101,6 @@ noremap <leader>r :RunFile<cr>
 noremap <leader>R :RunFileAtLine<cr>
 
 " Textmate CMD-t emulation
-let g:fuf_enumeratingLimit = 25
 map <leader>t :CtrlP<CR>
 map <leader>T :CtrlPTag<CR>
 map <leader><C-t> :RegenTags<CR>:CtrlPClearAllCaches<CR>
