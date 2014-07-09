@@ -20,6 +20,7 @@ on run argv
     end if
 
     activate
+    tell application "System Events" to key code 119
   end tell
 
   tell application "iTerm"
