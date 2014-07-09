@@ -59,6 +59,8 @@ au BufRead,BufNewFile *.xaml            setfiletype xml
 set foldmethod=indent
 set foldlevelstart=99
 
+set infercase
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#default#section_truncate_width = {
     \ 'b': 110,
