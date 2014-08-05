@@ -23,28 +23,56 @@ let mapleader=","
 
 set autoindent
 set bs=2
-set clipboard=unnamed
-set completeopt=longest,menuone
+if $TMUX == ''
+  set clipboard=unnamed
+endif
+" set completeopt=longest,menuone
 set expandtab
 set grepformat=%f:%l:%m
 set grepprg=ack
 set hidden
+set history=1000
 set ignorecase
 set incsearch
 set mouse=a
 set nocompatible
 set nohlsearch
 set nowrap
+set nrformats-=octal
 set number
 set ruler
 set shiftwidth=2
 set softtabstop=2
+set shiftround
 set tabstop=2
+set ttimeout
+set ttimeoutlen=100
 set smartcase
 set smartindent
 set smarttab
 set wildmenu
 set wildmode=longest,list,full
+
+" Make vim a little peppier
+set lazyredraw
+
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+  if !has('win32') && (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8')
+    let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u00b7"
+  endif
+endif
+
+if &t_Co == 8 && $TERM !~# '^linux'
+  set t_Co=16
+endif
+
+" Fix C-n, C-p performance issues.
+" Don't screw up folds when inserting text that might affect them, until
+" leaving insert mode. Foldmethod is local to the window. Protect against
+" screwing up folding when switching between windows.
+autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 
 colorscheme vividchalk
 syntax on
@@ -64,29 +92,30 @@ imap <F1> <Esc>
  noremap <leader>q :bd<cr>
 " close the current window, doesn't close the buffer
  noremap <leader>Q :close<cr>
+ noremap <leader><C-q> :bufdo! bd<cr>
 
-" Find in cwd/"project"
-noremap <leader>f :AckWithIgnore ''<Left>
-noremap <leader>F :AckWithIgnore -i ''<Left>
+
 
 " Run the current file. Uses .vim/ruby/run_file.rb
 noremap <leader>r :RunFile<cr>
 noremap <leader>R :RunFileAtLine<cr>
 
 " Textmate CMD-t emulation
-let g:fuf_enumeratingLimit = 25
-"map <leader>t :FufTaggedFile<CR>
 map <leader>t :CtrlP<CR>
 map <leader>T :CtrlPTag<CR>
-map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>:CtrlPClearAllCaches<CR>
+map <leader><C-t> :RegenTags<CR>:CtrlPClearAllCaches<CR>
 map <leader>l :CtrlPLine<CR>
 
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" let g:yankstack_map_keys = 0
+
+" Don't switch windows/tabs when using ,t. Just open the file in the current
+" window. (Default of ctrlp is 'Et')
+let g:ctrlp_switch_buffer = '0'
 
 " bring up buffer list. ,,<CR> switches to last used buffer
 map <leader>, :CtrlPBuffer<CR>
-
-" like browse to a file with a convenient ,t-like interface
-map <leader>e :FufFile<CR>
 
 " render undo tree - vim 7.3 and up
 map <leader>u :CtrlPUndo<CR>
@@ -98,7 +127,23 @@ map <leader>/ :TComment<Return>
 " paste from clipboard
 map <leader>c "*
 
-" Redraw screen
+
+" Find in cwd/"project"
+noremap <leader>f :AckWithIgnore ''<Left>
+noremap <leader>F :AckWithIgnore -i ''<Left>
+
+" <leader>a and <leader>d - Load search results into "args". You can then use
+" argdo to execute commands on all files that match.
+"
+" Set the files in the quicklist into "args" Use :argdo to execute a command
+" on every file that was loaded. For find and replace:
+" ,f (search)
+" ,a
+" :argdo %s/pattern/replace/ge | update
+"
+" This example replaces all 'pattern' with 'replace' and saves modified files.
+map <leader>a :Qargs<CR>:argdo 
+
 map <leader>d :redraw!<CR>
 
 " Window split vertical
@@ -121,7 +166,7 @@ endif
 " customize stuff
 
 " folders that should be ignored
-let g:vim_ignore = ["log", "tools", "vendor", "build"]
+let g:vim_ignore = ["log", "tools", "vendor", "build", "CeedlingBuild", "tmp"]
 
 " settings for coffeescript tags
 let g:tlist_coffee_settings = 'coffee;f:function,v:variable'
@@ -134,6 +179,8 @@ let g:taggable_extensions = [
                               \ 'css',
                               \ 'csv',
                               \ 'erb',
+                              \ 'ex',
+                              \ 'exs',
                               \ 'feature',
                               \ 'java',
                               \ 'js',
@@ -145,6 +192,7 @@ let g:taggable_extensions = [
                               \ 'rake',
                               \ 'rb',
                               \ 'sass',
+                              \ 'scala',
                               \ 'scss',
                               \ 'sql',
                               \ 'thor',
@@ -170,7 +218,8 @@ if exists('g:vim_ignore')
 
   if !exists('g:ctrlp_custom_ignore')
     let g:ctrlp_custom_ignore = {
-          \ 'dir':  '\v[\/](' . join(map(copy(g:vim_ignore), 'v:val'), "|") . ')$'
+          \ 'dir':  '\v[\/](' . join(map(copy(g:vim_ignore), 'v:val'), "|") . ')$',
+          \ 'file': '\v\.(exe|so|dll|orig)$'
           \ }
   endif
 
@@ -179,4 +228,27 @@ if exists('g:vim_ignore')
   endif
 endif
 
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
+" ctrl-p fix key bindings
+let g:ctrlp_prompt_mappings = {
+  \ 'PrtSelectMove("j")': [ '<c-n>', '<down>' ],
+  \ 'PrtSelectMove("k")': [ '<c-p>', '<up>' ],
+  \ 'PrtHistory(-1)': [ '<c-j>' ],
+  \ 'PrtHistory(1)': [ '<c-k>' ],
+  \ }
+
+
+
+command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(values(buffer_numbers))
+endfunction
