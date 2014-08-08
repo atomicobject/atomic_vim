@@ -36,7 +36,7 @@ set wrap
 map <F4> :A
 map <F3> :A
 
-" map <F7> :call VimWriteRoom()<CR>
+map <F7> :call VimWriteRoom()<CR>
 
 let optional = []
 let optional += ["nerdtree", 'vim-airline']

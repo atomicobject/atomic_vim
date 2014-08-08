@@ -1,1 +1,1 @@
-au! BufRead,BufNewFile *.pde  setfiletype arduino
+au BufRead,BufNewFile *.ino,*.pde set filetype=arduino
