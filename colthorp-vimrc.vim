@@ -18,7 +18,8 @@ set laststatus=2
 " let g:solarized_termcolors=256
 " let g:solarized_termcolors=16
 " set background=light
-colorscheme solarized
+" colorscheme solarized
+colorscheme molokai
 " colorscheme default
 
 " if has('win32') || has('win64')
