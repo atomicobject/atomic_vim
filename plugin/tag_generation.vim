@@ -11,4 +11,4 @@ function! RegenTags()
   silent execute ":redraw!"
 endfunction
 
-command! RegenTags call RegenTags()|FufRenewCache
+command! RegenTags call RegenTags()|CtrlPClearAllCaches

@@ -1,7 +1,7 @@
 let optional = []
 " let optional += ["slimv"]
 " let optional += ["vimclojure"]
-let optional += ["YouCompleteMe"]
+" let optional += ["YouCompleteMe"]
 let optional += ["nerdtree"]
 call optional#include(optional)
 
@@ -49,6 +49,14 @@ let g:rbpt_colorpairs = [
 " Booo microline literal tabs.
 " set noexpandtab
 
+" tab navigation like firefox
+" nnoremap <C-S-tab> :tabprevious<CR>
+" nnoremap <C-tab>   :tabnext<CR>
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+" inoremap <C-tab>   <Esc>:tabnext<CR>i
+" inoremap <C-t>     <Esc>:tabnew<CR>
+
 " tab navigation mappings - may conflict with 't' usage occasionally
 map th :tabfirst<CR>
 map tj :tabnext<CR>
@@ -59,6 +67,10 @@ map tn :tabnext<Space>
 map tm :tabm<Space>
 
 nnoremap <leader>n :NERDTreeToggle<cr>
+
+" Sick and tired of accidentally hitting shift-K and accidentally triggering
+" vim docs.
+nnoremap K k
 
 " if !exists('g:pyclewn_args')
 "     let g:pyclewn_args="--pgm=arm-none-eabi-gdb"
