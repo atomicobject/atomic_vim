@@ -1,13 +1,17 @@
 " yankstack.vim - keep track of your history of yanked/killed text
 "
 " Maintainer:   Max Brunsfeld <https://github.com/maxbrunsfeld>
-" Version:      1.0.5
+" Version:      1.0.6
 " Todo:
 "
 
 let s:yankstack_tail = []
 let g:yankstack_size = 30
 let s:last_paste = { 'changedtick': -1, 'key': '', 'mode': 'n', 'count': 1, 'register': '' }
+
+if !exists('g:yankstack_yank_keys')
+  let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 's', 'S', 'x', 'X', 'y', 'Y']
+endif
 
 function! s:yank_with_key(key)
   call s:before_yank()
@@ -19,8 +23,6 @@ function! s:paste_with_key(key, mode, register, count)
 endfunction
 
 function! s:paste_from_yankstack(key, mode, register, count, is_new)
-  echom "In paste_from_yankstack" a:key a:mode a:is_new
-
   let keys = a:count . a:key
   let keys = (a:register == s:default_register()) ? keys : ('"' . a:register . keys)
   let s:last_paste = { 'key': a:key, 'mode': a:mode, 'register': a:register, 'count': a:count, 'changedtick': -1 }
@@ -123,7 +125,7 @@ function! s:default_paste_key(mode)
   endif
 endfunction
 
-function! g:yankstack()
+function! g:Yankstack()
   return [s:get_yankstack_head()] + s:yankstack_tail
 endfunction
 
@@ -131,7 +133,7 @@ command! -nargs=0 Yanks call s:show_yanks()
 function! s:show_yanks()
   echohl WarningMsg | echo "--- Yanks ---" | echohl None
   let i = 0
-  for yank in g:yankstack()
+  for yank in g:Yankstack()
     call s:show_yank(yank, i)
     let i += 1
   endfor
@@ -155,11 +157,10 @@ function! yankstack#setup()
   if exists('g:yankstack_did_setup') | return | endif
   let g:yankstack_did_setup = 1
 
-  let yank_keys  = ['c', 'C', 'd', 'D', 's', 'S', 'x', 'X', 'y', 'Y']
   let paste_keys = ['p', 'P', 'gp', 'gP']
   let word_characters = split("qwertyuiopasdfghjklzxcvbnm1234567890_", '\zs')
 
-  for key in yank_keys
+  for key in g:yankstack_yank_keys
     exec 'nnoremap <expr>'  key '<SID>yank_with_key("' . key . '")'
     exec 'xnoremap <expr>'  key '<SID>yank_with_key("' . key . '")'
   endfor
