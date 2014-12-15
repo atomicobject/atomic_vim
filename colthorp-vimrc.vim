@@ -18,7 +18,8 @@ set laststatus=2
 " let g:solarized_termcolors=256
 " let g:solarized_termcolors=16
 " set background=light
-colorscheme solarized
+" colorscheme solarized
+colorscheme molokai
 " colorscheme default
 
 " if has('win32') || has('win64')
@@ -30,12 +31,14 @@ colorscheme solarized
 let g:paredit_leader='\'
 
 let optional = []
-let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline']
-
-let optional += ['ctrlp-cmatcher']
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline', 'vim-vinegar']
 
 call optional#include(optional)
+
+
+" Run rake to get ctrlp-cmatcher to work
+call optional#include(['ctrlp-cmatcher'])
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
 " clojure configuration
 let vimclojure#ParenRainbow = 1
@@ -57,6 +60,8 @@ au BufRead,BufNewFile *.xaml            setfiletype xml
 set foldmethod=indent
 set foldlevelstart=99
 
+set infercase
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#default#section_truncate_width = {
     \ 'b': 110,
@@ -70,4 +75,5 @@ let g:airline#extensions#default#layout = [
       \ [ 'x', 'b', 'z'] 
       \ ]
 
-" 'y', 'z', 'warning']
+let g:ctrlp_max_height = 20
+

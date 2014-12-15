@@ -26,22 +26,27 @@ set bs=2
 if $TMUX == ''
   set clipboard=unnamed
 endif
-set completeopt=longest,menuone
+" set completeopt=longest,menuone
 set expandtab
 set grepformat=%f:%l:%m
 set grepprg=ack
 set hidden
+set history=1000
 set ignorecase
 set incsearch
 set mouse=a
 set nocompatible
 set nohlsearch
 set nowrap
+set nrformats-=octal
 set number
 set ruler
 set shiftwidth=2
 set softtabstop=2
+set shiftround
 set tabstop=2
+set ttimeout
+set ttimeoutlen=100
 set smartcase
 set smartindent
 set smarttab
@@ -49,9 +54,18 @@ set wildmenu
 set wildmode=longest,list,full
 
 " Make vim a little peppier
-set ttyfast
 set lazyredraw
 
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+  if !has('win32') && (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8')
+    let &listchars = "tab:\u21e5 ,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u00b7"
+  endif
+endif
+
+if &t_Co == 8 && $TERM !~# '^linux'
+  set t_Co=16
+endif
 
 " Fix C-n, C-p performance issues.
 " Don't screw up folds when inserting text that might affect them, until
@@ -78,6 +92,8 @@ imap <F1> <Esc>
  noremap <leader>q :bd<cr>
 " close the current window, doesn't close the buffer
  noremap <leader>Q :close<cr>
+ noremap <leader><C-q> :bufdo! bd<cr>
+
 
 
 " Run the current file. Uses .vim/ruby/run_file.rb
@@ -85,12 +101,14 @@ noremap <leader>r :RunFile<cr>
 noremap <leader>R :RunFileAtLine<cr>
 
 " Textmate CMD-t emulation
-let g:fuf_enumeratingLimit = 25
-"map <leader>t :FufTaggedFile<CR>
 map <leader>t :CtrlP<CR>
 map <leader>T :CtrlPTag<CR>
-map <leader><C-t> :RegenTags<CR>:FufRenewCache<CR>:CtrlPClearAllCaches<CR>
+map <leader><C-t> :RegenTags<CR>:CtrlPClearAllCaches<CR>
 map <leader>l :CtrlPLine<CR>
+
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" let g:yankstack_map_keys = 0
 
 " Don't switch windows/tabs when using ,t. Just open the file in the current
 " window. (Default of ctrlp is 'Et')
@@ -98,9 +116,6 @@ let g:ctrlp_switch_buffer = '0'
 
 " bring up buffer list. ,,<CR> switches to last used buffer
 map <leader>, :CtrlPBuffer<CR>
-
-" like browse to a file with a convenient ,t-like interface
-map <leader>e :FufFile<CR>
 
 " render undo tree - vim 7.3 and up
 map <leader>u :CtrlPUndo<CR>
