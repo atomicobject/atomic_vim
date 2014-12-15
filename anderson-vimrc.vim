@@ -3,6 +3,8 @@ let optional += ["nerdtree"]
 let optional += ["tabular"]
 let optional += ["webapi-vim"]
 let optional += ["gist-vim"]
+let optional += ["airline"]
+let optional += ["tagbar"]
 call optional#include(optional)
 
 set nu
@@ -37,6 +39,7 @@ autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.r
 
 map <F4> :A
 map <F3> :A
+map <F1> :A
 
 " Micah
 xmap <Leader>s <Plug>Vsurround
@@ -64,3 +67,10 @@ endfunction
 map K <Nop>
 
 autocmd Filetype gitcommit setlocal spell textwidth=72
+
+" highlight tabs
+syntax match Tab /\t/
+hi Tab gui=underline guifg=blue ctermbg=blue 
+
+let g:vim_ignore = ["log", "tools", "vendor", "build", "CeedlingBuild", "tmp", "public", "node_modules"]
+
