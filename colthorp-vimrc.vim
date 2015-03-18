@@ -31,7 +31,7 @@ colorscheme molokai
 let g:paredit_leader='\'
 
 let optional = []
-let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline', 'vim-vinegar']
+let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline', 'vim-vinegar', 'syntastic']
 
 call optional#include(optional)
 
