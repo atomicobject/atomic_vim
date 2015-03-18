@@ -5,6 +5,7 @@ let optional += ["webapi-vim"]
 let optional += ["gist-vim"]
 let optional += ["airline"]
 let optional += ["tagbar"]
+let optional += ["localvimrc"]
 call optional#include(optional)
 
 set nu
@@ -72,5 +73,6 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 syntax match Tab /\t/
 hi Tab gui=underline guifg=blue ctermbg=blue 
 
-let g:vim_ignore = ["log", "tools", "vendor", "build", "CeedlingBuild", "tmp", "public", "node_modules"]
+let g:vim_ignore = ["log", "tools", "vendor", "build", "CeedlingBuild", "tmp", "public", "node_modules","portal"]
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
 
