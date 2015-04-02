@@ -18,8 +18,8 @@ set laststatus=2
 " let g:solarized_termcolors=256
 " let g:solarized_termcolors=16
 " set background=light
-" colorscheme solarized
-colorscheme molokai
+colorscheme solarized
+" colorscheme molokai
 " colorscheme default
 
 " if has('win32') || has('win64')
@@ -31,7 +31,7 @@ colorscheme molokai
 let g:paredit_leader='\'
 
 let optional = []
-let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline', 'vim-vinegar', 'syntastic']
+let optional += ['vim-easymotion', 'nerdtree', 'tagbar', 'vim-airline', 'vim-vinegar'] " 'syntastic']
 
 call optional#include(optional)
 
@@ -62,7 +62,7 @@ set foldlevelstart=99
 
 set infercase
 
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline#extensions#default#section_truncate_width = {
     \ 'b': 110,
     \ 'x': 65,
