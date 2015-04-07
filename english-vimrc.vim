@@ -18,8 +18,9 @@ set statusline+=%<%P                         " file position
 " let g:solarized_termcolors=256
 " let g:solarized_termcolors=16
 " set background=dark
-colorscheme solarized
+" colorscheme solarized
 " colorscheme default
+colorscheme base16-tomorrow
 
 " if has('win32') || has('win64')
 "   noremap <leader>s :ConqueTerm cmd<cr>
