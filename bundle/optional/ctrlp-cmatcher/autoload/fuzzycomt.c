@@ -25,17 +25,26 @@
 #include "float.h"
 #include "fuzzycomt.h"
 
-void getLineMatches(PyObject* paths, PyObject* abbrev,returnstruct matches[], char *mmode) {
+// Forward declaration for ctrlp_get_line_matches
+matchobj_t ctrlp_find_match(PyObject* str, PyObject* abbrev, char *mmode);
+
+void ctrlp_get_line_matches(PyObject* paths,
+                            PyObject* abbrev,
+                            matchobj_t matches[],
+                            char *mmode)
+{
+    int i;
+    int max;
     // iterate over lines and get match score for every line
-    for (long i = 0, max = PyList_Size(paths); i < max; i++) {
+    for (i = 0, max = PyList_Size(paths); i < max; i++) {
         PyObject* path = PyList_GetItem(paths, i);
-        returnstruct match;
-        match = find_match(path, abbrev, mmode);
+        matchobj_t match;
+        match = ctrlp_find_match(path, abbrev, mmode);
         matches[i] = match;
     }
 }
 
-char *strduplicate (const char *s) {
+char *strduplicate(const char *s) {
     char *d = malloc (strlen (s) + 1);
     if (d == NULL)
        return NULL;
@@ -70,9 +79,9 @@ char *slashsplit(char *line) {
 }
 
 // comparison function for use with qsort
-int comp_alpha(const void *a, const void *b) {
-    returnstruct a_val = *(returnstruct *)a;
-    returnstruct b_val = *(returnstruct *)b;
+int ctrlp_comp_alpha(const void *a, const void *b) {
+    matchobj_t a_val = *(matchobj_t *)a;
+    matchobj_t b_val = *(matchobj_t *)b;
 
     char *a_p = PyString_AsString(a_val.str);
     long a_len = PyString_Size(a_val.str);
@@ -97,9 +106,9 @@ int comp_alpha(const void *a, const void *b) {
     return order;
 }
 
-int comp_score(const void *a, const void *b) {
-    returnstruct a_val = *(returnstruct *)a;
-    returnstruct b_val = *(returnstruct *)b;
+int ctrlp_comp_score_alpha(const void *a, const void *b) {
+    matchobj_t a_val = *(matchobj_t *)a;
+    matchobj_t b_val = *(matchobj_t *)b;
     double a_score = a_val.score;
     double b_score = b_val.score;
     if (a_score > b_score)
@@ -107,19 +116,23 @@ int comp_score(const void *a, const void *b) {
     else if (a_score < b_score)
         return 1;  // b scores higher, a should appear later
     else
-        return comp_alpha(a, b);
+        return ctrlp_comp_alpha(a, b);
 }
 
-double recursive_match(matchinfo_t *m,    // sharable meta-data
+double ctrlp_recursive_match(matchinfo_t *m,    // sharable meta-data
                        long haystack_idx, // where in the path string to start
                        long needle_idx,   // where in the needle string to start
                        long last_idx,     // location of last matched character
                        double score)      // cumulative score so far
 {
     double seen_score = 0;  // remember best score seen via recursion
+    long i, j, distance;
+    int found;
+    double score_for_char;
+    long memo_idx = haystack_idx;
 
     // do we have a memoized result we can return?
-    double memoized = m->memo[needle_idx * m->needle_len + haystack_idx];
+    double memoized = m->memo[needle_idx * m->needle_len + memo_idx];
     if (memoized != DBL_MAX)
         return memoized;
 
@@ -129,13 +142,13 @@ double recursive_match(matchinfo_t *m,    // sharable meta-data
         goto memoize;
     }
 
-    for (long i = needle_idx; i < m->needle_len; i++) {
+    for (i = needle_idx; i < m->needle_len; i++) {
         char c = m->needle_p[i];
-        int found = 0;
+        found = 0;
 
         // similar to above, we'll stop iterating when we know we're too close
         // to the end of the string to possibly match
-        for (long j = haystack_idx;
+        for (j = haystack_idx;
              j <= m->haystack_len - (m->needle_len - i);
              j++, haystack_idx++) {
 
@@ -152,8 +165,8 @@ double recursive_match(matchinfo_t *m,    // sharable meta-data
                 found = 1;
 
                 // calculate score
-                double score_for_char = m->max_score_per_char;
-                long distance = j - last_idx;
+                score_for_char = m->max_score_per_char;
+                distance = j - last_idx;
 
                 if (distance > 1) {
                     double factor = 1.0;
@@ -181,13 +194,13 @@ double recursive_match(matchinfo_t *m,    // sharable meta-data
                 if (++j < m->haystack_len) {
                     // bump cursor one char to the right and
                     // use recursion to try and find a better match
-                    double sub_score = recursive_match(m, j, i, last_idx, score);
+                    double sub_score = ctrlp_recursive_match(m, j, i, last_idx, score);
                     if (sub_score > seen_score)
                         seen_score = sub_score;
                 }
 
                 score += score_for_char;
-                last_idx = haystack_idx + 1;
+                last_idx = ++haystack_idx;
                 break;
             }
         }
@@ -201,14 +214,17 @@ double recursive_match(matchinfo_t *m,    // sharable meta-data
     score = score > seen_score ? score : seen_score;
 
 memoize:
-    m->memo[needle_idx * m->needle_len + haystack_idx] = score;
+    m->memo[needle_idx * m->needle_len + memo_idx] = score;
     return score;
 }
 
-PyObject* fuzzycomt_match(PyObject* self, PyObject* args) {
+PyObject* ctrlp_fuzzycomt_match(PyObject* self, PyObject* args) {
     PyObject *paths, *abbrev, *returnlist;
     Py_ssize_t limit;
     char *mmode;
+    int i;
+    int max;
+
     if (!PyArg_ParseTuple(args, "OOns", &paths, &abbrev, &limit, &mmode)) {
        return NULL;
     }
@@ -225,8 +241,7 @@ PyObject* fuzzycomt_match(PyObject* self, PyObject* args) {
         return 0;
     }
 
-    returnstruct matches[PyList_Size(paths)];
-
+    matchobj_t matches[PyList_Size(paths)];
 
     if ( (limit > PyList_Size(paths)) || (limit == 0) ) {
         limit = PyList_Size(paths);
@@ -241,34 +256,43 @@ PyObject* fuzzycomt_match(PyObject* self, PyObject* args) {
     }
     else {
         // find matches and place them into matches array.
-        getLineMatches(paths,abbrev, matches, mmode);
+        ctrlp_get_line_matches(paths,abbrev, matches, mmode);
 
         // sort array of struct by struct.score key
-        qsort(matches, PyList_Size(paths), sizeof(returnstruct),comp_score);
+        qsort(matches, PyList_Size(paths),
+              sizeof(matchobj_t),
+              ctrlp_comp_score_alpha);
     }
 
-
-    for (long i = 0, max = PyList_Size(paths); i < max; i++) {
+    for (i = 0, max = PyList_Size(paths); i < max; i++) {
             if (i == limit)
                 break;
-            // generate python dicts { 'line' : line, 'value' : value } and place dicts to list
+            // generate python dicts { 'line' : line, 'value' : value }
+            // and place dicts to list
             PyObject *container;
             container = PyDict_New();
-            // TODO it retuns non-encoded string. So cyrillic literals arent properly showed.
-            // There are PyString_AsDecodedObject, it works in interactive session but it fails
-            // in Vim for some reason ( probable because we dont know what encoding vim returns
-            PyDict_SetItemString(container,"line",matches[i].str);
-            PyDict_SetItemString(container,"value",PyFloat_FromDouble(matches[i].score));
+            // TODO it retuns non-encoded string. So cyrillic literals
+            // arent properly showed.
+            // There are PyString_AsDecodedObject, it works in interactive
+            // session but it fails in Vim for some reason
+            // (probably because we dont know what encoding vim returns)
+            PyDict_SetItemString(container, "line", matches[i].str);
+            PyDict_SetItemString(container,
+                                 "value",
+                                 PyFloat_FromDouble(matches[i].score));
             PyList_Append(returnlist,container);
     }
 
     return returnlist;
 }
 
-PyObject* fuzzycomt_sorted_match_list(PyObject* self, PyObject* args) {
+PyObject* ctrlp_fuzzycomt_sorted_match_list(PyObject* self, PyObject* args) {
     PyObject *paths, *abbrev, *returnlist;
     Py_ssize_t limit;
     char *mmode;
+    int i;
+    int max;
+
     if (!PyArg_ParseTuple(args, "OOns", &paths, &abbrev, &limit, &mmode)) {
        return NULL;
     }
@@ -285,8 +309,7 @@ PyObject* fuzzycomt_sorted_match_list(PyObject* self, PyObject* args) {
         return 0;
     }
 
-    returnstruct matches[PyList_Size(paths)];
-
+    matchobj_t matches[PyList_Size(paths)];
 
     if ( (limit > PyList_Size(paths)) || (limit == 0) ) {
         limit = PyList_Size(paths);
@@ -301,20 +324,24 @@ PyObject* fuzzycomt_sorted_match_list(PyObject* self, PyObject* args) {
     }
     else {
         // find matches and place them into matches array.
-        getLineMatches(paths,abbrev, matches, mmode);
+        ctrlp_get_line_matches(paths,abbrev, matches, mmode);
 
         // sort array of struct by struct.score key
-        qsort(matches, PyList_Size(paths), sizeof(returnstruct),comp_score);
+        qsort(matches,
+              PyList_Size(paths),
+              sizeof(matchobj_t),
+              ctrlp_comp_score_alpha);
     }
 
-
-    for (long i = 0, max = PyList_Size(paths); i < max; i++) {
+    for (i = 0, max = PyList_Size(paths); i < max; i++) {
        if (i == limit)
           break;
         if ( matches[i].score> 0 ) {
-            // TODO it retuns non-encoded string. So cyrillic literals arent properly showed.
-            // There are PyString_AsDecodedObject, it works in interactive session but it fails
-            // in Vim for some reason ( probable because we dont know what encoding vim returns
+            // TODO it retuns non-encoded string. So cyrillic literals
+            // arent properly showed.
+            // There are PyString_AsDecodedObject, it works in interactive
+            // session but it fails in Vim for some reason
+            // (probably because we dont know what encoding vim returns)
             PyList_Append(returnlist,matches[i].str);
         }
     }
@@ -323,32 +350,34 @@ PyObject* fuzzycomt_sorted_match_list(PyObject* self, PyObject* args) {
 }
 
 
-returnstruct find_match(PyObject* str,PyObject* abbrev, char *mmode)
+matchobj_t ctrlp_find_match(PyObject* str, PyObject* abbrev, char *mmode)
 {
-    returnstruct returnobj;
+    long i, max;
+    double score;
+    matchobj_t returnobj;
 
     // Make a copy of input string to replace all backslashes.
     // We need to create a copy because PyString_AsString returns
     // string that must not be changed.
     // We will free() it later
-    char *workstr;
-    workstr = strduplicate(PyString_AsString(str));
+    char *temp_string;
+    temp_string = strduplicate(PyString_AsString(str));
 
     // Replace all backslashes
-    for (int i = 0; i < strlen(workstr); i++) {
-        if (workstr[i] == '\\') {
-            workstr[i] = '/';
+    for (i = 0; i < strlen(temp_string); i++) {
+        if (temp_string[i] == '\\') {
+            temp_string[i] = '/';
         }
     }
 
     matchinfo_t m;
     if (strcmp(mmode, "filename-only") == 0) {
         // get file name by splitting string on slashes
-        m.haystack_p = slashsplit(workstr);
+        m.haystack_p = slashsplit(temp_string);
         m.haystack_len = strlen(m.haystack_p);
     }
     else {
-        m.haystack_p                 = workstr;
+        m.haystack_p                 = temp_string;
         m.haystack_len               = PyString_Size(str);
     }
     m.needle_p              = PyString_AsString(abbrev);
@@ -356,27 +385,29 @@ returnstruct find_match(PyObject* str,PyObject* abbrev, char *mmode)
     m.max_score_per_char    = (1.0 / m.haystack_len + 1.0 / m.needle_len) / 2;
     m.dot_file              = 0;
 
-
     // calculate score
-    double score = 1.0;
-    if (m.needle_len == 0) { // special case for zero-length search string
-            for (long i = 0; i < m.haystack_len; i++) {
-                char c = m.haystack_p[i];
-                if (c == '.' && (i == 0 || m.haystack_p[i - 1] == '/')) {
-                    score = 0.0;
-                    break;
-                }
-            }
-    }
-    else if (m.haystack_len > 0) { // normal case
+    score = 1.0;
+
+    // special case for zero-length search string
+    if (m.needle_len == 0) {
+
+        // filter out dot files
+        for (i = 0; i < m.haystack_len; i++) {
+           char c = m.haystack_p[i];
+           if (c == '.' && (i == 0 || m.haystack_p[i - 1] == '/')) {
+               score = 0.0;
+               break;
+           }
+        }
+    } else if (m.haystack_len > 0) { // normal case
 
         // prepare for memoization
         double memo[m.haystack_len * m.needle_len];
-        for (long i = 0, max = m.haystack_len * m.needle_len; i < max; i++)
+        for (i = 0, max = m.haystack_len * m.needle_len; i < max; i++)
             memo[i] = DBL_MAX;
         m.memo = memo;
 
-        score = recursive_match(&m, 0, 0, 0, 0.0);
+        score = ctrlp_recursive_match(&m, 0, 0, 0, 0.0);
     }
 
     // need to free memory because strdump() function in slashsplit() uses
@@ -386,7 +417,7 @@ returnstruct find_match(PyObject* str,PyObject* abbrev, char *mmode)
     }
 
     // Free memory after strdup()
-    free(workstr);
+    free(temp_string);
 
     returnobj.str = str;
     returnobj.score = score;
@@ -395,10 +426,10 @@ returnstruct find_match(PyObject* str,PyObject* abbrev, char *mmode)
 }
 
 static PyMethodDef fuzzycomt_funcs[] = {
-    {"match",(PyCFunction)fuzzycomt_match,METH_NOARGS,NULL},
-    { "match", fuzzycomt_match, METH_VARARGS, NULL },
-    {"sorted_match_list",(PyCFunction)fuzzycomt_sorted_match_list,METH_NOARGS,NULL},
-    { "sorted_match_list", fuzzycomt_sorted_match_list, METH_VARARGS, NULL },
+    {"match", (PyCFunction)ctrlp_fuzzycomt_match, METH_NOARGS, NULL},
+    { "match", ctrlp_fuzzycomt_match, METH_VARARGS, NULL },
+    {"sorted_match_list", (PyCFunction)ctrlp_fuzzycomt_sorted_match_list, METH_NOARGS, NULL},
+    { "sorted_match_list", ctrlp_fuzzycomt_sorted_match_list, METH_VARARGS, NULL },
     {NULL}
 };
 
