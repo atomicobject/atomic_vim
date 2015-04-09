@@ -52,13 +52,15 @@ nnoremap <leader>n :NERDTreeToggle<cr>
 nnoremap <leader>N :NERDTreeFind<cr>
 au BufRead,BufNewFile *.xaml            setfiletype xml
 
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-tnoremap <A-"> <C-\><C-n>:sp<cr>
-tnoremap <A-%> <C-\><C-n>:vsp<cr>
-tnoremap <A-`> <C-\><C-n>
+if has('nvim')
+  tnoremap <A-h> <C-\><C-n><C-w>h
+  tnoremap <A-j> <C-\><C-n><C-w>j
+  tnoremap <A-k> <C-\><C-n><C-w>k
+  tnoremap <A-l> <C-\><C-n><C-w>l
+  tnoremap <A-"> <C-\><C-n>:sp<cr>
+  tnoremap <A-%> <C-\><C-n>:vsp<cr>
+  tnoremap <A-`> <C-\><C-n>
+endif
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
