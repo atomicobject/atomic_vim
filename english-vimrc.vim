@@ -15,25 +15,17 @@ set statusline+=0x%-8B                       " character value
 set statusline+=%-14(%l,%c%V%)               " line, character
 set statusline+=%<%P                         " file position
 
-" let g:solarized_termcolors=256
-" let g:solarized_termcolors=16
-" set background=dark
-" colorscheme solarized
-" colorscheme default
+set background=dark
+let g:base16colorspace=256
+let g:base16_shell_path='~/.config/base16-shell/'
 colorscheme base16-tomorrow
-
-" if has('win32') || has('win64')
-"   noremap <leader>s :ConqueTerm cmd<cr>
-" else
-"   noremap <leader>s :ConqueTerm sh<cr>
-" end
-"
 
 let g:paredit_leader='\'
 
 let optional = []
 " let optional += ["vim-easymotion", "nerdtree", "vim-airline", "tagbar"]
-let optional += ["vim-easymotion", "nerdtree", "tagbar"]
+" let optional += ["vim-easymotion", "nerdtree", "tagbar"]
+let optional += ['vim-easymotion', 'tagbar', 'nerdtree', 'vim-vinegar', 'syntastic']
 call optional#include(optional)
 
 " clojure configuration
