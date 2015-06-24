@@ -60,6 +60,6 @@ FileUtils.touch tag_file
 #   end
 # end
 
-run "sort #{tag_file} --output=#{tag_file}"
+#run "sort #{tag_file} --output=#{tag_file}"
 
 puts "Done."
